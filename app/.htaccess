@@ -1,9 +1,6 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On 
-    RewriteCond %{REQUEST_FILENAME} !-f 
-    RewriteCond %{REQUEST_FILENAME} !-d 
-    RewriteRule ^(.*)$ /public/index.php/$1 [L] 
+<IfModule authz_core_module>
+    Require all denied
 </IfModule>
-<IfModule !mod_rewrite.c>
-    ErrorDocument 404 /public/index.php 
+<IfModule !authz_core_module>
+    Deny from all
 </IfModule>
