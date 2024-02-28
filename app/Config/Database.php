@@ -68,6 +68,18 @@ class Database extends Config
     ];
 
     /**
+     * The SIPOD database connection.
+     */
+    public array $bd_sipod = [
+        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.62)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=VICTIUNO)))',
+        'hostname'     => '',
+        'username'     => 'Consulta',
+        'password'     => 'Bog654',
+        'database'     => '',
+        'DBDriver'     => 'OCI8'
+    ];
+
+    /**
      * This database connection is used when
      * running PHPUnit database tests.
      */

@@ -55,9 +55,12 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
+
+        //inicializacion de bases de datos para todos los controladores
         $this->bd_amas =\Config\Database::connect();
         $this->bd_caracterizacion =\Config\Database::connect('bd_caracterizacion');
         $this->bd_ruv =\Config\Database::connect('bd_ruv');
+        $this->bd_sipod =\Config\Database::connect('bd_sipod');
 
     }
 }
