@@ -27,8 +27,8 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'root@localhost',
-        'password'     => '',
+        'username'     => 'root',
+        'password'     => 'Adminamas2024*',
         'database'     => 'amas',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
@@ -43,6 +43,15 @@ class Database extends Config
         'failover'     => [],
         'port'         => 3306,
         'numberNative' => false,
+    ];
+
+    public array $bd_caracterizacion = [
+        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.63)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=RNI)))',
+        'hostname'     => '',
+        'username'     => 'caracterizacion',
+        'password'     => 'car321',
+        'database'     => '',
+        'DBDriver'     => 'OCI8'
     ];
 
     /**

@@ -96,4 +96,19 @@ class Autoload extends AutoloadConfig
      * @var list<string>
      */
     public $helpers = [];
+
+
+     /**
+     * -------------------------------------------------------------------
+     * Helpers
+     * -------------------------------------------------------------------
+     * Prototype:
+     *   $helpers = [
+     *       'form',
+     *   ];
+     *
+     * @var list<string>
+     */
+    public $libraries = ['database'];
+
 }
