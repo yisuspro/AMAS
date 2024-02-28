@@ -57,6 +57,7 @@ abstract class BaseController extends Controller
         $this->session = \Config\Services::session();
         $this->bd_amas =\Config\Database::connect();
         $this->bd_caracterizacion =\Config\Database::connect('bd_caracterizacion');
+        $this->bd_ruv =\Config\Database::connect('bd_ruv');
 
     }
 }

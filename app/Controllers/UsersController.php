@@ -12,15 +12,15 @@ class UsersController extends BaseController
     {
         $db = $this->bd_amas->query('select * from users');
         $db_caracterizacion = $this->bd_caracterizacion->query('select * from TBDECLARACIONES WHERE ID = 2000227');
-        //$query = $db->query('select * from users');
-        $query = $db;
-        $query = $query->getResult();
-        foreach($query as $doc){
-            echo json_encode($doc);
-        }
+        $db_ruv = $this->bd_ruv->query('select * from TBDECLARACIONES WHERE ID = 2000227');
+        
+       // foreach($query as $doc){
+          //  echo json_encode($doc);
+        //}
         
         //$query = $db_prueba->query('select * from TBDECLARACIONES WHERE ID = 2000227');
         
-        echo json_encode ($db_caracterizacion->getResult());
+       // echo json_encode ($db_caracterizacion->getResult());
+        echo json_encode ($db_ruv->getResult());
     }
 }

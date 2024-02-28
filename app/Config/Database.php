@@ -44,12 +44,25 @@ class Database extends Config
         'port'         => 3306,
         'numberNative' => false,
     ];
-
+    /**
+     * The caracterizacion database connection.
+     */
     public array $bd_caracterizacion = [
         'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.63)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=RNI)))',
         'hostname'     => '',
         'username'     => 'caracterizacion',
         'password'     => 'car321',
+        'database'     => '',
+        'DBDriver'     => 'OCI8'
+    ];
+    /**
+     * The RUV database connection.
+     */
+    public array $bd_ruv = [
+        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.60)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ruv)))',
+        'hostname'     => '',
+        'username'     => 'ruv',
+        'password'     => 'Karm3l1a',
         'database'     => '',
         'DBDriver'     => 'OCI8'
     ];
