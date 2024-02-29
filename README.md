@@ -63,8 +63,17 @@ PHP version 7.4 or higher is required, with the following extensions installed:
 > If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
 > The end of life date for PHP 8.1 will be November 25, 2024.
 
+
 Additionally, make sure that the following extensions are enabled in your PHP:
 
 - json (enabled by default - don't turn it off)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+ #CONFIGURACION APACHE
+> 1) colocar los archivos deconfiguracion sqlserver en la carpeta de xammp/php/ext
+> 2) ingresar al archivo php.ini desde el panel de control de xammp, para esto usamos la opcion config y seleccionamos "PHP(php.ini)"
+> 3) buscamos las extenciones, donde habilitaremos la siguiente quitandole el punto y coma(;)
+> 4) habilitamos "extension=oci8_19" para poder realizar la conexion a oracle
+> 5) incertamos las siguientes extenciones para SQLserver "extension=sqlsrv_82_ts" y "extension=pdo_sqlsrv_82_ts"
+> 6) gusrdamos el archivo y volvemos a ejecutar el servidor.
