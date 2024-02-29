@@ -80,6 +80,31 @@ class Database extends Config
     ];
 
     /**
+     * The SIRAV database connection.
+     */
+    public array $bd_sirav = [
+        'DSN'      => '',
+        'hostname' => '30.0.1.66', // Nombre o dirección IP del servidor SQL Server
+        'username' => 'juan.huertas',
+        'password' => 'siRR4p',
+        'database' => '', // No es necesario proporcionar el nombre de la base de datos
+        'DBDriver' => 'sqlsrv', // Usar el controlador SQL Server
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'cacheOn'  => false,
+        'cacheDir' => '',
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false, // Puedes establecer esto a true si deseas cifrar la conexión
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 1433, // Puerto por defecto de SQL Server
+    ];
+
+    /**
      * This database connection is used when
      * running PHPUnit database tests.
      */

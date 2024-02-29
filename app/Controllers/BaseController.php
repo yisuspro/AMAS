@@ -61,6 +61,7 @@ abstract class BaseController extends Controller
         $this->bd_caracterizacion =\Config\Database::connect('bd_caracterizacion');
         $this->bd_ruv =\Config\Database::connect('bd_ruv');
         $this->bd_sipod =\Config\Database::connect('bd_sipod');
+        $this->bd_sirav =\Config\Database::connect('bd_sirav');
 
     }
 }
