@@ -44,6 +44,7 @@ class Database extends Config
         'port'         => 3306,
         'numberNative' => false,
     ];
+ 
     /**
      * The caracterizacion database connection.
      */
@@ -129,6 +130,7 @@ class Database extends Config
         'foreignKeys' => true,
         'busyTimeout' => 1000,
     ];
+    
 
     public function __construct()
     {
