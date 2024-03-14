@@ -25,7 +25,7 @@ class CreateTableCategoriesCases extends Migration
                 'constraint' => 100,
             ]
         ]);
-        $this->forge->addPrimaryKey('ENTS_PK');
+        $this->forge->addPrimaryKey('CTCS_PK');
         $this->forge->createTable('categoriescase');
         $this->forge->processIndexes('categoriescase');
     }

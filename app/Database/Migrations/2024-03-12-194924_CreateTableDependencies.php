@@ -25,7 +25,7 @@ class CreateTableDependencies extends Migration
                 'constraint' => 100,
             ]
         ]);
-        $this->forge->addPrimaryKey('ENTS_PK');
+        $this->forge->addPrimaryKey('DPND_PK');
         $this->forge->createTable('dependencies');
         $this->forge->processIndexes('dependencies');
     }
