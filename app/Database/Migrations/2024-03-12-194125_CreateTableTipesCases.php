@@ -16,17 +16,24 @@ class CreateTableTipesCases extends Migration
                 'auto_increment' => true,
                 'unsigned' => true,
             ],
-            'TPC_name' => [
+            'TPCS_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
             ],
-            'TPC_description' => [
+            'TPCS_description' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
+            ],            
+            'TPCS_FK_group' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
             ]
         ]);
         $this->forge->addPrimaryKey('TPCS_PK');
+        $this->forge->addKey('TPCS_FK_group',false); 
         $this->forge->createTable('tipescases');
+        $this->forge->addForeignKey('TPCS_FK_group', 'groups', 'GRPS_PK','cascade','cascade','FK_tipes_groups');
         $this->forge->processIndexes('tipescases');
     }
 

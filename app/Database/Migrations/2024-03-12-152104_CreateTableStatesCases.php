@@ -13,7 +13,6 @@ class CreateTableStatesCases extends Migration
             'STCS_PK' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'auto_increment' => true,
                 'unsigned' => true,
             ],
             'STCS_name' => [
@@ -23,15 +22,37 @@ class CreateTableStatesCases extends Migration
             'STCS_description' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
-            ]
+            ],
         ]);
         $this->forge->addPrimaryKey('STCS_PK');
         $this->forge->createTable('statescases');
         $this->forge->processIndexes('statescases');
+
+         //Crear tabla grupos casos
+         $this->forge->addField([
+            'GRPS_PK' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'auto_increment' => true,
+                'unsigned' => true,
+            ],
+            'GRPS_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 45,
+            ],
+            'GRPS_description' => [
+                'type' => 'VARCHAR',
+                'constraint' => 45,
+            ]
+        ]);
+        $this->forge->addPrimaryKey('GRPS_PK');
+        $this->forge->createTable('groups');
+        $this->forge->processIndexes('groups');
     }
 
     public function down()
     {
         $this->forge->dropTable('statescases');
+        $this->forge->dropTable('groups');
     }
 }
