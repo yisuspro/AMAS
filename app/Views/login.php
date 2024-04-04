@@ -43,6 +43,7 @@
             <button class="btn_close">X</button>
         </div>
     </div>
+
 </body>
 <script type="text/javascript" src="<?= base_url('assets/scripts/login.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/scripts/tools/alertas.js'); ?>"></script>
