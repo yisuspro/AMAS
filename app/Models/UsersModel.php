@@ -30,4 +30,20 @@ class UsersModel extends Model
         // Insertar el usuario en la base de datos
         return $this->insert($data);
     }
+    public function validateUser($data)
+    {
+        // Encriptar la contraseña antes de insertarla en la base de datos
+        
+        $query = $this->where('USER_username', $data['USER_username'])->first();
+        if ($query) {
+            if(password_verify($data['USER_password'],$query['USER_password'])){
+                return $query;
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+        
+    }
 }

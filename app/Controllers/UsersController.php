@@ -61,19 +61,40 @@ class UsersController extends BaseController
     public function login()
     {
         // Obtener los datos del formulario enviados por AJAX
-       // $nombre = $this->request->getPost('USER_username');
-        if ($this->request->getPost()) {
-            $nombre = $this->request->getPost('USER_username');
-            echo json_encode($nombre);
+        $username = $this->request->getPost('USER_username');
+        $password = $this->request->getPost('USER_password');
+
+        if ($username != null and $password != null) {
+            $data = [
+                'USER_username' => $this->request->getPost('USER_username'),
+                'USER_password' => $this->request->getPost('USER_password'),
+            ];
+            $validacion = $this->UsersModel->validateUser($data);
+            if ($validacion) {
+                echo json_encode('el usuario y contraseña son correctos');
+                $userData = [
+                    'USER_PK' => $validacion['USER_PK'],
+                    'USER_name' => $validacion['USER_name'],
+                    'USER_username' => $validacion['USER_username']
+                ];
+                $this->session->set($userData);
+                $this->response->setStatusCode(200);
+            } else {
+                $this->response->setStatusCode(401);
+                echo json_encode('error usuario o contraseña no coincide');
+            }
         } else {
-            echo json_encode('error al ingresar *2');                      //envio de los errores
-            //$this->output->set_status_header(401);
             $this->response->setStatusCode(401);
+            echo json_encode('por favor ingresa los datos completos');
         }
+    }
+    public function logout()
+    {
+        $this->session->destroy();
     }
 
     public function profileUser()
     {
-        return view('private/profileUser');
+        return view('private/profileUser',['title' => 'usuario']);
     }
 }

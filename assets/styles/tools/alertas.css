@@ -1,0 +1,54 @@
+/* Estilos para las alertas */
+.alerta {
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 7%;
+    left: 70%;
+    text-align: center;
+    z-index: 5;
+    border-radius: 4px;
+}
+.hidden{
+    visibility: hidden;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alerta-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alerta-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alerta-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.btn_close{
+    color: rgb(0, 0, 0);
+    position: relative;
+    background: none;
+    border: none;
+    height: 2%;
+}
+.contAlerta{
+    align-items: center;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+}
