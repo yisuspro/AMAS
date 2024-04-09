@@ -1,0 +1,107 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    margin-left: 250px;
+}
+.contenido-logo{
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    height: 50px;
+}
+.logo-menu{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: larger;
+}
+.logo-menu:hover{
+    color: #63c49a;
+}
+
+.buton-menu-padre i{
+    color: #63c49a;
+}
+
+.oculto {
+    visibility: hidden;
+}
+
+.menu_lateral {
+    background-color: #000000;
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    top: 0px;
+
+}
+
+.acordeon {
+    width: 250px;
+}
+
+.contenido-padre {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 250px;
+    padding: 3px;
+}
+
+.buton-menu-padre {
+    width: 250px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(173, 173, 173);
+    font-weight: bold;
+    align-content: center;
+    
+}
+.buton-menu-padre.activo{
+    color: black;
+    background-color: azure;
+}
+
+.buton-menu-padre:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(49, 49, 49);
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+
+}
+
+.contenido-hijo {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    background-color: #485058;
+    padding: 4px;
+}
+
+.contenido-hijo .oculto {
+    z-index: -1;
+    flex-wrap: wrap;
+    width: 0px;
+
+}
+
+.buton-menu-hijo {
+    width: 250px;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.buton-menu-hijo:hover {
+    color: black;
+    background-color: azure;
+    transition: background-color 1.3s ease;
+}

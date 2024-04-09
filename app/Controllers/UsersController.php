@@ -95,6 +95,6 @@ class UsersController extends BaseController
 
     public function profileUser()
     {
-        return view('private/profileUser',['title' => 'usuario']);
+        return view('private/profileUser',['title' => $this->session->get('USER_PK')]);
     }
 }

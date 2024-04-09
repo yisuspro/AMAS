@@ -21,6 +21,7 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
+    
     /**
      * Instance of the main Request object.
      *
@@ -62,6 +63,7 @@ abstract class BaseController extends Controller
         $this->bd_ruv =\Config\Database::connect('bd_ruv');
         $this->bd_sipod =\Config\Database::connect('bd_sipod');
         $this->bd_sirav =\Config\Database::connect('bd_sirav');
+        
 
     }
 }
