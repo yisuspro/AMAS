@@ -9,5 +9,5 @@ function activarLogoCarga() {
 }
 
 $('.boton-prueba').click(function () {
-    $('#sample_1').ajax.reload();
+    $('#createPermissionModal').modal('show');
 });

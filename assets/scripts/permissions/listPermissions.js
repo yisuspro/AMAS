@@ -61,6 +61,16 @@ $(document).ready(function () {
                     dt.ajax.reload();
                     cerrarLogoCarga();
                 },
+            },
+            {
+                text: '<i class="bi bi-plus-lg"></i>',
+                className: 'btn btn-secondary',
+                titleAttr: 'Agregar Permiso',
+                action: function (e, dt, node, config) {
+                    activarLogoCarga();
+                    $('#createPermissionModal').modal('show');
+                    cerrarLogoCarga();
+                },
             }
         ],
         layout: {
