@@ -28,3 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 // --------------------- acordeon -------------------------------
+$(document).ready(function() {
+   
+
+    $(".buton-menu-hijo").on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+        $(".area-trabajo").load(id);
+    });
+
+
+});

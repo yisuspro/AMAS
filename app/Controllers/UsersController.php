@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\Query;
 use App\Models\UsersModel;
+use function App\Helpers\generar_menu;
 
 class UsersController extends BaseController
 {
@@ -33,29 +34,54 @@ class UsersController extends BaseController
        // echo json_encode ($db_caracterizacion->getResult());
         //echo json_encode ($db_sirav->getResult());*/
     }
+    public function listUsersView()
+    {
+        return view('private/views_ajax/users/listUserAjax', ['title' => 'Cunsulta usuario']);
+    }
 
-    public function insert()
+    public function listUser()
+    {
+        $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
+        $start  = intval($this->request->getPost("start"));
+        $length = intval($this->request->getPost("length"));
+        $data = $this->UsersModel->listUsers();             //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
+        $output = array(                                    //creacion del vector de salida
+            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
+            "recordsTotal" =>$data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
+            "recordsFiltered" => $data->getNumRows(),         //envio el numero de filas para el calculo de la paginacion de la tabla
+            "data" => $data->getResultArray()                                 //envia todos los datos de la tabla
+        );
+        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
+        exit;    
+    }
+
+    public function register()
     {
         // Datos del nuevo usuario
         $userData = [
-            'USER_name' => 'admin',
-            'USER_username' => 'admin',
-            'USER_password' => 'admin123*',
+            'USER_name' => $this->request->getPost('USER_name'),
+            'USER_username' => $this->request->getPost('USER_username'),
+            'USER_identification' => $this->request->getPost('USER_identification'),
+            'USER_password' =>  $this->request->getPost('USER_password'),
             'USER_date_create' => date('Y-m-d H:i:s'),
             'USER_date_update' => date('Y-m-d H:i:s'),
-            'USER_FK_user_create' => 1,
-            'USER_FK_user_update' => 1,
+            'USER_FK_user_create' => $this->session->get('USER_PK'),
+            'USER_FK_user_update' => $this->session->get('USER_PK'),
             'USER_FK_state_user' => 1,
         ];
+        if ($this->UsersModel->validateUserDoc($userData['USER_identification'])) {
 
-        // Insertar el nuevo usuario
-        if ($this->UsersModel->insertUser($userData)) {
-            echo "registrado";
+            if ($result = $this->UsersModel->insertUser($userData)) {
+
+                $this->response->setStatusCode(200);
+            } else {
+                echo json_encode('Error al crear usuario');
+                $this->response->setStatusCode(401);
+            }
         } else {
-            echo "no registrado";
+            echo json_encode('usuario ya existe');
+            $this->response->setStatusCode(401);
         }
-
-        // Redirigir o mostrar un mensaje de éxito*/
     }
 
     public function login()
@@ -91,10 +117,19 @@ class UsersController extends BaseController
     public function logout()
     {
         $this->session->destroy();
+        $this->response->setStatusCode(200);
+        return true;
     }
 
     public function profileUser()
     {
-        return view('private/profileUser',['title' => $this->session->get('USER_PK')]);
+        return view('private/profileUser', ['title' => 'Perfil']);
     }
+
+    public function createUserView()
+    {
+        return view('private/views_ajax/users/createUserAjax', ['title' => 'Crear usuario']);
+    }
+
+    
 }

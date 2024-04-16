@@ -17,6 +17,10 @@ class CreateTableUsers extends Migration
                 'unsigned' => true,
                 'unique' => true,
             ],
+            'USER_identification' => [
+                'type' => 'VARCHAR',
+                'constraint' => 15,
+            ],
             'USER_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

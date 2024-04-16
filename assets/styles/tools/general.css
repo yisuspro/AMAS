@@ -1,0 +1,46 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+ body{
+    
+    background-image: url('../../images/fondo/fondo3.webp'); /* Ruta a tu imagen de fondo */
+    background-size: auto;
+    
+ }
+ .pantalla-carga{
+    position: absolute;
+    z-index: 5;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.548);
+ }
+ .icono-carga{
+    position: relative;
+    top:50%;
+    left: 50%;
+    background-image: url('../../images/logo//logo_png.png');
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0);
+    width: 250px;
+    height: 250px;
+    margin-top: -125px;
+    margin-left: -125px;
+}
+.icono-carga.rotar{
+    animation: rotacion 1s ease  infinite; /* Aplicamos la animación de rotación */
+}
+@keyframes rotacion {
+    from {
+      transform: rotate(0deg); /* Definimos el inicio de la rotación */
+    }
+    to {
+      transform: rotate(360deg); /* Definimos el final de la rotación */
+    }
+  }
+
+.boton-prueba{
+    z-index: 10;
+    position: absolute;
+}

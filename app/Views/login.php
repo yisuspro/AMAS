@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <link rel="icon" type="image/png" href="<?= base_url('assets/images/logo/image1.ico'); ?>">
     <link href="<?= base_url('assets/styles/login.css'); ?>" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('assets/styles/tools/alertas.css'); ?>" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="<?= base_url('vendor/components/jquery/jquery.js'); ?>"></script>

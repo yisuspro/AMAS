@@ -1,0 +1,45 @@
+.contenedor {
+    margin-left: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.61);
+    width: auto;
+    height: 100vh;
+    flex-direction: column;
+
+}
+
+.area-trabajo {
+    padding: 15px;
+    line-height: 1em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 90vh;
+
+}
+
+.titulo-uno {
+    align-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-bottom: 2px solid #63c49a;
+    text-transform: uppercase;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 50px;
+}
+
+.seccion {
+    text-align: justify;
+    padding: 10px;
+    margin-top: 2%;
+    height: 100%;
+    align-items: center;
+    
+}
+table.dataTable{
+margin: 0;
+}
