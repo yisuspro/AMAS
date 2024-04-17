@@ -1,10 +1,10 @@
 $(document).ready(function () {
     var dt;
-    dt = $('#sample_1');
+    dt = $('#listPermissions');
     dt.DataTable({
         dom: null,
         order:[
-            [1,'asc']
+            [0,'des']
         ],
         scrollx:true,
         ajax: {
@@ -98,6 +98,7 @@ $(document).ready(function () {
 
     });
 
+   
 
 
 });

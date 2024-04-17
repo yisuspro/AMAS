@@ -3,8 +3,7 @@
         <i class="bi bi-journal-text">Consulta Permisos</i>
     </div>
     <div class="seccion">
-
-        <table id="sample_1" class="table table-hover" style="width:100% ">
+        <table id="listPermissions" class="table table-hover" style="width:100% ">
             <thead>
                 <th>
                     ID PERMISOS
@@ -48,7 +47,6 @@
                 <th>
                     FECHA DE MODIFICACION
                 </th>
-
                 <th>
                     ACCIONES
                 </th>
@@ -65,31 +63,31 @@
                 <h5 class="modal-title" id="createPermissionModalLabel">CREAR PERMISO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form method="post" action="#" id="frm_create_permission">
             <div class="modal-body">
-                <form method="post" action="#" id="frm_create_user">
+                
                     <div class="mb-3">
                         <label class="form-label">Nombre permiso</label>
-                        <input id="USER_name" type="text" name="USER_name" class="form-control" placeholder="usuario" required>
+                        <input id="PRMS_name" type="text" name="PRMS_name" class="form-control" placeholder="Nombre permiso" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion</label>
-                        <input id="USER_identification" type="text" name="USER_identification" class="form-control" placeholder="usuario" required>
+                        <input id="PRMS_description" type="text" name="PRMS_description" class="form-control" placeholder="Descripcion" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre corto</label>
-                        <input id="USER_username" type="text" name="USER_username" class="form-control" placeholder="usuario" required>
+                        <input id="PRMS_system_name" type="text" name="PRMS_system_name" class="form-control" placeholder="Nombre corto" required>
                     </div>
                     
-                   
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success btn-block">crear</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                
-                </div>
+            <button type="submit" class="btn btn-success btn-block">crear</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
             </form>
+
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="<?= base_url('assets/scripts/Permissions/createPermissions.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/scripts/Permissions/listPermissions.js'); ?>"></script>

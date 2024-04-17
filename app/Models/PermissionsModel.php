@@ -16,7 +16,8 @@ class PermissionsModel extends Model
         'PRMS_date_create',
         'PRMS_date_update',
         'PRMS_user_create',
-        'PRMS_user_update'
+        'PRMS_user_update',
+        'PRMS_state'
     ];
 
     protected $useTimestamps = false;
@@ -26,5 +27,20 @@ class PermissionsModel extends Model
         // Encriptar la contraseña antes de insertarla en la base de datos
         $query = $this->select('*');
         return $query->get();
+    }
+
+    public function validatePermissions($data)
+    {
+        $query = $this->where('PRMS_system_name', $data)->first();
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function insertPermissions($data)
+    {
+        return $this->insert($data);
+        
     }
 }

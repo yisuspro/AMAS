@@ -22,3 +22,4 @@ $routes->post('/users/register', 'UsersController::register');
 //--PERMISOS
 $routes->get('/permissions/listPermissionsView', 'PermissionsController::index');
 $routes->get('/permissions/listPermissions', 'PermissionsController::listPermissions');
+$routes->post('/permissions/createPermissions', 'PermissionsController::createPermissions');
