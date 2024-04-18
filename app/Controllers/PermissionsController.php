@@ -22,6 +22,12 @@ class PermissionsController extends BaseController
     {
         return view('private/views_ajax/permissions/listPermissionsAjax', ['title' => 'Listar Permisos']);
     }
+    public function updatePermissionsView($id)
+    {
+        $data = $this->PermissionsModel->viewPermissions($id);
+
+        return view('private/views_ajax/permissions/updatePermissionsAjax', ['title' => 'Actualizar Permisos', 'data' => $data->getResultArray()]);
+    }
 
 
     public function listPermissions()
@@ -61,6 +67,53 @@ class PermissionsController extends BaseController
                 $this->response->setStatusCode(201);
             } else {
                 echo json_encode('Error al crear permiso');
+                $this->response->setStatusCode(401);
+            }
+        }
+    }
+
+    public function updatePermissions()
+    {
+        $permissionData = [
+            'PRMS_PK' =>  $this->request->getPost('PRMS_PK'),
+            'PRMS_name' => $this->request->getPost('PRMS_name'),
+            'PRMS_description' => $this->request->getPost('PRMS_description'),
+            'PRMS_system_name' => $this->request->getPost('PRMS_system_name'),
+            'PRMS_date_update' => date('Y-m-d H:i:s'),
+            'PRMS_user_update' => $this->session->get('USER_PK'),
+            'PRMS_state' => 1
+        ];
+        if ($this->PermissionsModel->validatePermissionsId($permissionData['PRMS_PK'])) {
+            if ($this->PermissionsModel->updatePermissions($permissionData)) {
+                $this->response->setStatusCode(201);
+            } else {
+                echo json_encode('Error al actualizar el permiso');
+                $this->response->setStatusCode(401);
+            }
+            
+        } else {
+            echo json_encode('Error no se encuentra permiso');
+            $this->response->setStatusCode(401);
+        }
+    }
+    public function updateStatePermissions($id)
+    {
+        $result = $this->PermissionsModel->validatePermissionsId($id);
+        if ($result['PRMS_state'] == 1) {
+            $result['PRMS_state'] = 0;
+            if ($this->PermissionsModel->updatePermissions($result)) {
+                $this->response->setStatusCode(201);
+            } else {
+                echo json_encode('Error al actualizar estado del permiso');
+                $this->response->setStatusCode(401);
+            }
+            
+        } else {
+            $result['PRMS_state'] = 1;
+            if ($this->PermissionsModel->updatePermissions($result)) {
+                $this->response->setStatusCode(201);
+            } else {
+                echo json_encode('Error al actualizar estado del permiso');
                 $this->response->setStatusCode(401);
             }
         }

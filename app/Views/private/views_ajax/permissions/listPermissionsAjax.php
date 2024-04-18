@@ -18,10 +18,13 @@
                     NOMBRE CORTO
                 </th>
                 <th>
-                    FECHA DE CREACION
+                    ESTADO
                 </th>
                 <th>
-                    FECHA DE MODIFICACION
+                    F.CREACION
+                </th>
+                <th>
+                    F.MODIFICACION
                 </th>
 
                 <th>
@@ -42,10 +45,13 @@
                     NOMBRE CORTO
                 </th>
                 <th>
-                    FECHA DE CREACION
+                    ESTADO
                 </th>
                 <th>
-                    FECHA DE MODIFICACION
+                    F.CREACION
+                </th>
+                <th>
+                    F.MODIFICACION
                 </th>
                 <th>
                     ACCIONES

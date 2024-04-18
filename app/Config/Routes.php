@@ -23,3 +23,6 @@ $routes->post('/users/register', 'UsersController::register');
 $routes->get('/permissions/listPermissionsView', 'PermissionsController::index');
 $routes->get('/permissions/listPermissions', 'PermissionsController::listPermissions');
 $routes->post('/permissions/createPermissions', 'PermissionsController::createPermissions');
+$routes->get('/permissions/updatePermissionsView/(:num)', 'PermissionsController::updatePermissionsView/$1');
+$routes->post('/permissions/updatePermissions', 'PermissionsController::updatePermissions');
+$routes->post('/permissions/updateStatePermissions/(:num)', 'PermissionsController::updateStatePermissions/$1');

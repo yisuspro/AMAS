@@ -38,9 +38,43 @@ class PermissionsModel extends Model
             return false;
         }
     }
+
+
+    public function validatePermissionsId($data)
+    {
+        $query = $this->where('PRMS_PK',$data)->first();
+         if ($query) {
+            return $query;
+        } else {
+            return false;
+        }
+    }
+
+
     public function insertPermissions($data)
     {
         return $this->insert($data);
+        
+    }
+
+    public function viewPermissions($data)
+    {
+        $query = $this->where('PRMS_PK', $data)->get();
+        if ($query) {
+            return $query;
+        } else {
+            return false;
+        }
+    }
+    public function updatePermissions($data)
+    {
+        $query= $this->set($data)
+        ->where('PRMS_PK', $data['PRMS_PK']);
+        if($query->update()){
+            return true;
+        }else{
+            return false;
+        }
         
     }
 }
