@@ -1,0 +1,27 @@
+@import url('general.css');
+@import url('alertas.css');
+@import url('menus.css');
+@import url('contenedor.css');
+@import url('chekcBox.css');
+
+/*----boostrap-------*/
+
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+/*--------- datatables---------*/
+
+@import url('https://cdn.datatables.net/2.0.3/css/dataTables.jqueryui.css');
+@import url('https://cdn.datatables.net/buttons/3.0.1/css/buttons.jqueryui.css');
+@import url('https://cdn.datatables.net/colreorder/2.0.0/css/colReorder.jqueryui.css');
+@import url('https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.css');
+@import url('https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.jqueryui.css');
+@import url('https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.jqueryui.css');
+@import url('https://cdn.datatables.net/keytable/2.12.0/css/keyTable.jqueryui.css');
+@import url('https://cdn.datatables.net/responsive/3.0.1/css/responsive.jqueryui.css');
+@import url('https://cdn.datatables.net/rowgroup/1.5.0/css/rowGroup.jqueryui.css');
+@import url('https://cdn.datatables.net/scroller/2.4.1/css/scroller.jqueryui.css');
+@import url('https://cdn.datatables.net/searchbuilder/1.7.0/css/searchBuilder.jqueryui.css');
+@import url('https://cdn.datatables.net/searchpanes/2.3.0/css/searchPanes.jqueryui.css');
+@import url('https://cdn.datatables.net/select/2.0.0/css/select.jqueryui.css');
+@import url('https://cdn.datatables.net/staterestore/1.4.0/css/stateRestore.jqueryui.css');

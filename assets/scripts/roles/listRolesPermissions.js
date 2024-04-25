@@ -1,26 +1,24 @@
 $(document).ready(function () {
     var dt;
-    dt = $('#listPermissions');
+    var ROL;
+    ROL = $('#idRol').val();
+    console.log(ROL);
+    dt = $('#listRolesPermissions');
     dt.DataTable({
         dom: null,
         order: [
-            [0, 'des']
+            [3, 'des']
         ],
         scrollX: true,
         ajax: {
-            url: "../permissions/listPermissions",
+            url: "../roles/listRolesPermissions/"+ ROL,
             type: 'GET'
         },
         columns: [
             { data: 'PRMS_PK' },
             { data: 'PRMS_name' },
             { data: 'PRMS_description' },
-            { data: 'PRMS_system_name', },
-            { data: 'PRMS_state', },
-            { data: 'PRMS_date_create', },  
-            { data: 'PRMS_date_update', },
-            { "defaultContent": "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>" },
-
+            { data: 'RLPR_state', },
         ],
         buttons: [
             {
@@ -62,16 +60,6 @@ $(document).ready(function () {
                     dt.ajax.reload();
                     cerrarLogoCarga();
                 },
-            },
-            {
-                text: '<i class="bi bi-plus-lg">CREAR PERMISO</i>',
-                className: 'btn btn-success',
-                titleAttr: 'Agregar Permiso',
-                action: function (e, dt, node, config) {
-                    activarLogoCarga();
-                    $('#createPermissionModal').modal('show');
-                    cerrarLogoCarga();
-                },
             }
         ],
         layout: {
@@ -86,34 +74,23 @@ $(document).ready(function () {
             bottomEnd: 'paging'
         },
         rowCallback: function (row, data) {
-            if (data['PRMS_state'] == 1) {
-                $($(row).find("td")[4]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
-            } else if (data['PRMS_state'] == 0) {
-                $($(row).find("td")[4]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
-            } else {
-                $($(row).find("td")[4]).html("<p class='text-danger'> SIN ESTADO</p>");
+            if (data['RLPR_state'] == 1) {
+                $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
+            }  else {
+                $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
             }
 
         },
+        columnDefs: [
+            {
+              "targets": [4],
+              "visible": false,
+              "searchable": false,
+              "data": "RLPR_FK_rol",
+              "name": "RLPR_FK_rol"
+            }
+          ]
 
-
-    });
-
-    dt.on('click', '#Act_permissions', function (e) {
-
-        e.preventDefault();
-        $tr = $(this).closest('tr');
-        var O = dt.DataTable().row($tr).data();
-        var r = confirm("Seguro deseas editar la informacion del permiso" + O.PRMS_system_name);
-        if (r == true) {
-            activarLogoCarga();
-            var id = '../permissions/updatePermissionsView/' + O.PRMS_PK;
-            $(".area-trabajo").load(id);
-            cerrarLogoCarga();
-            crearAlerta('Vista modificacion permisos abierta correctamente', 'success');
-        } else {
-            crearAlerta('Cambio rechazado', 'error');
-        }
 
     });
 
@@ -121,23 +98,25 @@ $(document).ready(function () {
         activarLogoCarga();
         e.preventDefault();
         b = document.querySelector("button");
+        ROL = $('#idRol').val();
         $tr = $(this).closest('tr');
         var O = dt.DataTable().row($tr).data();
         var r ; 
         if(O.RLPR_state == '1'){
-            r= confirm('Seguro deseas inactivar el permiso = "' + O.PRMS_system_name + '"');
+            r= confirm('Seguro deseas quitar el permiso = "' + O.PRMS_name + '" al rol = ' + ROL);
 
         }else{
-            r= confirm('Seguro deseas activar el permiso = "' + O.PRMS_system_name + '"');
+            r= confirm('Seguro deseas asignar el permiso = "' + O.PRMS_name + '" al rol = ' + ROL);
         }
         if (r == true) {
             $.ajax({
-                url: '../permissions/updateStatePermissions/' + O.PRMS_PK,
+                url: '../roles/addPermissionsRoles/' + O.PRMS_PK + '/'+ ROL,
                 type: 'POST',
                 data: $tr,
                 success: function(data, xhr) {
-                    cerrarLogoCarga();
                     crearAlerta('cambio de estado exitoso', 'success');
+                    $('#listRolesPermissions').DataTable().ajax.reload();
+                    cerrarLogoCarga();
                 },
                 error: function(xhr) {
                     var json = JSON.parse(xhr.responseText);

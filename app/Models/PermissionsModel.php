@@ -66,6 +66,8 @@ class PermissionsModel extends Model
             return false;
         }
     }
+
+    
     public function updatePermissions($data)
     {
         $query= $this->set($data)

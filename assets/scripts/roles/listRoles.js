@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var dt;
-    dt = $('#listPermissions');
+    dt = $('#listRoles');
     dt.DataTable({
         dom: null,
         order: [
@@ -8,18 +8,17 @@ $(document).ready(function () {
         ],
         scrollX: true,
         ajax: {
-            url: "../permissions/listPermissions",
+            url: "../roles/listRoles",
             type: 'GET'
         },
         columns: [
-            { data: 'PRMS_PK' },
-            { data: 'PRMS_name' },
-            { data: 'PRMS_description' },
-            { data: 'PRMS_system_name', },
-            { data: 'PRMS_state', },
-            { data: 'PRMS_date_create', },  
-            { data: 'PRMS_date_update', },
-            { "defaultContent": "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>" },
+            { data: 'ROLE_PK' },
+            { data: 'ROLE_name' },
+            { data: 'ROLE_description' },
+            { data: 'ROLE_state', },
+            { data: 'ROLE_date_create', },
+            { data: 'ROLE_date_update', },
+            { "defaultContent": "<a id='Act_roles' name='Act_roles' title='Actualizar Rol' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a><a id='Add_permission' name='Add_permission' title='Agregar Permiso' type='button' class='form btn btn-success btn-xs'><i class='bi bi-node-plus'></i></a>" },
 
         ],
         buttons: [
@@ -64,12 +63,12 @@ $(document).ready(function () {
                 },
             },
             {
-                text: '<i class="bi bi-plus-lg">CREAR PERMISO</i>',
+                text: '<i class="bi bi-plus-lg">CREAR ROL</i>',
                 className: 'btn btn-success',
-                titleAttr: 'Agregar Permiso',
+                titleAttr: 'Agregar rol',
                 action: function (e, dt, node, config) {
                     activarLogoCarga();
-                    $('#createPermissionModal').modal('show');
+                    $('#createRolesModal').modal('show');
                     cerrarLogoCarga();
                 },
             }
@@ -86,12 +85,12 @@ $(document).ready(function () {
             bottomEnd: 'paging'
         },
         rowCallback: function (row, data) {
-            if (data['PRMS_state'] == 1) {
-                $($(row).find("td")[4]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
-            } else if (data['PRMS_state'] == 0) {
-                $($(row).find("td")[4]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
+            if (data['ROLE_state'] == 1) {
+                $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
+            } else if (data['ROLE_state'] == 0) {
+                $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
             } else {
-                $($(row).find("td")[4]).html("<p class='text-danger'> SIN ESTADO</p>");
+                $($(row).find("td")[3]).html("<p class='text-danger'> SIN ESTADO</p>");
             }
 
         },
@@ -99,18 +98,18 @@ $(document).ready(function () {
 
     });
 
-    dt.on('click', '#Act_permissions', function (e) {
+    dt.on('click', '#Act_roles', function (e) {
 
         e.preventDefault();
         $tr = $(this).closest('tr');
         var O = dt.DataTable().row($tr).data();
-        var r = confirm("Seguro deseas editar la informacion del permiso" + O.PRMS_system_name);
+        var r = confirm("Seguro deseas editar la informacion del rol" + O.ROLE_name);
         if (r == true) {
             activarLogoCarga();
-            var id = '../permissions/updatePermissionsView/' + O.PRMS_PK;
+            var id = '../roles/updateRolesView/' + O.ROLE_PK;
             $(".area-trabajo").load(id);
             cerrarLogoCarga();
-            crearAlerta('Vista modificacion permisos abierta correctamente', 'success');
+            crearAlerta('Vista modificacion rol abierta correctamente', 'success');
         } else {
             crearAlerta('Cambio rechazado', 'error');
         }
@@ -125,14 +124,14 @@ $(document).ready(function () {
         var O = dt.DataTable().row($tr).data();
         var r ; 
         if(O.RLPR_state == '1'){
-            r= confirm('Seguro deseas inactivar el permiso = "' + O.PRMS_system_name + '"');
+            r= confirm('Seguro deseas inactivar el rol = "' + O.ROLE_name + '"');
 
         }else{
-            r= confirm('Seguro deseas activar el permiso = "' + O.PRMS_system_name + '"');
+            r= confirm('Seguro deseas activar el rol = "' + O.ROLE_name + '"');
         }
         if (r == true) {
             $.ajax({
-                url: '../permissions/updateStatePermissions/' + O.PRMS_PK,
+                url: '../roles/updateStateRoles/' + O.ROLE_PK,
                 type: 'POST',
                 data: $tr,
                 success: function(data, xhr) {
@@ -163,6 +162,23 @@ $(document).ready(function () {
             crearAlerta('se recahza ale cambio cambio', 'error');
         }
 
+
+    });
+
+    dt.on('click', '#Add_permission', function (e) {
+        e.preventDefault();
+        $tr = $(this).closest('tr');
+        var O = dt.DataTable().row($tr).data();
+        var r = confirm("Seguro deseas asignar permisos al rol " + O.ROLE_name);
+        if (r == true) {
+            activarLogoCarga();
+            var id = '../roles/addPermissionsRolesViews/' + O.ROLE_PK;
+            $(".area-trabajo").load(id);
+            cerrarLogoCarga();
+            crearAlerta('Vista asignacion permisos abierta correctamente', 'success');
+        } else {
+            crearAlerta('Asignacion rechazada', 'error');
+        }
 
     });
 

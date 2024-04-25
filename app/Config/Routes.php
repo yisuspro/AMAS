@@ -26,3 +26,14 @@ $routes->post('/permissions/createPermissions', 'PermissionsController::createPe
 $routes->get('/permissions/updatePermissionsView/(:num)', 'PermissionsController::updatePermissionsView/$1');
 $routes->post('/permissions/updatePermissions', 'PermissionsController::updatePermissions');
 $routes->post('/permissions/updateStatePermissions/(:num)', 'PermissionsController::updateStatePermissions/$1');
+
+//--ROLES
+$routes->get('/roles/listRolesView', 'RolesController::index');
+$routes->get('/roles/listRoles', 'RolesController::listRoles');
+$routes->post('/roles/createRoles', 'RolesController::createRoles');
+$routes->get('/roles/updateRolesView/(:num)', 'RolesController::updateRolesView/$1');
+$routes->post('/roles/updateRoles', 'RolesController::updateRoles');
+$routes->post('/roles/updateStateRoles/(:num)', 'RolesController::updateStateRoles/$1');
+$routes->get('/roles/addPermissionsRolesViews/(:num)', 'RolesController::addPermissionsRolesViews/$1');
+$routes->post('/roles/addPermissionsRoles/(:num)/(:num)', 'RolesController::addPermissionsRoles/$1/$2');
+$routes->get('/roles/listRolesPermissions/(:num)', 'RolesController::listRolesPermissions/$1');

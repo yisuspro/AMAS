@@ -12,33 +12,17 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/images/logo/image1.ico'); ?>">
     <title><?= $title ?? 'Mi Aplicación' ?></title>
     <!-- Enlaces a archivos CSS, JS, etc. -->
-    <link href="<?= base_url('assets/styles/tools/general.css'); ?>" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url('assets/styles/tools/alertas.css'); ?>" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url('assets/styles/tools/menus.css'); ?>" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url('assets/styles/tools/contenedor.css'); ?>" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url('assets/styles/tools/chekcBox.css'); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('assets/styles/tools/tools.css'); ?>" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
     <script type="text/javascript" src="<?= base_url('vendor/components/jquery/jquery.js'); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- tablas ajax -->
-    <link href="https://cdn.datatables.net/2.0.3/css/dataTables.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/colreorder/2.0.0/css/colReorder.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/keytable/2.12.0/css/keyTable.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/rowgroup/1.5.0/css/rowGroup.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/scroller/2.4.1/css/scroller.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/searchbuilder/1.7.0/css/searchBuilder.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/searchpanes/2.3.0/css/searchPanes.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/select/2.0.0/css/select.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/staterestore/1.4.0/css/stateRestore.jqueryui.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.js"></script>
@@ -67,6 +51,7 @@
     <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
     <script src="https://cdn.datatables.net/staterestore/1.4.0/js/dataTables.stateRestore.js"></script>
     <script src="https://cdn.datatables.net/staterestore/1.4.0/js/stateRestore.jqueryui.js"></script>
+
     <!-- tablas ajax -->
 </head>
 
@@ -97,7 +82,7 @@
             </div>
         </div>
     </div>
-    <button class="boton-prueba">prueba</button>
+    <!--<button class="boton-prueba">prueba</button> -->
     <!-- Incluir el menú -->
     <?= $this->include('private/menus/menu_lateral') ?>
 

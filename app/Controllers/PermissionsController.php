@@ -4,16 +4,16 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\PermissionsModel;
+//use App\Models\PermissionsModel;
 
 class PermissionsController extends BaseController
 {
 
-    protected $PermissionsModel;
+    //protected $PermissionsModel;
 
     public function __construct()
     {
-        $this->PermissionsModel = new PermissionsModel();
+       // $this->PermissionsModel = new PermissionsModel();
     }
 
 
@@ -96,6 +96,8 @@ class PermissionsController extends BaseController
             $this->response->setStatusCode(401);
         }
     }
+
+    
     public function updateStatePermissions($id)
     {
         $result = $this->PermissionsModel->validatePermissionsId($id);

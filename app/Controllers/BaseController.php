@@ -8,7 +8,9 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
-
+use App\Models\RolesModel;
+use App\Models\RolespermissionsModel;
+use App\Models\PermissionsModel;
 /**
  * Class BaseController
  *
@@ -47,6 +49,12 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
+
+     protected $RolesModel;
+     protected $RolespermissionsModel;
+     protected $PermissionsModel;
+
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -65,6 +73,10 @@ abstract class BaseController extends Controller
         $this->bd_sirav =\Config\Database::connect('bd_sirav');
         helper('menu_helper');
         
+        //------- llamado de modelo de roles y permisos-- para control en general
+        $this->RolesModel = new RolesModel();
+        $this->RolespermissionsModel = new RolespermissionsModel();
+        $this->PermissionsModel = new PermissionsModel();
 
     }
 }

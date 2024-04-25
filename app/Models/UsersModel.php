@@ -33,6 +33,7 @@ class UsersModel extends Model
 
         return $this->insert($data);
     }
+    
     public function validateUser($data)
     {
         // Encriptar la contraseña antes de insertarla en la base de datos
