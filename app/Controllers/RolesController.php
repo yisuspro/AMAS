@@ -9,11 +9,10 @@ use CodeIgniter\HTTP\ResponseInterface;
 class RolesController extends BaseController
 {
 
-    //protected $RolesModel;
 
     public function __construct()
     {
-        // $this->RolesModel = new RolesModel();
+        
     }
 
     public function index()

@@ -21,15 +21,7 @@ class RolespermissionsModel extends Model
     ];
 
     protected $useTimestamps = false;
-/*SELECT * FROM permissions P
-JOIN rolespermissions RP on p.PRMS_PK = RP.RLPR_FK_permission;
 
-SELECT P.PRMS_PK,P.PRMS_name,P.PRMS_description,RP.RLPR_FK_rol, RP.RLPR_state FROM  rolespermissions RP
-RIGHT JOIN permissions P on p.PRMS_PK = RP.RLPR_FK_permission
-LEFT JOIN roles R on RLPR_PK = RP.RLPR_FK_rol
-WHERE RP.RLPR_FK_rol = 3;
-
-*/
 
     public function listRolesPermissions($data)
     {

@@ -18,7 +18,8 @@ class UsersModel extends Model
         'USER_date_update',
         'USER_FK_user_create',
         'USER_FK_user_update',
-        'USER_FK_state_user'
+        'USER_FK_state_user',
+        'USER_reset_password'
     ];
 
     protected $useTimestamps = false;
@@ -60,10 +61,79 @@ class UsersModel extends Model
             return true;
         }
     }
+
+    public function validateUserId($data)
+    {
+        // Encriptar la contraseña antes de insertarla en la base de datos
+
+        $query = $this->where('USER_PK', $data)->first();
+        if ($query) {
+            return $query;
+        } else {
+            return false;
+        }
+    }
+
+    
+
+    public function viewUsers($data)
+    {
+        // Encriptar la contraseña antes de insertarla en la base de datos
+
+        $query = $this->where('USER_PK', $data)->get();
+        if ($query) {
+            return $query;
+        } else {
+            return true;
+        }
+    }
+
+
+
     public function listUsers()
     {
         $query = $this->select('*')
             ->join('statesusers', 'statesusers.STTS_PK = users.USER_FK_state_user','left');
         return $query->get();
     }
+
+    public function updateUsers($data)
+    {
+        $query= $this->set($data)
+        ->where('USER_PK', $data['USER_PK']);
+        if($query->update()){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function updatePasswordUsers($data)
+    {
+        $data['USER_password'] = password_hash($data['USER_password'], PASSWORD_DEFAULT);
+        $query= $this->set($data)
+        ->where('USER_PK',  $data['USER_PK']);
+        if($query->update()){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function validatePasswords($password,$passwordDataBase)
+    {
+        
+        if(password_verify($password,$passwordDataBase)){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+
+   
+
 }

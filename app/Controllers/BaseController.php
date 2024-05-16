@@ -8,9 +8,12 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\UsersModel;
+use App\Models\UsersrolesModel;
 use App\Models\RolesModel;
 use App\Models\RolespermissionsModel;
 use App\Models\PermissionsModel;
+
 /**
  * Class BaseController
  *
@@ -23,7 +26,7 @@ use App\Models\PermissionsModel;
  */
 abstract class BaseController extends Controller
 {
-    
+
     /**
      * Instance of the main Request object.
      *
@@ -47,12 +50,23 @@ abstract class BaseController extends Controller
     protected $session;
 
     /**
-     * @return void
+     * VARIABLES BASES DE DATOS
      */
 
-     protected $RolesModel;
-     protected $RolespermissionsModel;
-     protected $PermissionsModel;
+    protected $bd_amas; 
+    protected $bd_caracterizacion; 
+    protected $bd_ruv; 
+    protected $bd_sipod; 
+    protected $bd_sirav; 
+     /**
+     * VARIBLES MODELO
+     */
+    protected $UsersModel;
+    protected $UsersrolesModel;
+    protected $RolesModel;
+    protected $RolespermissionsModel;
+    protected $PermissionsModel;
+    
 
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -66,17 +80,19 @@ abstract class BaseController extends Controller
         $this->session = \Config\Services::session();
 
         //inicializacion de bases de datos para todos los controladores
-        $this->bd_amas =\Config\Database::connect();
-        $this->bd_caracterizacion =\Config\Database::connect('bd_caracterizacion');
-        $this->bd_ruv =\Config\Database::connect('bd_ruv');
-        $this->bd_sipod =\Config\Database::connect('bd_sipod');
-        $this->bd_sirav =\Config\Database::connect('bd_sirav');
+        $this->bd_amas = \Config\Database::connect();
+        $this->bd_caracterizacion = \Config\Database::connect('bd_caracterizacion');
+        $this->bd_ruv = \Config\Database::connect('bd_ruv');
+        $this->bd_sipod = \Config\Database::connect('bd_sipod');
+        $this->bd_sirav = \Config\Database::connect('bd_sirav');
         helper('menu_helper');
-        
+
         //------- llamado de modelo de roles y permisos-- para control en general
+        
+        $this->UsersModel = new UsersModel();
         $this->RolesModel = new RolesModel();
         $this->RolespermissionsModel = new RolespermissionsModel();
         $this->PermissionsModel = new PermissionsModel();
-
+        $this->UsersrolesModel = new UsersrolesModel();
     }
 }

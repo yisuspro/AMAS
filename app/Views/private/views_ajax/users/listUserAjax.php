@@ -19,10 +19,10 @@
                     USUARIO
                 </th>
                 <th>
-                    FECHA DE CREACION
+                    F.CREACION
                 </th>
                 <th>
-                    FECHA DE MODIFICACION
+                    F.MODIFICACION
                 </th>
                 <th>
                     ESTADO
@@ -45,10 +45,10 @@
                     USUARIO
                 </th>
                 <th>
-                    FECHA DE CREACION
+                    F.CREACION
                 </th>
                 <th>
-                    FECHA DE MODIFICACION
+                    F.MODIFICACION
                 </th>
                 <th>
                     ESTADO
@@ -62,4 +62,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url('assets/scripts/listUsers.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/scripts/users/listUsers.js'); ?>"></script>

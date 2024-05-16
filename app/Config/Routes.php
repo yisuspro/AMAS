@@ -12,13 +12,21 @@ $routes->get('/users', 'UsersController::index');
 $routes->post('/users/login', 'UsersController::login');
 $routes->post('/users/logout', 'UsersController::logout');
 $routes->get('/users/menu', 'UsersController::cargarMenu');
+$routes->get('/users/UpdatePasswordUserView/(:num)', 'UsersController::UpdatePasswordUserView/$1');
+$routes->post('/users/UpdatePasswordUser', 'UsersController::UpdatePasswordUser');
 // rutas users
 $routes->get('/users/profileUser', 'UsersController::profileUser');
 $routes->get('/users/createUserView', 'UsersController::createUserView');
 $routes->get('/users/listUsersView', 'UsersController::listUsersView');
 $routes->get('/users/listUser', 'UsersController::listUser');
 $routes->post('/users/register', 'UsersController::register');
-
+$routes->get('/users/updatetUserView/(:num)', 'UsersController::updatetUserView/$1');
+$routes->post('/users/updateUsers', 'UsersController::updateUsers');
+$routes->post('/users/updateStateUsers/(:num)', 'UsersController::updateStateUsers/$1');
+$routes->post('/users/updatePasswordUsers', 'UsersController::updatePasswordUsers');
+$routes->get('/users/addRolesUsersView/(:num)', 'UsersController::addRolesUsersView/$1');
+$routes->get('/users/listUsersRoles/(:num)', 'UsersController::listUsersRoles/$1');
+$routes->post('/users/addRolesUsers/(:num)/(:num)', 'UsersController::addRolesUsers/$1/$2');
 //--PERMISOS
 $routes->get('/permissions/listPermissionsView', 'PermissionsController::index');
 $routes->get('/permissions/listPermissions', 'PermissionsController::listPermissions');
