@@ -16,19 +16,21 @@ $(document).ready(function () {
         dt.DataTable({
             dom: null,
             order: [
-                [6, 'asc']
+                [8, 'asc']
             ],
             scrollX: true,
             ajax: {
                 url: "listUser",
                 type: 'GET'
             },
-            order: [6, 'asc'],
+            order: [8, 'asc'],
             columns: [
                 { data: 'USER_PK' },
                 { data: 'USER_name' },
                 { data: 'USER_identification' },
-                { data: 'USER_username', },
+                { data: 'USER_username'},
+                { data: 'USER_email'},
+                { data: 'USER_address_ip'},
                 { data: 'USER_date_create', },
                 { data: 'USER_date_update', },
                 { data: 'STTS_name', },
@@ -105,22 +107,28 @@ $(document).ready(function () {
             rowCallback: function (row, data) {
                 if (userPermissions.includes('I_USERS')) {
                     if (data['USER_FK_state_user'] == 1) {
-                        $($(row).find("td")[6]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
+                        $($(row).find("td")[8]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
                     } else if (data['USER_FK_state_user'] == 0) {
-                        $($(row).find("td")[6]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
+                        $($(row).find("td")[8]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
                     } else {
-                        $($(row).find("td")[6]).html("<p class='text-danger'> SIN ESTADO</p>");
+                        $($(row).find("td")[8]).html("<p class='text-danger'> SIN ESTADO</p>");
                     }
                 } else {
                     if (data['USER_FK_state_user'] == 1) {
-                        $($(row).find("td")[6]).html("<p class='text-success'>ACTIVO</p>");
+                        $($(row).find("td")[8]).html("<p class='text-success'>ACTIVO</p>");
                     } else if (data['USER_FK_state_user'] == 0) {
-                        $($(row).find("td")[6]).html("<p class='text-danger'>INACTIVO</p>");
+                        $($(row).find("td")[8]).html("<p class='text-danger'>INACTIVO</p>");
                     } else {
-                        $($(row).find("td")[6]).html("<p class='text-warning'>SIN ESTADO</p>");
+                        $($(row).find("td")[8]).html("<p class='text-warning'>SIN ESTADO</p>");
                     }
 
                 }
+                if(data['USER_address_ip'] == null || data['USER_address_ip'] == ''  || data['USER_address_ip'] == 0){
+                    $($(row).find("td")[5]).html("<p class='text-danger'>SIN RESTRICCION</p>");
+                }else{
+                    $($(row).find("td")[5]).html("<p class='text-success'>["+data['USER_address_ip']+"]</p>");
+                }
+
 
             },
 

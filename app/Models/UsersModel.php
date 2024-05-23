@@ -19,7 +19,9 @@ class UsersModel extends Model
         'USER_FK_user_create',
         'USER_FK_user_update',
         'USER_FK_state_user',
-        'USER_reset_password'
+        'USER_reset_password',
+        'USER_email',
+        'USER_address_ip'
     ];
 
     protected $useTimestamps = false;
@@ -50,6 +52,25 @@ class UsersModel extends Model
             return false;
         }
     }
+
+    public function validateIPUser($USER_PK, $USER_address_ip)
+    {
+        // Encriptar la contraseña antes de insertarla en la base de datos
+
+        $query = $this->where('USER_PK', $USER_PK)->first();
+        if ($query['USER_address_ip'] == '') {
+            return true;
+        } else {
+            if ($query['USER_address_ip'] == $USER_address_ip) {
+                return true;
+            } else {
+            return false;
+            }
+        }
+    }
+
+
+
     public function validateUserDoc($data)
     {
         // Encriptar la contraseña antes de insertarla en la base de datos

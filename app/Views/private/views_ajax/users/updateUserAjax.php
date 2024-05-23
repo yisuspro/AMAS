@@ -28,6 +28,14 @@
                     <label class="form-label">Usuario</label>
                     <input id="USER_username" type="text" name="USER_username" class="form-control" placeholder="Nombre de usuario" value="<?= $dataUser['USER_username'] ?? 0 ?>" required>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Correo electronico</label>
+                    <input id="USER_email" type="text" name="USER_email" class="form-control" placeholder="correo electronico" value="<?= $dataUser['USER_email'] ?? 0 ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Direccion IP</label>
+                    <input id="USER_address_ip" type="text" name="USER_address_ip" class="form-control" placeholder="direccion IP" value="<?= $dataUser['USER_address_ip'] ?? 0 ?>">
+                </div>
 
 
             <?php endforeach; ?>

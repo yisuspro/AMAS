@@ -48,7 +48,7 @@ class UsersController extends BaseController
     public function getPermissionsUsers()
     {
         $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
-        echo json_encode ($Roles);
+        echo json_encode($Roles);
     }
     public function listUsersView()
     {
@@ -59,8 +59,9 @@ class UsersController extends BaseController
     {
 
         $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
+
         $menu = generate_menu($Roles);
-        return view('private/profileUser', ['title' => 'Perfil','menu'=> $menu]);
+        return view('private/profileUser', ['title' => 'Perfil', 'menu' => $menu]);
     }
 
     public function createUserView()
@@ -83,9 +84,6 @@ class UsersController extends BaseController
 
         return view('private/views_ajax/users/addRolesUsersAjax', ['title' => 'Asignar roles ',  'id' => $id]);
     }
-
-
-
     public function listUser()
     {
         $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
@@ -117,7 +115,10 @@ class UsersController extends BaseController
                 'USER_FK_user_create' => $this->session->get('USER_PK'),
                 'USER_FK_user_update' => $this->session->get('USER_PK'),
                 'USER_FK_state_user' => 1,
-                'USER_reset_password' => 1
+                'USER_reset_password' => 1,
+                'USER_email' => $this->request->getPost('USER_email'),
+                'USER_address_ip' => $this->request->getPost('USER_address_ip'),
+
             ];
             if ($this->UsersModel->validateUserDoc($userData['USER_identification'])) {
 
@@ -143,6 +144,7 @@ class UsersController extends BaseController
         // Obtener los datos del formulario enviados por AJAX
         $username = $this->request->getPost('USER_username');
         $password = $this->request->getPost('USER_password');
+        $addressIp = $_SERVER['REMOTE_ADDR'];
 
         if ($username != null and $password != null) {
             $data = [
@@ -151,34 +153,38 @@ class UsersController extends BaseController
             ];
             $validacion = $this->UsersModel->validateUser($data);
             if ($validacion) {
-                if ($validacion['USER_FK_state_user'] == 1) {
+                if ($this->UsersModel->validateIPUser($validacion['USER_PK'],$addressIp)) {
+                    if ($validacion['USER_FK_state_user'] == 1) {
+                        $permissions = $this->UsersrolesModel->validateRolesUser($validacion['USER_PK']);
 
-                    $permissions = $this->UsersrolesModel->validateRolesUser($validacion['USER_PK']);
-                    
-                    $userData = [
-                        'USER_PK' => $validacion['USER_PK'],
-                        'USER_name' => $validacion['USER_name'],
-                        'USER_username' => $validacion['USER_username'],
-                        'PERMISSIONS' => $permissions
-                    ];
+                        $userData = [
+                            'USER_PK' => $validacion['USER_PK'],
+                            'USER_name' => $validacion['USER_name'],
+                            'USER_username' => $validacion['USER_username'],
+                            'PERMISSIONS' => $permissions
+                        ];
 
-                    $this->session->set($userData);
-                    echo json_encode([
-                        'msg' => 'el usuario y contraseña son correctos',
-                        'USER_PK' => $validacion['USER_PK'],
-                        'USER_reset_password' => $validacion['USER_reset_password']
-                    ]);
+                        $this->session->set($userData);
+                        echo json_encode([
+                            'msg' => 'el usuario y contraseña son correctos',
+                            'USER_PK' => $validacion['USER_PK'],
+                            'USER_reset_password' => $validacion['USER_reset_password']
+                        ]);
+                    } else {
+                        $this->response->setStatusCode(401);
+                        echo json_encode('Error: Usuario inactivo, por favor validar con el administrador del sistema');
+                    }
                 } else {
                     $this->response->setStatusCode(401);
-                    echo json_encode('Usuario inactivo, por favor validar con el administrador del sistema');
+                    echo json_encode('Error: la direccion IP no coincide con el reistrado para el usaurio');
                 }
             } else {
                 $this->response->setStatusCode(401);
-                echo json_encode('error usuario o contraseña no coincide');
+                echo json_encode('Error: usuario o contraseña no coincide');
             }
         } else {
             $this->response->setStatusCode(401);
-            echo json_encode('por favor ingresa los datos completos');
+            echo json_encode('Error: por favor ingresa los datos completos');
         }
     }
 
@@ -199,7 +205,9 @@ class UsersController extends BaseController
             'USER_username' => $this->request->getPost('USER_username'),
             'USER_identification' => $this->request->getPost('USER_identification'),
             'USER_date_update' => date('Y-m-d H:i:s'),
-            'USER_FK_user_update' => $this->session->get('USER_PK')
+            'USER_FK_user_update' => $this->session->get('USER_PK'),
+            'USER_email' => $this->request->getPost('USER_email'),
+            'USER_address_ip' => $this->request->getPost('USER_address_ip'),
         ];
         if ($result = $this->UsersModel->updateUsers($userData)) {
             $this->response->setStatusCode(200);
@@ -346,14 +354,13 @@ class UsersController extends BaseController
     }
 
 
-    
+
 
     public function prueba()
     {
         //$Roles =[8,6,7];
         //$permissions = $this->RolespermissionsModel->validatePermissionsRole($Roles);
         $Roles = $this->UsersrolesModel->validateRolesUser(2);
-        echo json_encode ($Roles);
+        echo json_encode($Roles);
     }
-    
 }

@@ -17,6 +17,14 @@
                 <input id="USER_username" type="text" name="USER_username" class="form-control" placeholder="usuario" required>
             </div>
             <div class="mb-3">
+                <label class="form-label">Correo electronico</label>
+                <input id="USER_email" type="text" name="USER_email" class="form-control" placeholder="correo electronico" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Direccion IP</label>
+                <input id="USER_address_ip" type="text" name="USER_address_ip" class="form-control" placeholder="direccion ip" required>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Contraseña:</label>
                 <input id="USER_password" type="password" name="USER_password" class="form-control" required>
             </div>

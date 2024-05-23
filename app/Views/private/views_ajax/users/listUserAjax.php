@@ -7,7 +7,7 @@
         <table id="sample_1" class="table table-hover" style="width:100% ">
             <thead>
                 <th>
-                    ID USUARIO
+                    ID
                 </th>
                 <th>
                     NOMBRE
@@ -17,6 +17,12 @@
                 </th>
                 <th>
                     USUARIO
+                </th>
+                <th>
+                    CORREO
+                </th>
+                <th>
+                    IP
                 </th>
                 <th>
                     F.CREACION
@@ -33,7 +39,7 @@
             </thead>
             <tfoot>
                 <th>
-                    ID USUARIO
+                    ID
                 </th>
                 <th>
                     NOMBRE
@@ -43,6 +49,12 @@
                 </th>
                 <th>
                     USUARIO
+                </th>
+                <th>
+                    CORREO
+                </th>
+                <th>
+                    IP
                 </th>
                 <th>
                     F.CREACION
