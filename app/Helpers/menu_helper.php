@@ -1,26 +1,78 @@
 <?php
-namespace App\Helpers;
-// any_in_array() is not in the Array Helper, so it defines a new function
 
-if (! function_exists('generar_menu')) {
-    function generar_menu($opciones) {
-        $menu_html = '<div class="contenido-padre">';
-        foreach ($opciones as $opcion) {
-            $menu_html .= '<a class="buton-menu-padre" id="' . $opcion['id'] . '"><i class="' . $opcion['icono'] . '"></i>' . $opcion['texto'] . '</a>';
-            if (isset($opcion['subopciones']) && !empty($opcion['subopciones'])) {
-                $menu_html .= generar_submenu($opcion['subopciones'], $opcion['id']);
+if (!function_exists('generate_menu')) {
+    function generate_menu($permissions) {
+        $menuItems = [
+            [
+                'id' => '2P',
+                'title' => 'USUARIO',
+                'icon' => 'bi-person',
+                'permissions' => 'C_USERS',
+                'children' => [
+                    [
+                        'id' => 'listUsersView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_USERS',
+                    ],
+                    [
+                        'id' => 'createUserView',
+                        'title' => 'CREAR',
+                        'icon' => 'bi-plus-lg',
+                        'permissions_CH' => 'CR_USERS',
+                    ]
+                ]
+            ],
+            [
+                'id' => '3P',
+                'title' => 'ROLES',
+                'icon' => 'bi-person-vcard',
+                'permissions' => 'C_ROLES',
+                'children' => [
+                    [
+                        'id' => '../roles/listRolesView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_ROLES',
+                    ]
+                ]
+            ],
+            [
+                'id' => '4P',
+                'title' => 'PERMISOS',
+                'icon' => 'bi-person-dash',
+                'permissions' => 'C_PERMI',
+                'children' => [
+                    [
+                        'id' => '../permissions/listPermissionsView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_PERMI',
+                    ]
+                ]
+            ]
+        ];
+        $html = '';
+
+        foreach ($menuItems as $item) {
+            if(in_array($item['permissions'],$permissions)){
+                $html .= '<div class="contenido-padre">';
+                $html .= '<a class="buton-menu-padre" id="' . $item['id'] . '"><i class="bi ' . $item['icon'] . '"></i>' . $item['title'] . '</a>';
+                $html .= '</div>';
+
+                if (!empty($item['children'])) {
+                    $html .= '<div class="contenido-hijo oculto" id="contenido' . $item['id'] . '" style="display: none;">';
+                    foreach ($item['children'] as $child) {
+                        if(in_array($child['permissions_CH'],$permissions)){
+                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i>' .$child['title'] . '</a>';
+                        }
+                    }
+                    $html .= '</div>';
+                }
             }
+            
         }
-        $menu_html .= '</div>';
-        return $menu_html;
-    }
 
-    function generar_submenu($subopciones, $id_padre) {
-        $submenu_html = '<div class="contenido-hijo oculto" id="contenido' . $id_padre . '" style="display: none;" >';
-        foreach ($subopciones as $subopcion) {
-            $submenu_html .= '<a class="buton-menu-hijo" id="' . $subopcion['id'] . '"><i class="' . $subopcion['icono'] . '"></i>' . $subopcion['texto'] . '</a>';
-        }
-        $submenu_html .= '</div>';
-        return $submenu_html;
+        return $html;
     }
 }

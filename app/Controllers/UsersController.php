@@ -12,6 +12,12 @@ class UsersController extends BaseController
     {
     }
 
+    /* ******************************** 
+        Carga la vista del login.
+        creado por: jesus andres castellanos
+        documentado por: daniela silvestre
+        variables de ingreso: niguna
+    ************************************ */
     public function index()
     {
         return view('login');
@@ -32,6 +38,18 @@ class UsersController extends BaseController
         echo json_encode ($db_sirav->getResult());
         */
     }
+    /* ******************************** 
+        Obtiene los roles del usuario actual y los retorna en formato JSON.
+        creado por: jesus andres castellanos
+        documentado por: daniela silvestre
+        variables de ingreso: niguna
+    ************************************ */
+
+    public function getPermissionsUsers()
+    {
+        $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
+        echo json_encode ($Roles);
+    }
     public function listUsersView()
     {
         return view('private/views_ajax/users/listUserAjax', ['title' => 'Cunsulta usuario']);
@@ -39,7 +57,10 @@ class UsersController extends BaseController
 
     public function profileUser()
     {
-        return view('private/profileUser', ['title' => 'Perfil']);
+
+        $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
+        $menu = generate_menu($Roles);
+        return view('private/profileUser', ['title' => 'Perfil','menu'=> $menu]);
     }
 
     public function createUserView()
@@ -130,18 +151,27 @@ class UsersController extends BaseController
             ];
             $validacion = $this->UsersModel->validateUser($data);
             if ($validacion) {
+                if ($validacion['USER_FK_state_user'] == 1) {
 
-                $userData = [
-                    'USER_PK' => $validacion['USER_PK'],
-                    'USER_name' => $validacion['USER_name'],
-                    'USER_username' => $validacion['USER_username'],
-                ];
-                $this->session->set($userData);
-                echo json_encode([
-                    'msg' => 'el usuario y contraseña son correctos',
-                    'USER_PK' => $validacion['USER_PK'],
-                    'USER_reset_password' => $validacion['USER_reset_password']
-                ]);
+                    $permissions = $this->UsersrolesModel->validateRolesUser($validacion['USER_PK']);
+                    
+                    $userData = [
+                        'USER_PK' => $validacion['USER_PK'],
+                        'USER_name' => $validacion['USER_name'],
+                        'USER_username' => $validacion['USER_username'],
+                        'PERMISSIONS' => $permissions
+                    ];
+
+                    $this->session->set($userData);
+                    echo json_encode([
+                        'msg' => 'el usuario y contraseña son correctos',
+                        'USER_PK' => $validacion['USER_PK'],
+                        'USER_reset_password' => $validacion['USER_reset_password']
+                    ]);
+                } else {
+                    $this->response->setStatusCode(401);
+                    echo json_encode('Usuario inactivo, por favor validar con el administrador del sistema');
+                }
             } else {
                 $this->response->setStatusCode(401);
                 echo json_encode('error usuario o contraseña no coincide');
@@ -151,6 +181,8 @@ class UsersController extends BaseController
             echo json_encode('por favor ingresa los datos completos');
         }
     }
+
+
     public function logout()
     {
         $this->session->destroy();
@@ -237,8 +269,8 @@ class UsersController extends BaseController
         $contraseñaNueva = $this->request->getPost('USER_password_P');
         $confirmacionContraseña = $this->request->getPost('USER_password_two_P');
 
-        $contrasena = $this->UsersModel->validatePasswords($contraseñaActual,$validate['USER_password']);
-        if ( $contrasena) {
+        $contrasena = $this->UsersModel->validatePasswords($contraseñaActual, $validate['USER_password']);
+        if ($contrasena) {
 
             if ($contraseñaNueva == $confirmacionContraseña) {
                 $userData = [
@@ -283,10 +315,10 @@ class UsersController extends BaseController
 
     public function addRolesUsers($ROLE_PK, $USER_PK)
     {
-        echo $ROLE_PK."/". $USER_PK;
+        echo $ROLE_PK . "/" . $USER_PK;
         $validacion = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
         if ($validacion) {
-            if ($this->UsersrolesModel->updateStateUsersRolesId($validacion['USRL_PK'],$this->session->get('USER_PK'))) {
+            if ($this->UsersrolesModel->updateStateUsersRolesId($validacion['USRL_PK'], $this->session->get('USER_PK'))) {
                 echo json_encode('rol asignado exitosamente');
                 $this->response->setStatusCode(200);
             } else {
@@ -313,5 +345,15 @@ class UsersController extends BaseController
         }
     }
 
+
+    
+
+    public function prueba()
+    {
+        //$Roles =[8,6,7];
+        //$permissions = $this->RolespermissionsModel->validatePermissionsRole($Roles);
+        $Roles = $this->UsersrolesModel->validateRolesUser(2);
+        echo json_encode ($Roles);
+    }
     
 }

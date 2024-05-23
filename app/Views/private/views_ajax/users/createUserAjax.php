@@ -24,8 +24,10 @@
                 <label class="form-label">Repetir Contraseña:</label>
                 <input id="USER_password_two" type="password" name="USER_password_two" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-success btn-block">crear</button>
-            <button type="cancel" class="btn btn-danger ">cancelar</button>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-block">CREAR</button>
+                <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
+            </div>
         </form>
     </div>
 </div>

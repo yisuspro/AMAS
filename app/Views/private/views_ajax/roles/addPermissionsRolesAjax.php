@@ -1,12 +1,10 @@
 <div class="card">
     <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title.$id ?? 'Mi Aplicación' ?></i>
+        <i class="bi bi-journal-text"><?= $title . $id ?? 'Mi Aplicación' ?></i>
     </div>
-    <div class="seccion">
-        aca van los permisos
+    <div class="card-body">
+        <input id="idRol" name="idRol" type="hidden" value="<?= $id ?? 0 ?>">
 
-        <input id="idRol" name="idRol" type="hidden" value="<?= $id ?? 0 ?>" >
-        
 
         <table id="listRolesPermissions" class="table table-hover" style="width:100% ">
             <thead>
@@ -38,6 +36,10 @@
                 </th>
             </tfoot>
         </table>
+
+    </div>
+    <div class="modal-footer">
+        <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
     </div>
 </div>
 

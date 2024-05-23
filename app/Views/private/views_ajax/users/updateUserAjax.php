@@ -32,8 +32,10 @@
 
             <?php endforeach; ?>
 
-            <button type="submit" class="btn btn-success btn-block">Actualizar</button>
-            <button type="cancel" class="btn btn-danger ">cancelar</button>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success btn-block">MODIFICAR</button>
+                <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
+            </div>
         </form>
     </div>
 </div>

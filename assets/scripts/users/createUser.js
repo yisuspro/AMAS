@@ -10,20 +10,28 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (data, xhr) {
                 cerrarLogoCarga();
-                crearAlerta('Usuario Creado correctamente','success');
+                crearAlerta('Usuario Creado correctamente', 'success');
                 console.log(xhr)
                 //$('#frm_create_user')[0].reset();
                 $(".area-trabajo").load('listUsersView');
-                
+
             },
             error: function (xhr) {
 
                 var json = JSON.parse(xhr.responseText);
                 crearAlerta(json, 'error');
                 cerrarLogoCarga();
-                console.log(xhr+'hola')
+                console.log(xhr + 'hola')
             },
 
+        });
+    });
+
+    $("#back").on('click', function (e) {
+        activarLogoCarga();
+        e.preventDefault();
+        $(".area-trabajo").load('listUsersView', function () {
+            cerrarLogoCarga();
         });
     });
 

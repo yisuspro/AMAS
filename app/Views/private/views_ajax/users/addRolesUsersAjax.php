@@ -2,7 +2,7 @@
     <div class="titulo-uno">
         <i class="bi bi-journal-text"><?= $title . $id ?? 'Mi Aplicación' ?></i>
     </div>
-    <div class="seccion">
+    <div class="card-body">
 
         <input id="idUser" name="idUser" type="hidden" value="<?= $id ?? 0 ?>">
 
@@ -37,7 +37,14 @@
                 </th>
             </tfoot>
         </table>
+
+
     </div>
+    <div class="card-footer">
+        <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
+    </div>
+
 </div>
+
 
 <script type="text/javascript" src="<?= base_url('assets/scripts/users/listUsersRoles.js'); ?>"></script>

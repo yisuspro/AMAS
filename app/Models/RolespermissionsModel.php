@@ -28,6 +28,7 @@ class RolespermissionsModel extends Model
         $query = $this->db->table('permissions P')
                  ->select('P.PRMS_PK, P.PRMS_name, P.PRMS_description, RP.RLPR_FK_rol, RP.RLPR_state')
                  ->join('(SELECT * FROM rolespermissions WHERE RLPR_FK_rol = '.$data.') AS RP', 'P.PRMS_PK = RP.RLPR_FK_permission', 'left')
+                 ->where('P.PRMS_state',1)
                  ->get();
          if ($query) {
             return $query;
@@ -79,6 +80,25 @@ class RolespermissionsModel extends Model
         if($result){
             return $result;
 
+        }else{
+            return false;
+        }
+    }
+
+    public function validatePermissionsRole($ROLES)
+    {
+        $query = $this->db->table('rolespermissions RP')
+                ->select('P.PRMS_system_name')
+                ->join('permissions P', 'P.PRMS_PK = RP.RLPR_FK_permission', 'left')
+                ->whereIN('RP.RLPR_FK_rol ',$ROLES)
+                ->where('RP.RLPR_state',1)
+                ->get();
+        $permission = [];
+        if($query){
+            foreach ($query->getResult() as $row) {
+                $permission[] = $row->PRMS_system_name;
+            }
+            return $permission;
         }else{
             return false;
         }

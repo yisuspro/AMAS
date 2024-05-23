@@ -53,6 +53,7 @@
             </tfoot>
         </table>
     </div>
+    
 </div>
 
 <!-- Modal -->

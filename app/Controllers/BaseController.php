@@ -41,7 +41,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['menu_helepr'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -85,7 +85,7 @@ abstract class BaseController extends Controller
         $this->bd_ruv = \Config\Database::connect('bd_ruv');
         $this->bd_sipod = \Config\Database::connect('bd_sipod');
         $this->bd_sirav = \Config\Database::connect('bd_sirav');
-        helper('menu_helper');
+        
 
         //------- llamado de modelo de roles y permisos-- para control en general
         
@@ -95,4 +95,6 @@ abstract class BaseController extends Controller
         $this->PermissionsModel = new PermissionsModel();
         $this->UsersrolesModel = new UsersrolesModel();
     }
+
+   
 }

@@ -144,6 +144,13 @@ $(document).ready(function () {
 
 
     });
+    $("#back").on('click', function (e) {
+        activarLogoCarga();
+        e.preventDefault();
+        $(".area-trabajo").load('../roles/listRolesView',function(){
+            cerrarLogoCarga();
+        });
+    });
 
 
 });

@@ -8,13 +8,15 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/users', 'UsersController::index');
 
-//rutas de login
+//---LOGIN
 $routes->post('/users/login', 'UsersController::login');
 $routes->post('/users/logout', 'UsersController::logout');
 $routes->get('/users/menu', 'UsersController::cargarMenu');
 $routes->get('/users/UpdatePasswordUserView/(:num)', 'UsersController::UpdatePasswordUserView/$1');
 $routes->post('/users/UpdatePasswordUser', 'UsersController::UpdatePasswordUser');
-// rutas users
+
+
+//----USUARIOS
 $routes->get('/users/profileUser', 'UsersController::profileUser');
 $routes->get('/users/createUserView', 'UsersController::createUserView');
 $routes->get('/users/listUsersView', 'UsersController::listUsersView');
@@ -27,6 +29,10 @@ $routes->post('/users/updatePasswordUsers', 'UsersController::updatePasswordUser
 $routes->get('/users/addRolesUsersView/(:num)', 'UsersController::addRolesUsersView/$1');
 $routes->get('/users/listUsersRoles/(:num)', 'UsersController::listUsersRoles/$1');
 $routes->post('/users/addRolesUsers/(:num)/(:num)', 'UsersController::addRolesUsers/$1/$2');
+$routes->get('/users/getPermissionsUsers', 'UsersController::getPermissionsUsers');
+$routes->get('/users/prueba', 'UsersController::prueba');
+
+
 //--PERMISOS
 $routes->get('/permissions/listPermissionsView', 'PermissionsController::index');
 $routes->get('/permissions/listPermissions', 'PermissionsController::listPermissions');

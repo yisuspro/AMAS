@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    
     var dt;
     var ROL;
     USER_PK = $('#idUser').val();
@@ -7,11 +9,11 @@ $(document).ready(function () {
     dt.DataTable({
         dom: null,
         order: [
-            [3, 'des']
+            [4, 'desc']
         ],
         scrollX: true,
         ajax: {
-            url: "../users/listUsersRoles/"+ USER_PK,
+            url: "../users/listUsersRoles/" + USER_PK,
             type: 'GET'
         },
         columns: [
@@ -76,20 +78,20 @@ $(document).ready(function () {
         rowCallback: function (row, data) {
             if (data['USRL_state'] == 1) {
                 $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
-            }  else {
+            } else {
                 $($(row).find("td")[3]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
             }
 
         },
         columnDefs: [
             {
-              "targets": [4],
-              "visible": false,
-              "searchable": false,
-              "data": "USRL_FK_user",
-              "name": "USRL_FK_user"
+                "targets": [4],
+                "visible": false,
+                "searchable": false,
+                "data": "USRL_FK_user",
+                "name": "USRL_FK_user"
             }
-          ]
+        ]
 
 
     });
@@ -101,48 +103,54 @@ $(document).ready(function () {
         USER_PK = $('#idUser').val();
         $tr = $(this).closest('tr');
         var O = dt.DataTable().row($tr).data();
-        var r ; 
-        if(O.RLPR_state == '1'){
-            r= confirm('Seguro deseas quitar el rol = "' + O.ROLE_name + '" al usuario = ' + USER_PK);
+        var r;
+        if (O.RLPR_state == '1') {
+            r = confirm('Seguro deseas quitar el rol = "' + O.ROLE_name + '" al usuario = ' + USER_PK);
 
-        }else{
-            r= confirm('Seguro deseas asignar el rol = "' + O.ROLE_name + '" al usuario = ' + USER_PK);
+        } else {
+            r = confirm('Seguro deseas asignar el rol = "' + O.ROLE_name + '" al usuario = ' + USER_PK);
         }
         if (r == true) {
             $.ajax({
-                url: '../users/addRolesUsers/' + O.ROLE_PK + '/'+ USER_PK,
+                url: '../users/addRolesUsers/' + O.ROLE_PK + '/' + USER_PK,
                 type: 'POST',
                 data: $tr,
-                success: function(data, xhr) {
+                success: function (data, xhr) {
                     crearAlerta('cambio de estado exitoso', 'success');
-                    $('#listRolesPermissions').DataTable().ajax.reload();
+                    $('#listUsersRoles').DataTable().ajax.reload();
                     cerrarLogoCarga();
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     var json = JSON.parse(xhr.responseText);
                     cerrarLogoCarga();
-                    crearAlerta('fallo cambio'+json, 'error');
-                    
+                    crearAlerta('fallo cambio' + json, 'error');
+
 
                 },
 
             });
-            if($(this).find(' #toggleCheckbox').is(':checked')){
+            if ($(this).find(' #toggleCheckbox').is(':checked')) {
                 $(this).find(' #toggleCheckbox').removeAttr('checked');
-                console.log('Se quitó el atributo "disabled".');
-                
-            }else{
-                $(this).find(' #toggleCheckbox').attr( "checked","");
-                console.log('Se agrego el atributo "disabled".');
+
+            } else {
+                $(this).find(' #toggleCheckbox').attr("checked", "");
             }
-            
-            
+
+
         } else {
             cerrarLogoCarga();
             crearAlerta('se recahza ale cambio cambio', 'error');
         }
 
 
+    });
+
+    $("#back").on('click', function(e) {
+        activarLogoCarga();
+        e.preventDefault();
+        $(".area-trabajo").load('listUsersView', function () {
+            cerrarLogoCarga();
+        });
     });
 
 

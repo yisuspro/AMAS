@@ -20,7 +20,7 @@
                                     <h5 class="title"><?= session()->get('USER_name') ?></h5>
                                 </a>
                                 <p class="description">
-                                <?= session()->get('USER_name') ?>
+                                    <?= session()->get('USER_name') ?>
                                 </p>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Perfil de <?= session()->get('USER_name') ?></h4>
+                        <h4 class="card-title">Perfil de <?= session()->get('USER_name') ?> </h4>
                     </div>
                     <div class="card-body">
                         <form>
@@ -42,7 +42,7 @@
                                         <input type="text" class="form-control" placeholder="Username" value="<?= session()->get('USER_username') ?>" disabled>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="row">
                                 <div class="col-md-6 ">
@@ -51,7 +51,7 @@
                                         <input type="text" class="form-control" placeholder="Company" value="<?= session()->get('USER_name') ?>" disabled>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
