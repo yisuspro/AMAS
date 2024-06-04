@@ -21,22 +21,7 @@ class UsersController extends BaseController
     public function index()
     {
         return view('login');
-        /* 
-        $db = $this->bd_amas->query('select * from users');
-        $db_caracterizacion = $this->bd_caracterizacion->query('select * from TBDECLARACIONES WHERE ID = 2000227');
-        $db_ruv = $this->bd_ruv->query('select * from TBDECLARACIONES WHERE ID = 2000227');
-        $db_sipod = $this->bd_sipod->query('select * from SIPOD.TBUSUARIOS where id = 10218');
-        $db_sirav = $this->bd_sirav->query('select * FROM SIRAVAdmin.dbo.USUARIO WHERE ID = 13487');
-        
-        foreach($query as $doc){
-         echo json_encode($doc);
-        }
-        
-        $query = $db_prueba->query('select * from TBDECLARACIONES WHERE ID = 2000227');
-        
-        echo json_encode ($db_caracterizacion->getResult());
-        echo json_encode ($db_sirav->getResult());
-        */
+       
     }
     /* ******************************** 
         Obtiene los roles del usuario actual y los retorna en formato JSON.
@@ -59,7 +44,6 @@ class UsersController extends BaseController
     {
 
         $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
-
         $menu = generate_menu($Roles);
         return view('private/profileUser', ['title' => 'Perfil', 'menu' => $menu]);
     }
@@ -84,6 +68,35 @@ class UsersController extends BaseController
 
         return view('private/views_ajax/users/addRolesUsersAjax', ['title' => 'Asignar roles ',  'id' => $id]);
     }
+
+    public function consultarUsersAppsView()
+    {
+        return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Cunsulta usuarios Aplicaciones']);
+    }
+
+
+    public function resultConsultarUsersAppsView($tipo,$parametro)
+    {
+        $aplicaciones =[
+            'Ruv' => false,
+            'Sirav' => false,
+            'Sipod' => false,
+        ];
+        if( $this->UsersRuvModel->listUsersDoc($parametro)->getResultArray()){
+            $aplicaciones['Ruv'] = true;
+        }
+
+        if($this->UsersSiravModel->listUsersDoc($parametro)->getResultArray()){
+            $aplicaciones ['Sirav'] = true;
+        }
+
+        if($this->UsersSipodModel->listUsersDoc($parametro)->getResultArray()){
+            $aplicaciones ['Sipod'] = true;
+        }
+
+        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Cunsulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
+    }
+
     public function listUser()
     {
         $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla

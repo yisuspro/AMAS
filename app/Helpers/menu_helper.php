@@ -1,7 +1,8 @@
 <?php
 
 if (!function_exists('generate_menu')) {
-    function generate_menu($permissions) {
+    function generate_menu($permissions)
+    {
         $menuItems = [
             [
                 'id' => '2P',
@@ -50,12 +51,26 @@ if (!function_exists('generate_menu')) {
                         'permissions_CH' => 'C_PERMI',
                     ]
                 ]
+            ],
+            [
+                'id' => '5P',
+                'title' => 'USURIOS',
+                'icon' => 'bi-person-dash',
+                'permissions' => 'C_USERS_APP',
+                'children' => [
+                    [
+                        'id' => 'consultarUsersAppsView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_USERS_APP',
+                    ]
+                ]
             ]
         ];
         $html = '';
 
         foreach ($menuItems as $item) {
-            if(in_array($item['permissions'],$permissions)){
+            if (in_array($item['permissions'], $permissions)) {
                 $html .= '<div class="contenido-padre">';
                 $html .= '<a class="buton-menu-padre" id="' . $item['id'] . '"><i class="bi ' . $item['icon'] . '"></i>' . $item['title'] . '</a>';
                 $html .= '</div>';
@@ -63,14 +78,13 @@ if (!function_exists('generate_menu')) {
                 if (!empty($item['children'])) {
                     $html .= '<div class="contenido-hijo oculto" id="contenido' . $item['id'] . '" style="display: none;">';
                     foreach ($item['children'] as $child) {
-                        if(in_array($child['permissions_CH'],$permissions)){
-                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i>' .$child['title'] . '</a>';
+                        if (in_array($child['permissions_CH'], $permissions)) {
+                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i>' . $child['title'] . '</a>';
                         }
                     }
                     $html .= '</div>';
                 }
             }
-            
         }
 
         return $html;

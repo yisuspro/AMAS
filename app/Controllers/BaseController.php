@@ -13,6 +13,9 @@ use App\Models\UsersrolesModel;
 use App\Models\RolesModel;
 use App\Models\RolespermissionsModel;
 use App\Models\PermissionsModel;
+use App\Models\Sirav\UsersSiravModel;
+use App\Models\Ruv\UsersRuvModel;
+use App\Models\Sipod\UsersSipodModel;
 
 /**
  * Class BaseController
@@ -66,6 +69,9 @@ abstract class BaseController extends Controller
     protected $RolesModel;
     protected $RolespermissionsModel;
     protected $PermissionsModel;
+    protected $UsersSiravModel;
+    protected $UsersRuvModel;
+    protected $UsersSipodModel;
     
 
 
@@ -94,6 +100,9 @@ abstract class BaseController extends Controller
         $this->RolespermissionsModel = new RolespermissionsModel();
         $this->PermissionsModel = new PermissionsModel();
         $this->UsersrolesModel = new UsersrolesModel();
+        $this->UsersSipodModel = new UsersSipodModel();
+        $this->UsersRuvModel = new UsersRuvModel();
+        $this->UsersSiravModel = new UsersSiravModel();
     }
 
    

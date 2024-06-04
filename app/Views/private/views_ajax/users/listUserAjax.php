@@ -6,6 +6,7 @@
 
         <table id="sample_1" class="table table-hover" style="width:100% ">
             <thead>
+                <th></th>
                 <th>
                     ID
                 </th>
@@ -38,6 +39,7 @@
                 </th>
             </thead>
             <tfoot>
+                <th></th>
                 <th>
                     ID
                 </th>

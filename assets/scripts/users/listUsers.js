@@ -11,31 +11,52 @@ $(document).ready(function () {
     });
 
     function initializeDataTable(userPermissions) {
+        function format(d) {
+            // `d` is the original data object for the row
+            return (
+                '<dl>' +
+                '<dt>Fecha de creacion:</dt>' +
+                '<dd>' +
+                d.USER_date_create +
+                '</dd>' +
+                '<dt>ultima modificaciion:</dt>' +
+                '<dd>' +
+                d.USER_date_update +
+                '</dd>' 
+            );
+        }
         var dt;
         dt = $('#sample_1');
         dt.DataTable({
             dom: null,
             order: [
-                [8, 'asc']
+                [7, 'asc']
             ],
             scrollX: true,
             ajax: {
                 url: "listUser",
                 type: 'GET'
             },
-            order: [8, 'asc'],
+            order: [9, 'asc'],
             columns: [
+                {
+                    className: 'dt-control',
+                    orderable: false,
+                    data: null,
+                    defaultContent: ''
+                },
                 { data: 'USER_PK' },
                 { data: 'USER_name' },
                 { data: 'USER_identification' },
                 { data: 'USER_username'},
                 { data: 'USER_email'},
                 { data: 'USER_address_ip'},
-                { data: 'USER_date_create', },
-                { data: 'USER_date_update', },
-                { data: 'STTS_name', },
+                { data: 'USER_date_create', visible: false},
+                { data: 'USER_date_update', visible: false },
+                { data: 'STTS_name' },
                 {
                     data: null,
+                    exportable: false,
                     render: function (data, type, row) {
                         var buttons = '';
 
@@ -107,32 +128,45 @@ $(document).ready(function () {
             rowCallback: function (row, data) {
                 if (userPermissions.includes('I_USERS')) {
                     if (data['USER_FK_state_user'] == 1) {
-                        $($(row).find("td")[8]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
+                        $($(row).find("td")[7]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox" checked><span class="slider round"></span></label>');
                     } else if (data['USER_FK_state_user'] == 0) {
-                        $($(row).find("td")[8]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
+                        $($(row).find("td")[7]).html('<label class="switch estado_sw" id="toggleSwitch"><input type="checkbox" id="toggleCheckbox"><span class="slider round"></span></label>');
                     } else {
-                        $($(row).find("td")[8]).html("<p class='text-danger'> SIN ESTADO</p>");
+                        $($(row).find("td")[7]).html("<p class='text-danger'> SIN ESTADO</p>");
                     }
                 } else {
                     if (data['USER_FK_state_user'] == 1) {
-                        $($(row).find("td")[8]).html("<p class='text-success'>ACTIVO</p>");
+                        $($(row).find("td")[7]).html("<p class='text-success'>ACTIVO</p>");
                     } else if (data['USER_FK_state_user'] == 0) {
-                        $($(row).find("td")[8]).html("<p class='text-danger'>INACTIVO</p>");
+                        $($(row).find("td")[7]).html("<p class='text-danger'>INACTIVO</p>");
                     } else {
-                        $($(row).find("td")[8]).html("<p class='text-warning'>SIN ESTADO</p>");
+                        $($(row).find("td")[7]).html("<p class='text-warning'>SIN ESTADO</p>");
                     }
 
                 }
                 if(data['USER_address_ip'] == null || data['USER_address_ip'] == ''  || data['USER_address_ip'] == 0){
-                    $($(row).find("td")[5]).html("<p class='text-danger'>SIN RESTRICCION</p>");
+                    $($(row).find("td")[6]).html("<p class='text-danger'>SIN RESTRICCION</p>");
                 }else{
-                    $($(row).find("td")[5]).html("<p class='text-success'>["+data['USER_address_ip']+"]</p>");
+                    $($(row).find("td")[6]).html("<p class='text-success'>["+data['USER_address_ip']+"]</p>");
                 }
 
 
             },
 
 
+        });
+        dt.on('click', 'td.dt-control', function (e) {
+            let tr = e.target.closest('tr');
+            let row = dt.DataTable().row(tr);
+         
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+            }
         });
 
 
