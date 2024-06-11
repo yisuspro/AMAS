@@ -76,4 +76,8 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 > 3) buscamos las extenciones, donde habilitaremos la siguiente quitandole el punto y coma(;)
 > 4) habilitamos "extension=oci8_19" para poder realizar la conexion a oracle
 > 5) incertamos las siguientes extenciones para SQLserver "extension=sqlsrv_82_ts" y "extension=pdo_sqlsrv_82_ts"
-> 6) gusrdamos el archivo y volvemos a ejecutar el servidor.
+> 6) activamos las siguientes extenciones en el apache:
+ extension=xsl
+ extension=zip
+ extension=gd
+> 7) gusrdamos el archivo y volvemos a ejecutar el servidor.
