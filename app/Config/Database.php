@@ -130,6 +130,16 @@ class Database extends Config
         'foreignKeys' => true,
         'busyTimeout' => 1000,
     ];
+
+    public array $bd_reg_poblacionales = [
+        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.70)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=PRUEBASRN)))',
+        'hostname'     => '',
+        'username'     => 'DAE_PRUEBAS',
+        'password'     => 'sWd43.D2',
+        'database'     => '',
+        'DBDriver'     => 'OCI8'
+    ];
+
     
 
     public function __construct()
