@@ -35,12 +35,11 @@ $(document).ready(function () {
                  cerrarLogoCarga();
              });
         } else if (NOMBRE != '') {
-            /*url = url + 1 + '/' + NOMBRE;
+            url = url + 1 + '/' + NOMBRE;
              $(".area-trabajo").load(url, function () {
                  cerrarLogoCarga();
-             });*/
-             crearAlerta('opcion no disponible', 'error');
-            cerrarLogoCarga();
+             });
+             
         } else {
             crearAlerta('POR FAVOR INGRESAR DATOS PARA PODER REALIZAR LA BUSQUEDA', 'error');
             cerrarLogoCarga();

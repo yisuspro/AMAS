@@ -85,4 +85,29 @@ class UsersRuvModel extends Model
             return false;
         }
     }
+
+    public function listUsersName($NAME)
+    {
+        $sql = "select DISTINCT
+            U.IDENTIFICACION,
+            U.ID ,
+            U.NOMBRE,
+            U.USUARIO,
+            U.CORREO_ELECTRONICO,
+            U.ACTIVO,
+            U.CARGO,
+            U.FECHA_INACTIVACION,
+            U.FECHALOGEADO,
+            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+            FROM TBUSUARIOS U
+            LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
+            LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
+            WHERE U.NOMBRE like '%".$NAME."%'
+            GROUP BY U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO";
+        if ($query = $this->query($sql)) {
+            return $query;
+        } else {
+            return false;
+        }
+    }
 }

@@ -82,17 +82,36 @@ class UsersController extends BaseController
             'Sirav' => false,
             'Sipod' => false,
         ];
-        if( $this->UsersRuvModel->listUsersDoc($parametro)->getResultArray()){
-            $aplicaciones['Ruv'] = true;
+        switch ($tipo) { //utiliza el metodo listUsersDoc() del modelo UsersRuvModel() para traer los datos de todos los planes 
+            case 0:
+                if( $this->UsersRuvModel->listUsersDoc($parametro)->getResultArray()){
+                    $aplicaciones['Ruv'] = true;
+                }
+        
+                if($this->UsersSiravModel->listUsersDoc($parametro)->getResultArray()){
+                    $aplicaciones ['Sirav'] = true;
+                }
+        
+                if($this->UsersSipodModel->listUsersDoc($parametro)->getResultArray()){
+                    $aplicaciones ['Sipod'] = true;
+                }
+                break;
+            case 1:
+                if( $this->UsersRuvModel->listUsersName($parametro)->getResultArray()){
+                    $aplicaciones['Ruv'] = true;
+                }
+        
+                /*if($this->UsersSiravModel->listUsersName($parametro)->getResultArray()){
+                    $aplicaciones ['Sirav'] = true;
+                }
+        
+                if($this->UsersSipodModel->listUsersName($parametro)->getResultArray()){
+                    $aplicaciones ['Sipod'] = true;
+                }*/
+                break;
         }
-
-        if($this->UsersSiravModel->listUsersDoc($parametro)->getResultArray()){
-            $aplicaciones ['Sirav'] = true;
-        }
-
-        if($this->UsersSipodModel->listUsersDoc($parametro)->getResultArray()){
-            $aplicaciones ['Sipod'] = true;
-        }
+            
+        
 
         return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Cunsulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
     }
@@ -373,7 +392,7 @@ class UsersController extends BaseController
     {
         //$Roles =[8,6,7];
         //$permissions = $this->RolespermissionsModel->validatePermissionsRole($Roles);
-        $Roles = $this->UsersrolesModel->validateRolesUser(2);
+        $Roles =  $this->UsersRuvModel->listUsersName('JESUS')->getResultArray();
         echo json_encode($Roles);
     }
 }

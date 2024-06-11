@@ -32,7 +32,7 @@ $routes->group('users', function($routes) {
     $routes->post('addRolesUsers/(:num)/(:num)', 'UsersController::addRolesUsers/$1/$2');
     $routes->get('getPermissionsUsers', 'UsersController::getPermissionsUsers');
     $routes->get('consultarUsersAppsView', 'UsersController::consultarUsersAppsView');
-    $routes->get('resultConsultarUsersAppsView/(:num)/(:num)', 'UsersController::resultConsultarUsersAppsView/$1/$2');
+    $routes->get('resultConsultarUsersAppsView/(:num)/(:segment)', 'UsersController::resultConsultarUsersAppsView/$1/$2');
     $routes->get('resultConsultarUsersApps', 'UsersController::resultConsultarUsersApps');
     $routes->get('prueba', 'UsersController::prueba');
 });
@@ -65,18 +65,18 @@ $routes->group('roles', function($routes) {
 //-----RUV-------
 $routes->group('Ruv', function($routes) {
 
-    $routes->get('listUser/(:num)/(:num)', 'Ruv\UsersRuvController::listUser/$1/$2');
+    $routes->get('listUser/(:num)/(:segment)', 'Ruv\UsersRuvController::listUser/$1/$2');
 });
 
 //-----SIRAV-------
 $routes->group('Sirav', function($routes) {
 
-    $routes->get('listUser/(:num)/(:num)', 'Sirav\UsersSiravController::listUser/$1/$2');
+    $routes->get('listUser/(:num)/(:segment)', 'Sirav\UsersSiravController::listUser/$1/$2');
 });
 
 //-----SIPOD-------
 $routes->group('Sipod', function($routes) {
 
-    $routes->get('listUser/(:num)/(:num)', 'Sipod\UsersSipodController::listUser/$1/$2');
+    $routes->get('listUser/(:num)/(:segment)', 'Sipod\UsersSipodController::listUser/$1/$2');
 });
 
