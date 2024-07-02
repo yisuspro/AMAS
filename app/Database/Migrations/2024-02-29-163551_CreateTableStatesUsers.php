@@ -6,9 +6,20 @@ use CodeIgniter\Database\Migration;
 
 class CreateTableStatesUsers extends Migration
 {
+
+    /***********************************************
+     * autor: JESUS CASTELLANOA
+     * FECHA:02/07/2024
+     * MODIFICA: DANIELA SILVESTREW
+     * FECHA: 02/07/2024
+     * DOCUMENTACION
+     * CREACION DE LAS TABLAS:
+     * -TABLA ESTADO USUARIOS
+     * -TABLA APLICACIONES
+     * 
+     */
     public function up()
     {
-        
         //Crear tabla estado de usuarios
         $this->forge->addField([
             'STTS_PK' => [
