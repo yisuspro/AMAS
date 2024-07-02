@@ -66,7 +66,8 @@ class Database extends Config
         'password'     => 'Karm3l1a',
         'database'     => '',
         'DBDriver'     => 'OCI8'
-    ];
+    ]; 
+
 
     /**
      * The SIPOD database connection.
@@ -131,13 +132,28 @@ class Database extends Config
         'busyTimeout' => 1000,
     ];
 
-    public array $bd_reg_poblacionales = [
-        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.70)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=PRUEBASRN)))',
-        'hostname'     => '',
-        'username'     => 'DAE_PRUEBAS',
-        'password'     => 'sWd43.D2',
-        'database'     => '',
-        'DBDriver'     => 'OCI8'
+   
+
+    public $bd_reg_poblacional = [
+        'DSN'      => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.70)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=PRUEBASRN)))',
+        'hostname' => '30.0.1.70',
+        'username' => 'DAE_PRUEBAS',
+        'password' => 'sWd43.D2',
+        'database' => '',
+        'DBDriver' => 'oci8',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'cacheOn'  => false,
+        'cacheDir' => '',
+        'charset'  => '',
+        'DBCollat' => '',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 1521, // puerto por defecto de Oracle
     ];
 
     

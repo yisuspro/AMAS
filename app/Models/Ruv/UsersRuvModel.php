@@ -3,6 +3,7 @@
 namespace App\Models\Ruv;
 
 use CodeIgniter\Model;
+use Config\Database;
 
 class UsersRuvModel extends Model
 {
@@ -55,11 +56,7 @@ class UsersRuvModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_ruv';
 
-    public function prueba()
-    {
-        $query = $this->select('*')->where('IDENTIFICACION', '1073246137');
-        return $query->get()->getResult();
-    }
+   
 
     public function listUsersDoc($IDENTIFICACION)
     {
@@ -109,5 +106,10 @@ class UsersRuvModel extends Model
         } else {
             return false;
         }
+    }
+
+    public function prueba()
+    {
+       
     }
 }

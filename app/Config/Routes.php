@@ -80,3 +80,15 @@ $routes->group('Sipod', function($routes) {
     $routes->get('listUser/(:num)/(:segment)', 'Sipod\UsersSipodController::listUser/$1/$2');
 });
 
+
+//-----VIVANTO-------
+$routes->group('Vivanto', function($routes) {
+    $routes->get('/', 'Vivanto\RegistroPoblacionalController::index');
+
+    $routes->get('loadingFileCensoView', 'Vivanto\RegistroPoblacionalController::loadingFileCensoView');
+    $routes->post('loadingFileCenso', 'Vivanto\RegistroPoblacionalController::loadingFileCenso');
+    $routes->get('loadingFileCensoUbicaView', 'Vivanto\RegistroPoblacionalController::loadingFileCensoUbicaView');
+    $routes->post('loadingFileCensoUbica', 'Vivanto\RegistroPoblacionalController::loadingFileCensoUbica');
+});
+
+

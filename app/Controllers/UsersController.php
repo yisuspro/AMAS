@@ -392,7 +392,7 @@ class UsersController extends BaseController
     {
         //$Roles =[8,6,7];
         //$permissions = $this->RolespermissionsModel->validatePermissionsRole($Roles);
-        $Roles =  $this->UsersRuvModel->listUsersName('JESUS')->getResultArray();
+        $Roles =  $this->UsersRuvModel->prueba();
         echo json_encode($Roles);
     }
 }

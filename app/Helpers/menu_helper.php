@@ -65,6 +65,26 @@ if (!function_exists('generate_menu')) {
                         'permissions_CH' => 'C_USERS_APP',
                     ]
                 ]
+            ],
+            [
+                'id' => '6P',
+                'title' => 'REG. POBLACIONAL',
+                'icon' => 'bi-person-dash',
+                'permissions' => 'REG_POBLA',
+                'children' => [
+                    [
+                        'id' => '../Vivanto/loadingFileCensoView',
+                        'title' => 'CREAR CENSO',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'M_CEN_REG_POBLA',
+                    ],
+                    [
+                        'id' => '../Vivanto/loadingFileCensoUbicaView',
+                        'title' => 'CREAR UBICACION CENSO',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'M_CEN_REG_POBLA',
+                    ]
+                ]
             ]
         ];
         $html = '';
