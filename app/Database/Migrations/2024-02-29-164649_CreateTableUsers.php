@@ -6,6 +6,17 @@ use CodeIgniter\Database\Migration;
 
 class CreateTableUsers extends Migration
 {
+
+    /***********************************************
+     * autor: JESUS CASTELLANOA
+     * FECHA:02/07/2024
+     * MODIFICA: DANIELA SILVESTREW
+     * FECHA: 04/07/2024
+     * DOCUMENTACION
+     * CREACION DE LAS TABLAS:
+     * TABLA USUARIOS
+     * 
+     */
     public function up()
     {
         // crear tabla Usuarios
