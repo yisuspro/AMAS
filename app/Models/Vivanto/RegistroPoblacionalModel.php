@@ -76,6 +76,7 @@ class RegistroPoblacionalModel extends Model
                END;
           ";
 
+<<<<<<< Updated upstream
           // Bind the parameters to avoid SQL injection
           $db->query($sql, [
                ':P_USUARIO' => $params['P_USUARIO'],
@@ -174,4 +175,54 @@ class RegistroPoblacionalModel extends Model
          return $resultId->getRowArray();
      }
      
+=======
+    }
+
+    public function insertarIntegrantesCensoPoblacional($params)
+    {
+        $db = Database::connect($this->DBGroup);
+        // Construir la consulta SQL para llamar al procedimiento almacenado
+       $sql = "
+       DECLARE
+            P_CSI_ID NUMBER;
+            P_TRANS NUMBER;
+            P_MENSAJE VARCHAR2(4000);
+       begin
+            PKG_DAE_CENSOS.PROC_INST_MD_CENSOS_INTEG (
+            P_USUARIO => ".$params['P_USUARIO'].",
+            P_CSU_ID => ".$params['P_CSU_ID'].",
+            P_NOM1 => ".$params['P_NOM1'].",
+            P_NOM2 => ".$params['P_NOM2'].",
+            P_APE1 => ".$params['P_APE1'].",
+            P_APE2 => ".$params['P_APE2'].",
+            P_PMT_TIPO_DOC => ".$params['P_PMT_TIPO_DOC'].",
+            P_NUM_DOC => ".$params['P_NUM_DOC'].",
+            P_PMT_RELACION => ".$params['P_PMT_RELACION'].",
+            P_F_NACIMIENTO => ".$params['P_F_NACIMIENTO'].",
+            P_PMT_SEXO => ".$params['P_PMT_SEXO'].",
+            P_PMT_ORIENT_SEXUAL => ".$params['P_PMT_ORIENT_SEXUAL'].",
+            P_PMT_IDENT_GENERO => ".$params['P_PMT_IDENT_GENERO'].",
+            P_PMT_GRUPO_ETNICO => ".$params['P_PMT_GRUPO_ETNICO'].",
+            P_PMT_PUEBLO_ETNICO => ".$params['P_PMT_PUEBLO_ETNICO'].",
+            P_PMT_ORGAN_ETNICO => ".$params['P_PMT_ORGAN_ETNICO'].",
+            P_PMT_TERRIT_ETNICO => ".$params['P_PMT_TERRIT_ETNICO'].",
+            P_CABILDO => ".$params['P_CABILDO'].",
+            P_PMT_DISCAPACIDAD => ".$params['P_PMT_DISCAPACIDAD'].",
+            P_PMT_ENF_RUINOSA => ".$params['P_PMT_ENF_RUINOSA'].",
+            P_PMT_VIVE_EXTER => ".$params['P_PMT_VIVE_EXTER'].",
+            P_DIR_EXTERIOR => ".$params['P_DIR_EXTERIOR'].",
+            P_PADRE_CSI_ID => ".$params['P_PADRE_CSI_ID'].",
+            P_CSI_ID => P_CSI_ID,
+            P_TRANS => P_TRANS, 
+            P_MENSAJE => P_MENSAJE);
+        end; ";
+        
+   
+       //if ($query = $db->query($sql)){
+        $resultId = $db->table('MD_CENSOS_INTEGRANTES')->selectMax('CSI_ID')->get();
+      // }
+       //return $resultId->getRowArray();  
+        return $sql;
+    }
+>>>>>>> Stashed changes
 }

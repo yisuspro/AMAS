@@ -89,6 +89,8 @@ $routes->group('Vivanto', function($routes) {
     $routes->post('loadingFileCenso', 'Vivanto\RegistroPoblacionalController::loadingFileCenso');
     $routes->get('loadingFileCensoUbicaView', 'Vivanto\RegistroPoblacionalController::loadingFileCensoUbicaView');
     $routes->post('loadingFileCensoUbica', 'Vivanto\RegistroPoblacionalController::loadingFileCensoUbica');
+    $routes->get('loadingFileCensoIntView', 'Vivanto\RegistroPoblacionalController::loadingFileCensoIntView');
+    $routes->post('loadingFileCensoInt', 'Vivanto\RegistroPoblacionalController::loadingFileCensoInt');
 });
 
 

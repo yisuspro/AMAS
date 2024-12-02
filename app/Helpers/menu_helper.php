@@ -83,6 +83,12 @@ if (!function_exists('generate_menu')) {
                         'title' => 'CREAR UBICACION CENSO',
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'M_CEN_REG_POBLA',
+                    ],
+                    [
+                        'id' => '../Vivanto/loadingFileCensoIntView',
+                        'title' => 'CREAR INTEGRANTES CENSO',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'M_CEN_REG_POBLA',
                     ]
                 ]
             ]

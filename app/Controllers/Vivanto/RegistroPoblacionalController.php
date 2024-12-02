@@ -47,8 +47,13 @@ class RegistroPoblacionalController extends BaseController
      */
     public function loadingFileCensoUbicaView()
     {
-        return view('private/views_ajax/Vivanto/loadingFileCensoUbicaView', ['title' => 'Cargar ubicacion censo']);
+        return view('private/views_ajax/Vivanto/loadingFileCensoUbicaAjax', ['title' => 'Cargar ubicacion censo']);
     }
+    public function loadingFileCensoIntView()
+    {
+        return view('private/views_ajax/Vivanto/loadingFileCensoIntAjax', ['title' => 'Cargar integrantes censo']);
+    }
+
 
 
     /**
@@ -181,4 +186,59 @@ class RegistroPoblacionalController extends BaseController
         echo json_encode($allParams);
     }
 
+<<<<<<< Updated upstream
+=======
+    public function loadingFileCensoInt()
+    {
+
+       $file = $this->request->getFile('file');
+        if ($file->isValid() && !$file->hasMoved()) {
+            $filePath = $file->getTempName();
+            // Leer el archivo Excel
+            $reader = new Xlsx();
+            $spreadsheet = $reader->load($filePath);
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray();
+            // Recorrer las filas del Excel (omitir la primera fila si es un encabezado)
+            foreach ($data as $key => $row) {
+                if ($key === 0) continue; // Omite la primera fila si es un encabezado
+                $params = [
+                    'P_USUARIO' => $row[1], // Asumiendo que la columna A tiene P_USUARIO
+                    'P_CSU_ID' => $row[2],
+                    'P_NOM1' => $row[3],
+                    'P_NOM2' => $row[4],
+                    'P_APE1' => $row[5],
+                    'P_APE2' => $row[6],
+                    'P_PMT_TIPO_DOC' => $row[7],
+                    'P_NUM_DOC' => $row[8],
+                    'P_PMT_RELACION' => $row[9],
+                    'P_F_NACIMIENTO' => $row[10],
+                    'P_PMT_SEXO' => $row[11],
+                    'P_PMT_ORIENT_SEXUAL' => $row[12],
+                    'P_PMT_IDENT_GENERO' => $row[13],
+                    'P_PMT_GRUPO_ETNICO' => $row[14],
+                    'P_PMT_PUEBLO_ETNICO' => $row[15],
+                    'P_PMT_ORGAN_ETNICO' => $row[16],
+                    'P_PMT_TERRIT_ETNICO' => $row[17],
+                    'P_CABILDO' => $row[18],
+                    'P_PMT_DISCAPACIDAD' => $row[19],
+                    'P_PMT_ENF_RUINOSA' => $row[20],
+                    'P_PMT_VIVE_EXTER' => $row[21],
+                    'P_DIR_EXTERIOR' => $row[22],
+                    'P_PADRE_CSI_ID' => $row[23],
+                    'CSI_ID' => '0'
+                ];
+                if($result = $this->RegistroPoblacionalModel->insertarIntegrantesCensoPoblacional($params)){
+                   // $params['CSI_ID'] =  $result['CSI_ID'];
+                    $allParams[] = $params;
+                
+                }
+                
+                echo json_encode($result);
+             }
+               // echo json_encode($allParams);
+        }
+
+    }
+>>>>>>> Stashed changes
 }
