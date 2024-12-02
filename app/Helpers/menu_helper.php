@@ -54,7 +54,7 @@ if (!function_exists('generate_menu')) {
             ],
             [
                 'id' => '5P',
-                'title' => 'USURIOS',
+                'title' => 'USUARIOS',
                 'icon' => 'bi-person-dash',
                 'permissions' => 'C_USERS_APP',
                 'children' => [

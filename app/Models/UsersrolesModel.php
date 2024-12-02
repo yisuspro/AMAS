@@ -16,72 +16,54 @@ class UsersrolesModel extends Model
         'USRL_date_update',
         'USRL_user_create',
         'USRL_user_update',
-        'USRL_state'
+        'USRL_state',
     ];
 
     protected $useTimestamps = false;
 
+    // List roles assigned to a user
     public function listUsersRoles($id)
     {
         $query = $this->db->table('roles R')
             ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
             ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')
-            ->where('R.ROLE_state',1)
+            ->where('R.ROLE_state', 1)
             ->get();
-        if ($query) {
-            return $query;
-        } else {
-            return false;
-        }
+
+        return $query ? $query : false;
     }
 
+    // Validate if a specific user-role relation exists
     public function validateUsersRolesId($USER_PK, $ROLE_PK)
     {
-        $query = $this->where('USRL_FK_rol', $ROLE_PK)->where('USRL_FK_user', $USER_PK)->first();
-        if ($query) {
-            return $query;
-        } else {
-            return false;
-        }
+        return $this->where('USRL_FK_rol', $ROLE_PK)
+                    ->where('USRL_FK_user', $USER_PK)
+                    ->first() ?: false;
     }
 
+    // Toggle the state (active/inactive) of a user-role relation
     public function updateStateUsersRolesId($USRL_PK, $USER_PK)
     {
+        // Get the current state
+        $currentState = $this->where('USRL_PK', $USRL_PK)->first()['USRL_state'];
 
-        $query = $this->where('USRL_PK', $USRL_PK)->first();
-        if ($query['USRL_state'] == 1) {
-            $query = $this->set('USRL_state', 0)
-                ->set('USRL_date_update', date('Y-m-d H:i:s'))
-                ->set('USRL_user_update', $USER_PK)
-                ->where('USRL_PK', $USRL_PK);
-            if ($query->update()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            $query = $this->set('USRL_state', 1)
-                ->set('USRL_date_update', date('Y-m-d H:i:s'))
-                ->set('USRL_user_update', $USER_PK)
-                ->where('USRL_PK', $USRL_PK);
-            if ($query->update()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        // Prepare new state
+        $newState = ($currentState == 1) ? 0 : 1;
+        $query = $this->set('USRL_state', $newState)
+                      ->set('USRL_date_update', date('Y-m-d H:i:s'))
+                      ->set('USRL_user_update', $USER_PK)
+                      ->where('USRL_PK', $USRL_PK)
+                      ->update();
+
+        return $query ? true : false;
     }
 
     public function addStateUsersRolesId($data)
     {
-        $result = $this->insert($data);
-        if ($result) {
-            return $result;
-        } else {
-            return false;
-        }
+        return $this->insert($data) ? true : false;
     }
 
+    // Get all permissions assigned to a user through their roles
     public function validateRolesUser($USER_PK)
     {
         $query = $this->db->table('usersroles US')
@@ -94,15 +76,15 @@ class UsersrolesModel extends Model
             ->where('RO.ROLE_state', 1)
             ->where('PR.PRMS_state', 1)
             ->where('US.USRL_state', 1)
-            ->where('RP.RLPR_state', 1)->get();
-        $permissions = [];
+            ->where('RP.RLPR_state', 1)
+            ->get();
+
         if ($query) {
-            foreach ($query->getResult() as $row) {
-                $permissions[] = $row->PRMS_system_name;
-            }
-            return $permissions;
-        } else {
-            return false;
+            return array_map(function ($row) {
+                return $row->PRMS_system_name;
+            }, $query->getResult());
         }
+
+        return false;
     }
 }

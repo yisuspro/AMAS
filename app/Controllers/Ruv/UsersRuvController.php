@@ -10,40 +10,55 @@ class UsersRuvController extends BaseController
 {
     protected $UsersRuvModel;
 
+    /**
+     * The function creates a new instance of the UsersRuvModel class in PHP.
+     */
     public function __construct()
     {
         $this->UsersRuvModel = new UsersRuvModel();
     }
 
-
-
+    /**
+     * The index function returns a view for listing users with a specified title.
+     * 
+     * @return A view named 'listUserAjax' located in the 'private/views_ajax/Ruv' directory is being
+     * returned with the title 'Consulta usuarios apps'.
+     */
     public function index()
     {
-        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Cunsulta usuarios apps']);
+        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Consulta usuarios apps']);
     }
 
+    /**
+     * The function `listUser` retrieves user data based on a specified type and parameter, then
+     * prepares and returns a JSON response.
+     * 
+     * @param tipo The `tipo` parameter in the `listUser` function is used to determine the type of
+     * search to be performed. If `tipo` is `0`, it indicates that the search should be based on a
+     * document number (``), and if `tipo` is not `0`,
+     * @param parametro The `parametro` parameter in the `listUser` function is used to determine the
+     * specific parameter based on the value of ``. If `` is 0, then `parametro` is used to
+     * list users by document number (`listUsersDoc` method is called). If `$
+     */
     public function listUser($tipo, $parametro)
     {
-
-        $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        switch ($tipo) { //utiliza el metodo listUsersDoc() del modelo UsersRuvModel() para traer los datos de todos los planes 
-            case 0:
-                $data = $this->UsersRuvModel->listUsersDoc($parametro);
-                break;
-            case 1:
-                $data = $this->UsersRuvModel->listUsersName($parametro);
-                break;
-        }
-                  
-        $output = array(                                    //creacion del vector de salida
-            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),         //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()                                 //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
+        // Retrieve the common parameters
+        $draw = intval($this->request->getPost("draw"));
+        $data = ($tipo == 0) 
+            ? $this->UsersRuvModel->listUsersDoc($parametro)
+            : $this->UsersRuvModel->listUsersName($parametro);
+    
+        // Prepare the response data
+        $output = [
+            "draw" => $draw,
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ];
+    
+        // Return the JSON response
+        echo json_encode($output);
         exit;
     }
+    
 }

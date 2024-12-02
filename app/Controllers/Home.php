@@ -8,13 +8,13 @@ use function App\Helpers\generar_menu;
 
 class Home extends BaseController
 {
-
-
+    /**
+     * The function generates an HTML menu based on predefined options for user and role management.
+     */
     public function index()
     {
-        
+        // Define your menu options in a clear and concise way
         $menu_opciones = [
-            
             [
                 'id' => '2P',
                 'texto' => 'USUARIO',
@@ -33,10 +33,12 @@ class Home extends BaseController
                     ['id' => 'createUserView', 'texto' => 'CREAR', 'icono' => 'bi bi-plus-lg']
                 ]
             ]
-        ]; // Define tus opciones de menú aquí
-
-        // Genera el HTML del menú utilizando el helper o manualmente
+        ];
+    
+        // Generate the HTML of the menu using the helper or manually
         $menu_html = generar_menu($menu_opciones);
+        
+        // Return or echo the menu HTML
         echo $menu_html;
-    }
+    }    
 }

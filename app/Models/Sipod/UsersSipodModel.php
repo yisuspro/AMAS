@@ -47,28 +47,46 @@ class UsersSipodModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sipod';
 
+    /**
+     * The function `listUsersDoc` retrieves user information based on identification from a database
+     * table and returns the result.
+     * 
+     * @param IDENTIFICACION The function `listUsersDoc` is a PHP function that retrieves user
+     * information based on the provided identification number (`IDENTIFICACION`). It executes a SQL
+     * query to select distinct user details from the database tables `SIPOD.TBUSUARIOS`,
+     * `SIPOD.TBROLES_USUARIO
+     * 
+     * @return The function `listUsersDoc` returns the result of a SQL query that fetches user
+     * information based on the provided identification number (``). The query selects
+     * distinct user details such as identification, name, username, email, active status, role,
+     * inactivation date, last login date, and a concatenated list of roles associated with the user.
+     */
     public function listUsersDoc($IDENTIFICACION)
     {
-        $sql = "select DISTINCT
-            U.IDENTIFICACION,
-            U.ID ,
-            U.NOMBRE,
-            U.USUARIO,
-            U.CORREO_ELECTRONICO,
-            U.ACTIVO,
-            U.CARGO,
-            U.FECHA_INACTIVACION,
-            U.FECHALOGEADO,
-            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+        $sql = "
+            SELECT DISTINCT
+                U.IDENTIFICACION,
+                U.ID ,
+                U.NOMBRE,
+                U.USUARIO,
+                U.CORREO_ELECTRONICO,
+                U.ACTIVO,
+                U.CARGO,
+                U.FECHA_INACTIVACION,
+                U.FECHALOGEADO,
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
             FROM SIPOD.TBUSUARIOS U
             LEFT JOIN SIPOD.TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN SIPOD.TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION = '".$IDENTIFICACION."'
-            GROUP BY U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,U.ACTIVO,U.FECHA_INACTIVACION,U.CARGO,U.FECHALOGEADO";
-        if ($query = $this->query($sql)) {
-            return $query;
-        } else {
-            return false;
-        }
+            WHERE U.IDENTIFICACION = :IDENTIFICACION
+            GROUP BY 
+                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+                U.CORREO_ELECTRONICO,U.ACTIVO,U.FECHA_INACTIVACION,
+                U.CARGO,U.FECHALOGEADO
+        ";
+
+        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
+    
+        return $query ?: false;
     }
 }

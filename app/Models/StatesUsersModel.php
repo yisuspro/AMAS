@@ -15,11 +15,19 @@ class StatesUsersModel extends Model
     ];
 
     protected $useTimestamps = false;
-    // Método para insertar un usuario encriptando la contraseña
+    
+    /**
+     * The function listStatesUsers returns all records from a database table.
+     * 
+     * @param data It looks like the `listStatesUsers` function is currently not using the ``
+     * parameter in the method. If you want to use the `` parameter to filter the results or
+     * perform any specific operations, you can modify the function to utilize the `` parameter in
+     * the query.
+     * 
+     * @return all columns from the database table without any specific conditions or filters applied.
+     */
     public function listStatesUsers($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
-        $query = $this->select('*');
-        return $query->get();
+        return $this->select('*')->get();
     }
 }

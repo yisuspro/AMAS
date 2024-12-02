@@ -35,29 +35,60 @@ class UsersController extends BaseController
         $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
         echo json_encode($Roles);
     }
+    /**
+     * The listUsersView function returns a view for listing users with the title "Consulta usuario".
+     * 
+     * @return A view named 'listUserAjax' located in the 'private/views_ajax/users' directory with the
+     * title 'Consulta usuario' being passed as data.
+     */
     public function listUsersView()
     {
-        return view('private/views_ajax/users/listUserAjax', ['title' => 'Cunsulta usuario']);
+        return view('private/views_ajax/users/listUserAjax', ['title' => 'Consulta usuario']);
     }
 
+    /**
+     * The profileUser function retrieves user roles, generates a menu based on those roles, and
+     * returns a view for the user's profile page.
+     * 
+     * @return The `profileUser` function is returning a view named 'private/profileUser' with the
+     * title 'Perfil' and a menu generated based on the roles of the current user. The menu is
+     * generated using the `generate_menu` function with the roles passed as a parameter.
+     */
     public function profileUser()
     {
-
         $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
         $menu = generate_menu($Roles);
         return view('private/profileUser', ['title' => 'Perfil', 'menu' => $menu]);
     }
 
+    /**
+     * The function `createUserView` returns a view for creating a user with the title "Crear usuario".
+     * 
+     * @return A view named 'createUserAjax' located in the 'private/views_ajax/users' directory with
+     * the title 'Crear usuario' being passed as data.
+     */
     public function createUserView()
     {
         return view('private/views_ajax/users/createUserAjax', ['title' => 'Crear usuario']);
     }
 
+    /**
+     * The function `updateUserView` retrieves user data and passes it to a view for updating a user via
+     * AJAX in a PHP application.
+     * 
+     * @param id The `updatetUserView` function seems to be a method in a PHP class that is responsible for
+     * fetching user data based on the provided `` and then passing that data to a view for rendering.
+     * 
+     * @return A view named 'updateUserAjax' is being returned with the title 'Actualizar usuario' and the
+     * data fetched from the UsersModel for the specified user ID. The data is passed to the view as an
+     * array with the key 'data'.
+     */
     public function updatetUserView($id)
     {
         $data = $this->UsersModel->viewUsers($id);
         return view('private/views_ajax/users/updateUserAjax', ['title' => 'Actualizar usuario', 'data' => $data->getResultArray()]);
     }
+
     public function UpdatePasswordUserView($id)
     {
         return view('updatePasswordUSer', ['title' => 'Cambio de contraseña', 'USER_PK' => $id]);
@@ -65,7 +96,6 @@ class UsersController extends BaseController
 
     public function addRolesUsersView($id)
     {
-
         return view('private/views_ajax/users/addRolesUsersAjax', ['title' => 'Asignar roles ',  'id' => $id]);
     }
 
@@ -73,7 +103,6 @@ class UsersController extends BaseController
     {
         return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Cunsulta usuarios Aplicaciones']);
     }
-
 
     public function resultConsultarUsersAppsView($tipo,$parametro)
     {
@@ -111,8 +140,6 @@ class UsersController extends BaseController
                 break;
         }
             
-        
-
         return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Cunsulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
     }
 
@@ -198,7 +225,7 @@ class UsersController extends BaseController
 
                         $this->session->set($userData);
                         echo json_encode([
-                            'msg' => 'el usuario y contraseña son correctos',
+                            'msg' => 'El usuario y contraseña son correctos',
                             'USER_PK' => $validacion['USER_PK'],
                             'USER_reset_password' => $validacion['USER_reset_password']
                         ]);
@@ -208,15 +235,15 @@ class UsersController extends BaseController
                     }
                 } else {
                     $this->response->setStatusCode(401);
-                    echo json_encode('Error: la direccion IP no coincide con el reistrado para el usaurio');
+                    echo json_encode('Error: La direccion IP no coincide con el registrado para el usuario');
                 }
             } else {
                 $this->response->setStatusCode(401);
-                echo json_encode('Error: usuario o contraseña no coincide');
+                echo json_encode('Error: Usuario o contraseña no coincide');
             }
         } else {
             $this->response->setStatusCode(401);
-            echo json_encode('Error: por favor ingresa los datos completos');
+            echo json_encode('Error: Por favor ingresa los datos completos');
         }
     }
 

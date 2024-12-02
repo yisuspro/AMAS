@@ -46,9 +46,24 @@ class UsersSiravModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sirav';
 
+    /**
+     * The function `listUsersDoc` retrieves user information based on a provided identification number
+     * in a PHP application.
+     * 
+     * @param IDENTIFICACION The `listUsersDoc` function is a PHP function that retrieves user
+     * information based on the provided identification number (`IDENTIFICACION`). The SQL query
+     * selects various fields from the `USUARIO` table and joins the `RAZON_INACTIVO` table to get
+     * additional information. The function then executes
+     * 
+     * @return The `listUsersDoc` function returns a query result containing information about a user
+     * based on their identification number (`IDENTIFICACION`). The query selects various fields from
+     * the `USUARIO` table, including ID, DOCUMENTO, CORREO, USUARIO, FIRMA, CARGO, ACTIVO,
+     * FECHA_INACTIVACION, FECHA_ULTIMO_ACCESO, NOMBRE
+     */
     public function listUsersDoc($IDENTIFICACION)
     {
-        $sql = "select
+        $sql = "
+            SELECT
                 U.ID,
                 U.DOCUMENTO AS IDENTIFICACION,
                 U.CORREO AS CORREO_ELECTRONICO,
@@ -66,14 +81,13 @@ class UsersSiravModel extends Model
                         WHERE RU.ID_USUARIO = U.ID
                         FOR XML PATH(''), TYPE
                     ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES
-                FROM SIRAVAdmin.DBO.USUARIO U
-                LEFT JOIN SIRAVAdmin.dbo.RAZON_INACTIVO RA ON RA.ID = U.ID_RAZON_INACTIVO
-                WHERE U.DOCUMENTO = '" . $IDENTIFICACION . "'";
+            FROM SIRAVAdmin.DBO.USUARIO U
+            LEFT JOIN SIRAVAdmin.dbo.RAZON_INACTIVO RA ON RA.ID = U.ID_RAZON_INACTIVO
+            WHERE U.DOCUMENTO = :IDENTIFICACION 
+        ";
                 
-        if ($query = $this->query($sql)) {
-            return $query;
-        } else {
-            return false;
-        }
+        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
+        
+        return $query ?: false;
     }
 }

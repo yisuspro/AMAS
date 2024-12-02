@@ -56,56 +56,88 @@ class UsersRuvModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_ruv';
 
-   
 
+    /**
+     * The function `listUsersDoc` retrieves user information along with their roles based on a given
+     * identification number.
+     * 
+     * @param IDENTIFICACION The `listUsersDoc` function is a PHP function that retrieves user information
+     * based on the provided identification number (`IDENTIFICACION`). It fetches data from the
+     * `TBUSUARIOS` table and joins it with the `TBROLES_USUARIO` and `TBROLES` tables to
+     * 
+     * @return The `listUsersDoc` function returns the result of a SQL query that fetches user information
+     * based on the provided `IDENTIFICACION` parameter. The query selects distinct user details such as
+     * identification, ID, name, username, email, active status, role, inactivation date, last login date,
+     * and a list of roles associated with the user. The function then executes the query with the provided
+     */
     public function listUsersDoc($IDENTIFICACION)
     {
-        $sql = "select DISTINCT
-            U.IDENTIFICACION,
-            U.ID ,
-            U.NOMBRE,
-            U.USUARIO,
-            U.CORREO_ELECTRONICO,
-            U.ACTIVO,
-            U.CARGO,
-            U.FECHA_INACTIVACION,
-            U.FECHALOGEADO,
-            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+        $sql = "
+            SELECT DISTINCT
+                U.IDENTIFICACION,
+                U.ID,
+                U.NOMBRE,
+                U.USUARIO,
+                U.CORREO_ELECTRONICO,
+                U.ACTIVO,
+                U.CARGO,
+                U.FECHA_INACTIVACION,
+                U.FECHALOGEADO,
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION = '".$IDENTIFICACION."'
-            GROUP BY U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO";
-        if ($query = $this->query($sql)) {
-            return $query;
-        } else {
-            return false;
-        }
+            WHERE U.IDENTIFICACION = :IDENTIFICACION
+            GROUP BY 
+                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+                U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
+                U.FECHA_INACTIVACION, U.FECHALOGEADO
+        ";
+    
+        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
+    
+        return $query ?: false;
     }
+    
 
+    /**
+     * The function `listUsersName` retrieves user information based on a provided name parameter from a
+     * database table and returns the result.
+     * 
+     * @param NAME The function `listUsersName` is a PHP function that retrieves user information based on
+     * a provided name. It executes a SQL query to select distinct user details from the `TBUSUARIOS`
+     * table, including user roles from related tables. The function uses a parameter `:NAME` in the
+     * 
+     * @return The `listUsersName` function returns the result of a SQL query that fetches user information
+     * based on the provided name (``). The query selects distinct user details such as
+     * identification, ID, name, username, email, active status, role, inactivation date, last login date,
+     * and a concatenated list of roles associated with the user.
+     */
     public function listUsersName($NAME)
     {
-        $sql = "select DISTINCT
-            U.IDENTIFICACION,
-            U.ID ,
-            U.NOMBRE,
-            U.USUARIO,
-            U.CORREO_ELECTRONICO,
-            U.ACTIVO,
-            U.CARGO,
-            U.FECHA_INACTIVACION,
-            U.FECHALOGEADO,
-            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+        $sql = "
+            SELECT DISTINCT
+                U.IDENTIFICACION,
+                U.ID ,
+                U.NOMBRE,
+                U.USUARIO,
+                U.CORREO_ELECTRONICO,
+                U.ACTIVO,
+                U.CARGO,
+                U.FECHA_INACTIVACION,
+                U.FECHALOGEADO,
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.NOMBRE like '%".$NAME."%'
-            GROUP BY U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO";
-        if ($query = $this->query($sql)) {
-            return $query;
-        } else {
-            return false;
-        }
+            WHERE U.NOMBRE like :NAME
+            GROUP BY 
+                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,
+                U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO
+        ";
+        $query = $this->query($sql, [':NAME' => $NAME]);
+    
+        return $query ?: false;
     }
 
     public function prueba()

@@ -58,14 +58,14 @@ class Roles extends Seeder
         ];
         $this->db->table('rolespermissions')->insertBatch($dataRolesPermissions);
 
-        // cargamos datos base de la tabla de usaurio
+        // cargamos datos base de la tabla de usuario
         $dataUsers = [
             [ 'USER_name'=>'admin','USER_username' => 'administrador','USER_password' => 'admin123' , 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
 
         ];
         $this->db->table('users')->insertBatch($dataUsers);
 
-        // cargamos datos base de la tabla de roles para le usaurio
+        // cargamos datos base de la tabla de roles para le usuario
         $dataUsersRoles = [
             [ 'USRL_FK_user'=> 1,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
 

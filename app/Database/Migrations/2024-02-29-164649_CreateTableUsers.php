@@ -8,9 +8,9 @@ class CreateTableUsers extends Migration
 {
 
     /***********************************************
-     * autor: JESUS CASTELLANOA
+     * Autor: JESUS CASTELLANOS
      * FECHA:02/07/2024
-     * MODIFICA: DANIELA SILVESTREW
+     * MODIFICA: DANIELA SILVESTRE
      * FECHA: 04/07/2024
      * DOCUMENTACION
      * CREACION DE LAS TABLAS:

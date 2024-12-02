@@ -19,28 +19,35 @@ class UsersSipodController extends BaseController
         //
     }
 
+    /**
+     * The function `listUser` retrieves user data based on a specified type and parameter, then prepares
+     * and sends a JSON response with the data.
+     * 
+     * @param tipo The `tipo` parameter in the `listUser` function is used to determine which method to
+     * call based on its value. If `tipo` is equal to 0, the `listUsersDoc` method from the
+     * `UsersSipodModel` model is called with the parameter `
+     * @param parametro The `parametro` parameter in the `listUser` function is used to determine the
+     * specific parameter value based on which the user list will be filtered. Depending on the value of
+     * ``, either the `listUsersDoc` method or the `listUsersName` method from the `UsersS
+     */
     public function listUser($tipo, $parametro)
     {
-
-        $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        switch ($tipo) { //utiliza el metodo listUsersDoc() del modelo UsersRuvModel() para traer los datos de todos los planes 
-            case 0:
-                $data = $this->UsersSipodModel->listUsersDoc($parametro);
-                break;
-            case 1:
-                $data = $this->UsersSipodModel->listUsersName($parametro);
-                break;
-        }
-                  
-        $output = array(                                    //creacion del vector de salida
-            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),         //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()                                 //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
+        // Retrieve the common parameters
+        $draw = intval($this->request->getPost("draw"));
+        
+        // Select the appropriate method based on $tipo
+        $data = ($tipo == 0) 
+            ? $this->UsersSipodModel->listUsersDoc($parametro)
+            : $this->UsersSipodModel->listUsersName($parametro);
+    
+        // Prepare and send the response
+        echo json_encode([
+            "draw" => $draw,
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ]);
         exit;
     }
+    
 }

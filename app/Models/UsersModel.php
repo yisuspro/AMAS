@@ -21,140 +21,102 @@ class UsersModel extends Model
         'USER_FK_state_user',
         'USER_reset_password',
         'USER_email',
-        'USER_address_ip'
+        'USER_address_ip',
     ];
 
     protected $useTimestamps = false;
-    // Método para insertar un usuario encriptando la contraseña
+
+    /**
+     * The insertUser function hashes the user's password and standardizes the user's name before
+     * inserting the data into the database.
+     * 
+     * @param data The `insertUser` function takes an array of data as a parameter. This data typically
+     * contains information about a user that needs to be inserted into a database. The function first
+     * hashes the user's password using the `password_hash` function with the `PASSWORD_DEFAULT`
+     * algorithm. It then standardizes the
+     * 
+     * @return The `insertUser` function is returning the result of calling the `insert` method with
+     * the modified `` array. The function first hashes the user's password using `password_hash`
+     * and then standardizes the user's name to uppercase before inserting the data into the database.
+     */
     public function insertUser($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
         $data['USER_password'] = password_hash($data['USER_password'], PASSWORD_DEFAULT);
-        $data['USER_name'] = strtoupper($data['USER_name']);
-
-        // Insertar el usuario en la base de datos
+        $data['USER_name'] = strtoupper($data['USER_name']);  // Standardize user name
 
         return $this->insert($data);
     }
-    
+
+    /**
+     * The function `validateUser` checks if the provided username and password match a user in the
+     * database and returns the user if the credentials are valid.
+     * 
+     * @param data The `validateUser` function you provided is used to validate a user based on the
+     * provided data. It checks if a user with the given username exists and if the password matches
+     * the hashed password stored in the database.
+     * 
+     * @return If the user with the provided username exists and the password matches the hashed
+     * password stored in the database, the function will return the user data. Otherwise, it will
+     * return false.
+     */
     public function validateUser($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
-
-        $query = $this->where('USER_username', $data['USER_username'])->first();
-        if ($query) {
-            if (password_verify($data['USER_password'], $query['USER_password'])) {
-                return $query;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+        $user = $this->where('USER_username', $data['USER_username'])->first();
+        
+        if ($user && password_verify($data['USER_password'], $user['USER_password'])) {
+            return $user;
         }
+
+        return false;
     }
 
     public function validateIPUser($USER_PK, $USER_address_ip)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
+        $user = $this->where('USER_PK', $USER_PK)->first();
 
-        $query = $this->where('USER_PK', $USER_PK)->first();
-        if ($query['USER_address_ip'] == '') {
+        // Allow if no IP is set
+        if (empty($user['USER_address_ip']) || $user['USER_address_ip'] === $USER_address_ip) {
             return true;
-        } else {
-            if ($query['USER_address_ip'] == $USER_address_ip) {
-                return true;
-            } else {
-            return false;
-            }
         }
+
+        return false;
     }
-
-
 
     public function validateUserDoc($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
-
-        $query = $this->where('USER_identification', $data)->first();
-        if ($query) {
-            return false;
-        } else {
-            return true;
-        }
+        return !$this->where('USER_identification', $data)->first();
     }
 
     public function validateUserId($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
-
-        $query = $this->where('USER_PK', $data)->first();
-        if ($query) {
-            return $query;
-        } else {
-            return false;
-        }
+        return $this->where('USER_PK', $data)->first() ?: false;
     }
-
-    
 
     public function viewUsers($data)
     {
-        // Encriptar la contraseña antes de insertarla en la base de datos
-
-        $query = $this->where('USER_PK', $data)->get();
-        if ($query) {
-            return $query;
-        } else {
-            return true;
-        }
+        return $this->where('USER_PK', $data)->first() ?: false;
     }
-
-
 
     public function listUsers()
     {
-        $query = $this->select('*')
-            ->join('statesusers', 'statesusers.STTS_PK = users.USER_FK_state_user','left');
-        return $query->get();
+        return $this->select('*')
+            ->join('statesusers', 'statesusers.STTS_PK = users.USER_FK_state_user', 'left')
+            ->get();
     }
 
     public function updateUsers($data)
     {
-        $query= $this->set($data)
-        ->where('USER_PK', $data['USER_PK']);
-        if($query->update()){
-            return true;
-        }else{
-            return false;
-        }
-        
+        return $this->update($data['USER_PK'], $data);
     }
 
     public function updatePasswordUsers($data)
     {
         $data['USER_password'] = password_hash($data['USER_password'], PASSWORD_DEFAULT);
-        $query= $this->set($data)
-        ->where('USER_PK',  $data['USER_PK']);
-        if($query->update()){
-            return true;
-        }else{
-            return false;
-        }
-        
+        return $this->update($data['USER_PK'], $data);
     }
 
-    public function validatePasswords($password,$passwordDataBase)
+    public function validatePasswords($password, $passwordDataBase)
     {
-        
-        if(password_verify($password,$passwordDataBase)){
-            return true;
-        }else{
-            return false;
-        }
-        
+        return password_verify($password, $passwordDataBase);
     }
-
-
-   
-
 }

@@ -11,6 +11,9 @@ class UsersSiravController extends BaseController
 
     protected $UsersSiravModel;
 
+    /**
+     * The function creates a new instance of the UsersSiravModel class in PHP.
+     */
     public function __construct()
     {
         $this->UsersSiravModel = new UsersSiravModel();
@@ -21,28 +24,35 @@ class UsersSiravController extends BaseController
         
     }
 
+    /**
+     * The function `listUser` retrieves user data based on a specified type and parameter, and returns
+     * the results in a JSON format.
+     * 
+     * @param tipo The `tipo` parameter in the `listUser` function is used to determine which method to
+     * call based on its value. If `tipo` is equal to 0, the method `listUsersDoc()` from the
+     * `UsersSiravModel` is called. Otherwise, if `
+     * @param parametro The `parametro` parameter in the `listUser` function is used to determine the
+     * specific parameter value based on the `` parameter. Depending on the value of ``,
+     * either `listUsersDoc` or `listUsersName` method from the `UsersSiravModel` model is
+     */
     public function listUser($tipo, $parametro)
     {
-
-        $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        switch ($tipo) { //utiliza el metodo listUsersDoc() del modelo UsersRuvModel() para traer los datos de todos los planes 
-            case 0:
-                $data = $this->UsersSiravModel->listUsersDoc($parametro);
-                break;
-            case 1:
-                $data = $this->UsersSiravModel->listUsersName($parametro);
-                break;
-        }
-                  
-        $output = array(                                    //creacion del vector de salida
-            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),         //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()                                 //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
+        // Retrieve the 'draw' parameter
+        $draw = intval($this->request->getPost("draw"));
+    
+        // Determine the appropriate method based on $tipo
+        $data = ($tipo == 0) 
+            ? $this->UsersSiravModel->listUsersDoc($parametro)
+            : $this->UsersSiravModel->listUsersName($parametro);
+    
+        // Prepare and send the JSON response
+        echo json_encode([
+            "draw" => $draw,
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ]);
         exit;
     }
+    
 }
