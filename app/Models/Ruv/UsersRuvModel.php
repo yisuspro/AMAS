@@ -73,7 +73,7 @@ class UsersRuvModel extends Model
     public function listUsersDoc($IDENTIFICACION)
     {
         $sql = "
-            SELECT DISTINCT
+        select DISTINCT
                 U.IDENTIFICACION,
                 U.ID,
                 U.NOMBRE,
@@ -87,15 +87,14 @@ class UsersRuvModel extends Model
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION = :IDENTIFICACION
+            WHERE U.IDENTIFICACION = '".$IDENTIFICACION."'
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
                 U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
                 U.FECHA_INACTIVACION, U.FECHALOGEADO
         ";
     
-        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
-    
+        $query = $this->query($sql);
         return $query ?: false;
     }
     
@@ -130,12 +129,12 @@ class UsersRuvModel extends Model
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.NOMBRE like :NAME
+            WHERE U.NOMBRE like ".$NAME."
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,
                 U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO
         ";
-        $query = $this->query($sql, [':NAME' => $NAME]);
+        $query = $this->query($sql);
     
         return $query ?: false;
     }

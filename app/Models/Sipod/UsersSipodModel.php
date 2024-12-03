@@ -78,15 +78,14 @@ class UsersSipodModel extends Model
             FROM SIPOD.TBUSUARIOS U
             LEFT JOIN SIPOD.TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN SIPOD.TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION = :IDENTIFICACION
+            WHERE U.IDENTIFICACION = '".$IDENTIFICACION."'
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
                 U.CORREO_ELECTRONICO,U.ACTIVO,U.FECHA_INACTIVACION,
                 U.CARGO,U.FECHALOGEADO
         ";
 
-        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
     
-        return $query ?: false;
+        return $this->query($sql) ?: false;
     }
 }

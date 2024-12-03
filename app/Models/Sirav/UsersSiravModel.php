@@ -83,10 +83,10 @@ class UsersSiravModel extends Model
                     ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES
             FROM SIRAVAdmin.DBO.USUARIO U
             LEFT JOIN SIRAVAdmin.dbo.RAZON_INACTIVO RA ON RA.ID = U.ID_RAZON_INACTIVO
-            WHERE U.DOCUMENTO = :IDENTIFICACION 
+            WHERE U.DOCUMENTO = '".$IDENTIFICACION."'
         ";
                 
-        $query = $this->query($sql, [':IDENTIFICACION' => $IDENTIFICACION]);
+        $query = $this->query($sql);
         
         return $query ?: false;
     }

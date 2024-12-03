@@ -28,7 +28,7 @@ class RolesModel extends Model
      */
     public function listRoles()
     {
-        return $this->findAll();
+        return $this->select('*')->get();
     }
     
     /**

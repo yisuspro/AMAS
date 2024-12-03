@@ -42,7 +42,7 @@ class UsersRuvController extends BaseController
      */
     public function listUser($tipo, $parametro)
     {
-        // Retrieve the common parameters
+      /*  // Retrieve the common parameters
         $draw = intval($this->request->getPost("draw"));
         $data = ($tipo == 0) 
             ? $this->UsersRuvModel->listUsersDoc($parametro)
@@ -54,9 +54,10 @@ class UsersRuvController extends BaseController
             "recordsTotal" => $data->getNumRows(),
             "recordsFiltered" => $data->getNumRows(),
             "data" => $data->getResultArray()
-        ];
-    
+        ];*/
+        $output = $this->UsersRuvModel->listUsersDoc($parametro);
         // Return the JSON response
+        //echo $output;
         echo json_encode($output);
         exit;
     }

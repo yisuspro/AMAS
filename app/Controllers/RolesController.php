@@ -47,10 +47,10 @@ class RolesController extends BaseController
         $data = $this->RolesModel->listRoles();
 
         // If no data returned, handle the error
-        if (!$data) {
+       /* if (!$data) {
             $this->response->setStatusCode(404, 'No roles found');
         }
-
+*/
         // Prepare the output array
         $output = [
             "draw" => $draw,                              // The draw number to return to the client
@@ -60,7 +60,9 @@ class RolesController extends BaseController
         ];
 
         // Send the response as JSON
-        $this->response->setStatusCode(200)->setBody($output);
+        //$this->response->setStatusCode(200)->setBody($output);
+        echo json_encode($output);
+        exit;
     }
 
 
