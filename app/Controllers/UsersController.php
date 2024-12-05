@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Database\Query;
-use function App\Helpers\generar_menu;
+use function App\Helpers\menu_helper;
 
 class UsersController extends BaseController
 {

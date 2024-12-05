@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use Throwable;
 
-use function App\Helpers\generar_menu;
-
 class Home extends BaseController
 {
     /**
@@ -36,7 +34,7 @@ class Home extends BaseController
         ];
     
         // Generate the HTML of the menu using the helper or manually
-        $menu_html = generar_menu($menu_opciones);
+        $menu_html = generate_menu($menu_opciones);
         
         // Return or echo the menu HTML
         echo $menu_html;
