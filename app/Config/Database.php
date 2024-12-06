@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        'password'     => 'Adminamas2024*',
+        'password'     => 'Dalaven123!!!',
         'database'     => 'amas',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',

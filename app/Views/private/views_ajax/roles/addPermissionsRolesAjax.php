@@ -15,7 +15,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     ESTADO
@@ -29,7 +29,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     ESTADO

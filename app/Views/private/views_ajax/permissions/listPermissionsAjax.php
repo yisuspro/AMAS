@@ -12,7 +12,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     NOMBRE CORTO
@@ -39,7 +39,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     NOMBRE CORTO
@@ -74,11 +74,11 @@
                 
                     <div class="mb-3">
                         <label class="form-label">Nombre permiso</label>
-                        <input id="PRMS_name" type="text" name="PRMS_name" class="form-control" placeholder="Nombre permiso" required>
+                        <input id="PRMS_name" type="text" name="PRMS_name" class="form-control" placeholder="Nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Descripcion</label>
-                        <input id="PRMS_description" type="text" name="PRMS_description" class="form-control" placeholder="Descripcion" required>
+                        <label class="form-label"><?= lang("General.description") ?></label>
+                        <input id="PRMS_description" type="text" name="PRMS_description" class="form-control" placeholder="<?= lang("General.description") ?>" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nombre corto</label>

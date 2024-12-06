@@ -14,8 +14,8 @@
                     <input id="PRMS_name" type="text" name="PRMS_name" value="<?= $dataPermission['PRMS_name'] ?? 0 ?>" class="form-control" placeholder="Nombre permiso" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Descripcion</label>
-                    <input id="PRMS_description" type="text" name="PRMS_description" value="<?= $dataPermission['PRMS_description'] ?? 0 ?>" class="form-control" placeholder="Descripcion" required>
+                    <label class="form-label"><?= lang("General.description") ?></label>
+                    <input id="PRMS_description" type="text" name="PRMS_description" value="<?= $dataPermission['PRMS_description'] ?? 0 ?>" class="form-control" placeholder="<?= lang("General.description") ?>" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Nombre corto</label>

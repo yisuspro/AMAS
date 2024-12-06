@@ -1,6 +1,6 @@
 <div class="card">
     <div class="titulo-uno">
-        <i class="bi bi-journal-text">Consulta usuarios</i>
+        <i class="bi bi-journal-text">Consulta <?= lang("General.users") ?></i>
     </div>
     <div class="seccion">
 

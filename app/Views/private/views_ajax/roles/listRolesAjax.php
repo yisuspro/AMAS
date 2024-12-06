@@ -12,7 +12,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     ESTADO
@@ -36,7 +36,7 @@
                     NOMBRE
                 </th>
                 <th>
-                    DESCRIPCION
+                    <?= strtoupper(lang("General.description")) ?>
                 </th>
                 <th>
                     ESTADO
@@ -72,8 +72,8 @@
                         <input id="ROLE_name" type="text" name="ROLE_name" class="form-control" placeholder="Nombre rol" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Descripcion</label>
-                        <input id="ROLE_description" type="text" name="ROLE_description" class="form-control" placeholder="Descripcion" required>
+                        <label class="form-label"><?= lang("General.description") ?></label>
+                        <input id="ROLE_description" type="text" name="ROLE_description" class="form-control" placeholder="<?= lang("General.description") ?>" required>
                     </div>
                 </div>
                 <div class="modal-footer">

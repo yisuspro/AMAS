@@ -14,8 +14,8 @@
                     <input id="ROLE_name" type="text" name="ROLE_name" value="<?= $dataRoles['ROLE_name'] ?? 0 ?>" class="form-control" placeholder="Nombre rol" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Descripcion</label>
-                    <input id="ROLE_description" type="text" name="ROLE_description" value="<?= $dataRoles['ROLE_description'] ?? 0 ?>" class="form-control" placeholder="Descripcion" required>
+                    <label class="form-label"><?= lang("General.description") ?></label>
+                    <input id="ROLE_description" type="text" name="ROLE_description" value="<?= $dataRoles['ROLE_description'] ?? 0 ?>" class="form-control" placeholder="<?= lang("General.description") ?>" required>
                 </div>
 
             <?php endforeach; ?>
