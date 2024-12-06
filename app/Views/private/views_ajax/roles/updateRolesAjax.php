@@ -2,28 +2,27 @@
     <div class="titulo-uno">
         <i class="bi bi-journal-text"><?= $title ?? 'Seccion' ?></i>
     </div>
+    
     <div class="card-body">
         <form method="post" action="#" id="frm_update_role">
             <?php foreach ($data as $dataRoles) : ?>
                 <div class="mb-3">
-                    <label class="form-label">ID permiso</label>
+                    <label class="form-label">ID Permiso</label>
                     <input id="ROLE_PK" type="number" name="ROLE_PK" value="<?= $dataRoles['ROLE_PK'] ?? 0 ?>" class="form-control" readonly>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nombre permiso</label>
-                    <input id="ROLE_name" type="text" name="ROLE_name" value="<?= $dataRoles['ROLE_name'] ?? 0 ?>" class="form-control" placeholder="Nombre rol" required>
+                    <label class="form-label">Nombre Rol</label>
+                    <input id="ROLE_name" type="text" name="ROLE_name" value="<?= $dataRoles['ROLE_name'] ?? '' ?>" class="form-control" placeholder="Nombre rol" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label"><?= lang("General.description") ?></label>
-                    <input id="ROLE_description" type="text" name="ROLE_description" value="<?= $dataRoles['ROLE_description'] ?? 0 ?>" class="form-control" placeholder="<?= lang("General.description") ?>" required>
+                    <input id="ROLE_description" type="text" name="ROLE_description" value="<?= $dataRoles['ROLE_description'] ?? '' ?>" class="form-control" placeholder="<?= lang("General.description") ?>" required>
                 </div>
-
             <?php endforeach; ?>
 
-
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success btn-block">MODIFICAR</button>
-                <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
+                <button type="submit" class="btn btn-success btn-block">Modificar</button>
+                <button type="button" class="btn btn-danger" id="back" name="back">Atrás</button>
             </div>
         </form>
     </div>

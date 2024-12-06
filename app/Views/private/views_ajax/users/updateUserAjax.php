@@ -21,7 +21,7 @@
                     <input id="USER_name" type="text" name="USER_name" class="form-control" placeholder="Nombre" value="<?= $dataUser['USER_name'] ?? 0 ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Numeroc Documento</label>
+                    <label class="form-label">Numero Documento</label>
                     <input id="USER_identification" type="text" name="USER_identification" class="form-control" placeholder="identificacion" value="<?= $dataUser['USER_identification'] ?? 0 ?>" required>
                 </div>
                 <div class="mb-3">

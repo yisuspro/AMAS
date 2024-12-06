@@ -4,8 +4,6 @@
     </div>
     <div class="card-body">
         <input id="idRol" name="idRol" type="hidden" value="<?= $id ?? 0 ?>">
-
-
         <table id="listRolesPermissions" class="table table-hover" style="width:100% ">
             <thead>
                 <th>
