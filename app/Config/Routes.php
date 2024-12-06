@@ -5,7 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'UsersController::index');
+$routes->addRedirect('/amas/users', '/');
 $routes->get('/users', 'UsersController::index');
 
 //---LOGIN

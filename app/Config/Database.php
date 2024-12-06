@@ -90,7 +90,7 @@ class Database extends Config
         'username' => 'juan.huertas',
         'password' => 'siRR4p',
         'database' => '', // No es necesario proporcionar el nombre de la base de datos
-        'DBDriver' => 'sqlsrv', // Usar el controlador SQL Server
+        'DBDriver' => 'SQLSRV', // Usar el controlador SQL Server
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => (ENVIRONMENT !== 'production'),

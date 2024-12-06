@@ -6,9 +6,9 @@ $(document).ready(function() {
             url: "logout", // Ruta al script de cierre de sesión en tu servidor
             method: "POST",
             success: function(response) {
-               alert('sesion cerrada')
+               alert('Sesion cerrada')
                 // Redirigir a la página de inicio de sesión u otra página después de cerrar sesión
-                window.location.href = "/amas/users"; 
+                window.location.href = "/"; 
                 
             },
             error: function(xhr, status, error) {
