@@ -20,7 +20,7 @@ CI_ENVIRONMENT = development
 # APP
 #--------------------------------------------------------------------
 
-app.baseURL = 'http://172.20.14.182/amas/public/'
+app.baseURL = 'http://localhost:8080/'
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
@@ -30,21 +30,51 @@ app.baseURL = 'http://172.20.14.182/amas/public/'
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
-# database.default.port = 3306
+database.default.hostname = localhost
+database.default.username = root
+database.default.database = 
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
 
-# database.tests.hostname = localhost
-# database.tests.database = ci4_test
-# database.tests.username = root
-# database.tests.password = root
-# database.tests.DBDriver = MySQLi
-# database.tests.DBPrefix =
-# database.tests.port = 3306
+database.bd_ruv.hostname = 
+database.bd_ruv.DSN = (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.60)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ruv)))
+database.bd_ruv.database = 
+database.bd_ruv.username = ruv
+database.bd_ruv.password = 
+database.bd_ruv.DBDriver = OCI8
+database.bd_ruv.DBPrefix =
+database.bd_ruv.port = 1521
+
+
+database.bd_sipod.hostname = 
+database.bd_sipod.DSN = (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.62)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=VICTIUNO)))
+database.bd_sipod.database = 
+database.bd_sipod.username = Consulta
+database.bd_sipod.password = 
+database.bd_sipod.DBDriver = OCI8
+database.bd_sipod.DBPrefix =
+database.bd_sipod.port = 1521
+
+database.bd_caracterizacion.hostname = 
+database.bd_caracterizacion.DSN = (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.63)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=RNI)))
+database.bd_caracterizacion.database = 
+database.bd_caracterizacion.username = caracterizacion
+database.bd_caracterizacion.password = 
+database.bd_caracterizacion.DBDriver = OCI8
+database.bd_caracterizacion.DBPrefix =
+database.bd_caracterizacion.port = 1521
+
+
+database.bd_sirav.hostname = 
+database.bd_sirav.database = 
+database.bd_sirav.username = 
+database.bd_sirav.password = 
+database.bd_sirav.DBDriver = SQLSRV
+database.bd_sirav.DBPrefix =
+database.bd_sirav.port = 1433
+
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY

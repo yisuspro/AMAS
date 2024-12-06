@@ -49,10 +49,10 @@ class Database extends Config
      * The caracterizacion database connection.
      */
     public array $bd_caracterizacion = [
-        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.63)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=RNI)))',
+        'DSN'          => '',
         'hostname'     => '',
         'username'     => 'caracterizacion',
-        'password'     => 'car321',
+        'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
     ];
@@ -60,10 +60,10 @@ class Database extends Config
      * The RUV database connection.
      */
     public array $bd_ruv = [
-        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.60)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ruv)))',
+        'DSN'          => '',
         'hostname'     => '',
         'username'     => 'ruv',
-        'password'     => 'Karm3l1a',
+        'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
     ]; 
@@ -73,10 +73,10 @@ class Database extends Config
      * The SIPOD database connection.
      */
     public array $bd_sipod = [
-        'DSN'          => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.62)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=VICTIUNO)))',
+        'DSN'          => '',
         'hostname'     => '',
         'username'     => 'Consulta',
-        'password'     => 'Bog654',
+        'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
     ];
@@ -86,9 +86,9 @@ class Database extends Config
      */
     public array $bd_sirav = [
         'DSN'      => '',
-        'hostname' => '30.0.1.66', // Nombre o dirección IP del servidor SQL Server
+        'hostname' => '', // Nombre o dirección IP del servidor SQL Server
         'username' => 'juan.huertas',
-        'password' => 'siRR4p',
+        'password' => '',
         'database' => '', // No es necesario proporcionar el nombre de la base de datos
         'DBDriver' => 'SQLSRV', // Usar el controlador SQL Server
         'DBPrefix' => '',
