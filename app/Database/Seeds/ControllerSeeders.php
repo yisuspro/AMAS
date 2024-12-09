@@ -12,5 +12,6 @@ class ControllerSeeders extends Seeder
         $this->call('Categories');
         $this->call('Roles');
         $this->call('Entities');
+        $this->call('Documents');
     }
 }
