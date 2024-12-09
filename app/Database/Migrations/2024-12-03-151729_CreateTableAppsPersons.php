@@ -32,7 +32,7 @@ class CreateTableAppsPersons extends Migration
             ],
             'APPR_confidentiality' => [
                 'type' => 'BINARY',
-            ],
+            ],  
             'APPR_date_validity' => [
                 'type' => 'DATE',
             ],
@@ -43,10 +43,10 @@ class CreateTableAppsPersons extends Migration
         ]);
         $this->forge->addPrimaryKey('APPR_PK');
         $this->forge->addKey('APPR_FK_app',false);  
-        $this->forge->addKey('APPR_FK_users',false);  
+        $this->forge->addKey('APPR_FK_person',false);  
         $this->forge->createTable('appspersons');
-        $this->forge->addForeignKey('APPR_FK_app', 'apps', 'APPS_PK','cascade','cascade','FK_apps_users');
-        $this->forge->addForeignKey('APPR_FK_person', 'persons', 'USDT_PK','cascade','cascade','FK_users_apps');
+        $this->forge->addForeignKey('APPR_FK_app', 'apps', 'APPS_PK','cascade','cascade','FK_apps_persons');
+        $this->forge->addForeignKey('APPR_FK_person', 'persons', 'PRSN_PK','cascade','cascade','FK_persons_apps');
         $this->forge->processIndexes('appspersons');
     }
 

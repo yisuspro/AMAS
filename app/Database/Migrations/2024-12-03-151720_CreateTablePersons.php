@@ -19,27 +19,22 @@ class CreateTablePersons extends Migration
             'PRSN_document' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
-                'unsigned' => true,
             ],
             'PRSN_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'unsigned' => true,
             ],
             'PRSN_email' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'unsigned' => true,
             ],
             'PRSN_phone' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
-                'unsigned' => true,
             ],
             'PRSN_position' => [
                 'type' => 'VARCHAR',
                 'constraint' => 45,
-                'unsigned' => true,
             ],
         ]);
         $this->forge->addPrimaryKey('PRSN_PK');
