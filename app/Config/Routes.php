@@ -5,60 +5,60 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'UsersController::index');
+$routes->get('/', 'Amas\UsersController::index');
 $routes->addRedirect('/amas/users', '/');
-$routes->get('/users', 'UsersController::index');
+$routes->get('/users', 'Amas\UsersController::index');
 
 //---LOGIN
-$routes->post('/users/login', 'UsersController::login');
-$routes->post('/users/logout', 'UsersController::logout');
-$routes->get('/users/menu', 'UsersController::cargarMenu');
-$routes->get('/users/UpdatePasswordUserView/(:num)', 'UsersController::UpdatePasswordUserView/$1');
-$routes->post('/users/UpdatePasswordUser', 'UsersController::UpdatePasswordUser');
+$routes->post('/users/login', 'Amas\UsersController::login');
+$routes->post('/users/logout', 'Amas\UsersController::logout');
+$routes->get('/users/menu', 'Amas\UsersController::cargarMenu');
+$routes->get('/users/UpdatePasswordUserView/(:num)', 'Amas\UsersController::UpdatePasswordUserView/$1');
+$routes->post('/users/UpdatePasswordUser', 'Amas\UsersController::UpdatePasswordUser');
 
 
 //----USUARIOS
 $routes->group('users', function($routes) {
-    $routes->get('profileUser', 'UsersController::profileUser');
-    $routes->get('createUserView', 'UsersController::createUserView');
-    $routes->get('listUsersView', 'UsersController::listUsersView');
-    $routes->get('listUser', 'UsersController::listUser');
-    $routes->post('register', 'UsersController::register');
-    $routes->get('updatetUserView/(:num)', 'UsersController::updatetUserView/$1');
-    $routes->post('updateUsers', 'UsersController::updateUsers');
-    $routes->post('updateStateUsers/(:num)', 'UsersController::updateStateUsers/$1');
-    $routes->post('updatePasswordUsers', 'UsersController::updatePasswordUsers');
-    $routes->get('addRolesUsersView/(:num)', 'UsersController::addRolesUsersView/$1');
-    $routes->get('listUsersRoles/(:num)', 'UsersController::listUsersRoles/$1');
-    $routes->post('addRolesUsers/(:num)/(:num)', 'UsersController::addRolesUsers/$1/$2');
-    $routes->get('getPermissionsUsers', 'UsersController::getPermissionsUsers');
-    $routes->get('consultarUsersAppsView', 'UsersController::consultarUsersAppsView');
-    $routes->get('resultConsultarUsersAppsView/(:num)/(:segment)', 'UsersController::resultConsultarUsersAppsView/$1/$2');
-    $routes->get('resultConsultarUsersApps', 'UsersController::resultConsultarUsersApps');
-    $routes->get('prueba', 'UsersController::prueba');
+    $routes->get('profileUser', 'Amas\UsersController::profileUser');
+    $routes->get('createUserView', 'Amas\UsersController::createUserView');
+    $routes->get('listUsersView', 'Amas\UsersController::listUsersView');
+    $routes->get('listUser', 'Amas\UsersController::listUser');
+    $routes->post('register', 'Amas\UsersController::register');
+    $routes->get('updatetUserView/(:num)', 'Amas\UsersController::updatetUserView/$1');
+    $routes->post('updateUsers', 'Amas\UsersController::updateUsers');
+    $routes->post('updateStateUsers/(:num)', 'Amas\UsersController::updateStateUsers/$1');
+    $routes->post('updatePasswordUsers', 'Amas\UsersController::updatePasswordUsers');
+    $routes->get('addRolesUsersView/(:num)', 'Amas\UsersController::addRolesUsersView/$1');
+    $routes->get('listUsersRoles/(:num)', 'Amas\UsersController::listUsersRoles/$1');
+    $routes->post('addRolesUsers/(:num)/(:num)', 'Amas\UsersController::addRolesUsers/$1/$2');
+    $routes->get('getPermissionsUsers', 'Amas\UsersController::getPermissionsUsers');
+    $routes->get('consultarUsersAppsView', 'Amas\UsersController::consultarUsersAppsView');
+    $routes->get('resultConsultarUsersAppsView/(:num)/(:segment)', 'Amas\UsersController::resultConsultarUsersAppsView/$1/$2');
+    $routes->get('resultConsultarUsersApps', 'Amas\UsersController::resultConsultarUsersApps');
+    $routes->get('prueba', 'Amas\UsersController::prueba');
 });
 
 //--PERMISOS
 $routes->group('permissions', function($routes) {
-    $routes->get('listPermissionsView', 'PermissionsController::index');
-    $routes->get('listPermissions', 'PermissionsController::listPermissions');
-    $routes->post('createPermissions', 'PermissionsController::createPermissions');
-    $routes->get('updatePermissionsView/(:num)', 'PermissionsController::updatePermissionsView/$1');
-    $routes->post('updatePermissions', 'PermissionsController::updatePermissions');
-    $routes->post('updateStatePermissions/(:num)', 'PermissionsController::updateStatePermissions/$1');
+    $routes->get('listPermissionsView', 'Amas\PermissionsController::index');
+    $routes->get('listPermissions', 'Amas\PermissionsController::listPermissions');
+    $routes->post('createPermissions', 'Amas\PermissionsController::createPermissions');
+    $routes->get('updatePermissionsView/(:num)', 'Amas\PermissionsController::updatePermissionsView/$1');
+    $routes->post('updatePermissions', 'Amas\PermissionsController::updatePermissions');
+    $routes->post('updateStatePermissions/(:num)', 'Amas\PermissionsController::updateStatePermissions/$1');
 });
 
 //--ROLES
 $routes->group('roles', function($routes) {
-    $routes->get('listRolesView', 'RolesController::index');
-    $routes->get('listRoles', 'RolesController::listRoles');
-    $routes->post('createRoles', 'RolesController::createRoles');
-    $routes->get('updateRolesView/(:num)', 'RolesController::updateRolesView/$1');
-    $routes->post('updateRoles', 'RolesController::updateRoles');
-    $routes->post('updateStateRoles/(:num)', 'RolesController::updateStateRoles/$1');
-    $routes->get('addPermissionsRolesViews/(:num)', 'RolesController::addPermissionsRolesViews/$1');
-    $routes->post('addPermissionsRoles/(:num)/(:num)', 'RolesController::addPermissionsRoles/$1/$2');
-    $routes->get('listRolesPermissions/(:num)', 'RolesController::listRolesPermissions/$1');
+    $routes->get('listRolesView', 'Amas\RolesController::index');
+    $routes->get('listRoles', 'Amas\RolesController::listRoles');
+    $routes->post('createRoles', 'Amas\RolesController::createRoles');
+    $routes->get('updateRolesView/(:num)', 'Amas\RolesController::updateRolesView/$1');
+    $routes->post('updateRoles', 'Amas\RolesController::updateRoles');
+    $routes->post('updateStateRoles/(:num)', 'Amas\RolesController::updateStateRoles/$1');
+    $routes->get('addPermissionsRolesViews/(:num)', 'Amas\RolesController::addPermissionsRolesViews/$1');
+    $routes->post('addPermissionsRoles/(:num)/(:num)', 'Amas\RolesController::addPermissionsRoles/$1/$2');
+    $routes->get('listRolesPermissions/(:num)', 'Amas\RolesController::listRolesPermissions/$1');
 });
 
 //-----RUV-------

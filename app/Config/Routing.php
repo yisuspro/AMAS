@@ -43,7 +43,7 @@ class Routing extends BaseRouting
      *
      * Default: 'Home'
      */
-    public string $defaultController = 'UsersController';
+    public string $defaultController = 'Amas/UsersController';
 
     /**
      * The default method to call on the controller when no other

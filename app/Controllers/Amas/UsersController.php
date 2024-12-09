@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Amas;
 
-use CodeIgniter\Database\Query;
-use function App\Helpers\menu_helper;
+use App\Controllers\BaseController;
 
 class UsersController extends BaseController
 {

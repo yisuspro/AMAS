@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Amas;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
 //use App\Models\RolesModel;
 
 class RolesController extends BaseController
