@@ -176,10 +176,10 @@ class PermissionsController extends BaseController
         // Try updating the permission state
         if ($this->PermissionsModel->updatePermissions($result)) {
             $this->response->setStatusCode(201,'Estado del permiso actualizado correctamente');
+        } else {   
+            // If the update fails, return an error
+            $this->response->setStatusCode(401,'Error al actualizar estado del permiso');
         }
-    
-        // If the update fails, return an error
-        $this->response->setStatusCode(401,'Error al actualizar estado del permiso');
     }
      
 }

@@ -4,7 +4,7 @@
     </div>
 
     <div class="card-body">
-        <form method="post" action="#" id="frm_consult_users">
+        <form method="post" action="#" id="frm_consult_users_2">
             <div class="mb-3">
                 <label class="form-label">Número de Documento</label>
                 <input id="IDENTIFICACION" type="text" name="IDENTIFICACION" class="form-control" placeholder="Número de documento">

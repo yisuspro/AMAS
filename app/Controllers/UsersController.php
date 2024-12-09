@@ -101,7 +101,7 @@ class UsersController extends BaseController
 
     public function consultarUsersAppsView()
     {
-        return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Cunsulta usuarios Aplicaciones']);
+        return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
     }
 
     public function resultConsultarUsersAppsView($tipo,$parametro)
@@ -140,7 +140,7 @@ class UsersController extends BaseController
                 break;
         }
             
-        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Cunsulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
+        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Consulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
     }
 
     public function listUser()

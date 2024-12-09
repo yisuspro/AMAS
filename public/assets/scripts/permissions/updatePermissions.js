@@ -1,31 +1,33 @@
 $(document).ready(function () {
-
-
-    $("#frm_update_permission").submit(function (ev) {
+    // Handle form submission for permission update
+    $("#frm_update_permission").on("submit",function (ev) {
         ev.preventDefault();
         activarLogoCarga();
         $.ajax({
             url: '../permissions/updatePermissions',
             type: 'POST',
             data: $(this).serialize(),
-            success: function (data, xhr) {
+            success: function (response) {
                 cerrarLogoCarga();
-                crearAlerta('Permiso Actualizado correctamente', 'success');
-                console.log(xhr)
+                crearAlerta('Permiso actualizado correctamente', 'success');
                 $(".area-trabajo").load('../permissions/listPermissionsView');
             },
             error: function (xhr) {
-                var json = JSON.parse(xhr.responseText);
-                crearAlerta(json, 'error');
+                try {
+                    var json = JSON.parse(xhr.responseText);
+                    crearAlerta(json, 'error');
+                } catch (e) {
+                    crearAlerta('Error inesperado en el servidor', 'error');
+                }
                 cerrarLogoCarga();
-                console.log(xhr + 'hola');
-            },
-
+            }
         });
     });
+    
+    // Handle back button click
     $("#back").on('click', function (e) {
-        activarLogoCarga();
         e.preventDefault();
+        activarLogoCarga();
         $(".area-trabajo").load('../permissions/listPermissionsView', function () {
             cerrarLogoCarga();
         });

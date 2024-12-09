@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#frm_consult_user").submit(function (ev) {
+    $("#frm_consult_users").submit(function (ev) {
         ev.preventDefault();
         activarLogoCarga();
         $.ajax({
@@ -23,9 +23,10 @@ $(document).ready(function () {
         });
     });
 
-    $(".Consultar").on('click', function (e) {
-        activarLogoCarga();
+    $("#frm_consult_users_2").on('submit', function (e) {
+        alert
         e.preventDefault();
+        activarLogoCarga();
         var IDENTIFICACION = $('#IDENTIFICACION').val();
         var NOMBRE = $('#NOMBRE').val();
         var url = 'resultConsultarUsersAppsView/';

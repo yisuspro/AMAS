@@ -1,31 +1,49 @@
 $(document).ready(function () {
 
-
-     $("#frm_create_permission").submit(function (ev,dt) {
+    $("#frm_create_permission").on("submit",function (ev) {
         ev.preventDefault();
+        
+        // Show loading spinner
         activarLogoCarga();
+        
+        // Perform AJAX request
         $.ajax({
             url: '../permissions/createPermissions',
             type: 'POST',
             data: $(this).serialize(),
             success: function (data, xhr) {
+                // Hide loading spinner
                 cerrarLogoCarga();
+                
+                // Show success message
                 crearAlerta('Permiso creado correctamente', 'success');
-                console.log(xhr)
+                
+                // Reset the form and close the modal
                 $('#frm_create_permission')[0].reset();
                 $('#createPermissionModal').modal('hide');
+                
+                // Reload DataTable to reflect the new permission
                 $('#listPermissions').DataTable().ajax.reload();
             },
             error: function (xhr) {
-                var json = JSON.parse(xhr.responseText);
-                crearAlerta(json, 'error');
-                cerrarLogoCarga();
-                console.log(xhr + 'hola');
-            },
+                // Ensure the response is valid JSON
+                let jsonResponse;
+                try {
+                    jsonResponse = JSON.parse(xhr.responseText);
+                } catch (e) {
+                    jsonResponse = { message: 'Error inesperado' }; // Fallback message
+                }
 
+                // Close loading spinner
+                cerrarLogoCarga();
+                
+                // Show error message
+                crearAlerta(jsonResponse.message || 'Hubo un error al crear el permiso', 'error');
+                
+                // Optional: log the error details for debugging purposes (remove in production)
+                console.error('Error en la creación del permiso:', xhr);
+            }
         });
     });
-
-
 
 });
