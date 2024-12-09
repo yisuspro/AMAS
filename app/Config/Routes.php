@@ -38,8 +38,6 @@ $routes->group('users', function($routes) {
     $routes->get('prueba', 'UsersController::prueba');
 });
 
-
-
 //--PERMISOS
 $routes->group('permissions', function($routes) {
     $routes->get('listPermissionsView', 'PermissionsController::index');
@@ -65,19 +63,16 @@ $routes->group('roles', function($routes) {
 
 //-----RUV-------
 $routes->group('Ruv', function($routes) {
-
     $routes->get('listUser/(:num)/(:segment)', 'Ruv\UsersRuvController::listUser/$1/$2');
 });
 
 //-----SIRAV-------
 $routes->group('Sirav', function($routes) {
-
     $routes->get('listUser/(:num)/(:segment)', 'Sirav\UsersSiravController::listUser/$1/$2');
 });
 
 //-----SIPOD-------
 $routes->group('Sipod', function($routes) {
-
     $routes->get('listUser/(:num)/(:segment)', 'Sipod\UsersSipodController::listUser/$1/$2');
 });
 

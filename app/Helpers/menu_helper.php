@@ -54,7 +54,7 @@ if (!function_exists('generate_menu')) {
             ],
             [
                 'id' => '5P',
-                'title' => 'USUARIOS',
+                'title' => 'PERSONAS',
                 'icon' => 'bi-person-dash',
                 'permissions' => 'C_USERS_APP',
                 'children' => [
@@ -98,14 +98,14 @@ if (!function_exists('generate_menu')) {
         foreach ($menuItems as $item) {
             if (in_array($item['permissions'], $permissions)) {
                 $html .= '<div class="contenido-padre">';
-                $html .= '<a class="buton-menu-padre" id="' . $item['id'] . '"><i class="bi ' . $item['icon'] . '"></i>' . $item['title'] . '</a>';
+                $html .= '<a class="buton-menu-padre" id="' . $item['id'] . '"><i class="bi ' . $item['icon'] . '"></i> &nbsp;' . $item['title'] . '</a>';
                 $html .= '</div>';
 
                 if (!empty($item['children'])) {
                     $html .= '<div class="contenido-hijo oculto" id="contenido' . $item['id'] . '" style="display: none;">';
                     foreach ($item['children'] as $child) {
                         if (in_array($child['permissions_CH'], $permissions)) {
-                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i>' . $child['title'] . '</a>';
+                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i> &nbsp;' . $child['title'] . '</a>';
                         }
                     }
                     $html .= '</div>';
