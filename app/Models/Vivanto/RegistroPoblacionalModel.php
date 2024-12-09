@@ -75,9 +75,6 @@ class RegistroPoblacionalModel extends Model
                     );
                END;
           ";
-
-<<<<<<< Updated upstream
-          // Bind the parameters to avoid SQL injection
           $db->query($sql, [
                ':P_USUARIO' => $params['P_USUARIO'],
                ':P_F_CENSO' => $params['P_F_CENSO'],
@@ -173,10 +170,8 @@ class RegistroPoblacionalModel extends Model
          $resultId = $db->table('MED_CENSOS_UBICACION')->selectMax('CSU_ID')->get();
      
          return $resultId->getRowArray();
-     }
-     
-=======
     }
+    
 
     public function insertarIntegrantesCensoPoblacional($params)
     {
@@ -224,5 +219,4 @@ class RegistroPoblacionalModel extends Model
        //return $resultId->getRowArray();  
         return $sql;
     }
->>>>>>> Stashed changes
 }
