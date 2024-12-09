@@ -186,8 +186,6 @@ class RegistroPoblacionalController extends BaseController
         echo json_encode($allParams);
     }
 
-<<<<<<< Updated upstream
-=======
     public function loadingFileCensoInt()
     {
 
@@ -240,5 +238,4 @@ class RegistroPoblacionalController extends BaseController
         }
 
     }
->>>>>>> Stashed changes
 }
