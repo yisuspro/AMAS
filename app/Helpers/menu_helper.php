@@ -105,7 +105,7 @@ if (!function_exists('generate_menu')) {
                 'permissions' => 'C_AUDITORY',
                 'children' => [
                     [
-                        'id' => 'consultarUsersAppsView',
+                        'id' => '../audit/listMyCase',
                         'title' => 'CONSULTAR',
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_AUDITORY',

@@ -16,5 +16,14 @@ class AuditoryController extends BaseController
     public function index()
     {
         //
+
+        return view('private/views_ajax/Amas/listMyCaseAjax', ['title' => 'Mis casos']);
+    }
+
+    public function listMyCase()
+    {
+        //
+
+        return view('private/views_ajax/Amas/listMyCaseAjax', ['title' => 'Mis casos']);
     }
 }
