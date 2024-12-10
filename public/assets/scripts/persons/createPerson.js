@@ -14,10 +14,9 @@ $(document).ready(function () {
         $.ajax({
             url: '../persons/createPerson',
             type: 'POST',
-            //data:$(this).serialize(),
             data: formData,
-            processData: false, // Prevent jQuery from automatically transforming the data
-            contentType: false, // Don't set content type; it's handled by FormData
+            processData: false,
+            contentType: false,
             success: function (data, xhr) {
                 submitBtn.prop('disabled', false); // Re-enable submit button
                 cerrarLogoCarga();

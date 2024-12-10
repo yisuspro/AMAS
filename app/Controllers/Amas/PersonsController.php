@@ -4,15 +4,18 @@ namespace App\Controllers\Amas;
 
 use App\Controllers\BaseController;
 use App\Models\Amas\PersonsModel;
+use App\Models\Amas\DocumentsPersonsModel;
 
 class PersonsController extends BaseController
 {
 
     protected $personsModel;
+    protected $documentPerson;
 
     public function __construct()
     {
         $this->personsModel = new PersonsModel();   
+        $this->documentPerson = new DocumentsPersonsModel();   
     }
 
 
@@ -31,24 +34,42 @@ class PersonsController extends BaseController
             'PRSN_position' => $this->request->getPost('PRSN_position')
         ];
 
+    
+        $file1 = $this->request->getFile('DCPR_name_1');
+        $file2 = $this->request->getFile('DCPR_name_2');
         
-//        $file = $this->request->getFiles();
+        if ($saveId = $this->personsModel->insertPersons($personData)) {
+            $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR . getenv('app.uploadPath');
 
-        $file = $this->request->getFile('DCPR_name_2');
+            if ($file1 && $file1->isValid()) {
+                $filename1 = $file1->getRandomName();
+                $file1->move($uploadPath, $filename1);
 
-        /*if ($file && $file->isValid()) {
-            $post['DCPR_name'] = $file->getRandomName();
-        } elseif ($file) {
-            $this->response->setStatusCode(401,'Error al cargar los archivos');
-        }*/
+                $documentData = [
+                    'DCPR_name' => $filename1,
+                    'DCPR_description' => "",
+                    'DCPR_location' => $uploadPath,
+                    'DCPR_state' => 1,
+                    'DCPR_FK_person' => $saveId,
+                    'DCPR_FK_typedocument' => 1,
+                ];
 
-        if ($this->personsModel->insertPersons($personData)) {
+                $this->documentPerson->insertDocumentPersons($documentData);
+            }
+            
+            if ($file2 && $file2->isValid()) {
+                $filename2 = $file1->getRandomName();
+                $file2->move($uploadPath, $filename2);
+                $documentData = [
+                    'DCPR_name' => $filename2,
+                    'DCPR_description' => "",
+                    'DCPR_location' => $uploadPath,
+                    'DCPR_state' => 1,
+                    'DCPR_FK_person' => $saveId,
+                    'DCPR_FK_typedocument' => 1,
+                ];
 
-            $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR;
-            if ($file && $file->isValid()) {
-                $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR . getenv('app.uploadPath');
-                $file->move($uploadPath, $file->getRandomName());
-                //$this->response->setStatusCode(201);
+                $this->documentPerson->insertDocumentPersons($documentData);
             }
 
             $this->response->setStatusCode(201,$uploadPath);
