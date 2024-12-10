@@ -34,7 +34,7 @@ class PersonsController extends BaseController
         
 //        $file = $this->request->getFiles();
 
-        //$file2 = $this->request->getFile('DCPR_name_2');
+        $file = $this->request->getFile('DCPR_name_2');
 
         /*if ($file && $file->isValid()) {
             $post['DCPR_name'] = $file->getRandomName();
@@ -44,12 +44,12 @@ class PersonsController extends BaseController
 
         if ($this->personsModel->insertPersons($personData)) {
 
-            $uploadPath = "";
-            //if ($file && $file->isValid()) {
-                $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR;
-                //$file->move($uploadPath, $file->getRandomName());
+            $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR;
+            if ($file && $file->isValid()) {
+                $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR . getenv('app.uploadPath');
+                $file->move($uploadPath, $file->getRandomName());
                 //$this->response->setStatusCode(201);
-            //}
+            }
 
             $this->response->setStatusCode(201,$uploadPath);
 
