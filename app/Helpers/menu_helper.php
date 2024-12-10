@@ -97,7 +97,21 @@ if (!function_exists('generate_menu')) {
                         'permissions_CH' => 'M_CEN_REG_POBLA',
                     ]
                 ]
-            ]
+            ],
+            [
+                'id' => '7P',
+                'title' => 'AUDITORIA',
+                'icon' => 'bi-file-earmark-arrow-down',
+                'permissions' => 'C_AUDITORY',
+                'children' => [
+                    [
+                        'id' => 'consultarUsersAppsView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_AUDITORY',
+                    ],
+                ]
+            ],
         ];
         $html = '';
 
