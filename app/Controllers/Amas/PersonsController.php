@@ -58,7 +58,7 @@ class PersonsController extends BaseController
             }
             
             if ($file2 && $file2->isValid()) {
-                $filename2 = $file1->getRandomName();
+                $filename2 = $file2->getRandomName();
                 $file2->move($uploadPath, $filename2);
                 $documentData = [
                     'DCPR_name' => $filename2,
@@ -66,7 +66,7 @@ class PersonsController extends BaseController
                     'DCPR_location' => $uploadPath,
                     'DCPR_state' => 1,
                     'DCPR_FK_person' => $saveId,
-                    'DCPR_FK_typedocument' => 1,
+                    'DCPR_FK_typedocument' => 2,
                 ];
 
                 $this->documentPerson->insertDocumentPersons($documentData);

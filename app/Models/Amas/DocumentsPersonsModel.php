@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class DocumentsPersonsModel extends Model
 {
-    protected $table = 'documentsDocumentPersons';
+    protected $table = 'documentspersons';
     protected $primaryKey = 'DCPR_PK';
 
     protected $allowedFields = [
@@ -27,8 +27,7 @@ class DocumentsPersonsModel extends Model
     
     public function insertDocumentPersons($data)
     {
-        $this->insert($data);
-        return $this->insert_id();
+        return $this->insert($data);
     }
 
     public function viewDocumentPersons($personId)

@@ -26,8 +26,8 @@ class PersonsModel extends Model
     
     public function insertPersons($data)
     {
-        $this->insert($data);
-        return $this->insert_id();
+        return $this->insert($data);
+//        return $this->insert_id();
     }
 
     public function viewPersons($personId)
