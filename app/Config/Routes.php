@@ -66,6 +66,16 @@ $routes->group('roles', function($routes) {
     $routes->post('addPermissionsRoles/(:num)/(:num)', 'Amas\RolesController::addPermissionsRoles/$1/$2');
     $routes->get('listRolesPermissions/(:num)', 'Amas\RolesController::listRolesPermissions/$1');
 });
+//----AUDITORIA------
+
+
+
+$routes->group('audit', function($routes) {
+    $routes->get('listMyCase', 'Amas\RolesController::listMyCase');
+    $routes->get('registerAuditCase', 'Amas\RolesController::registerAuditCase');
+});
+
+
 
 //-----RUV-------
 $routes->group('Ruv', function($routes) {
