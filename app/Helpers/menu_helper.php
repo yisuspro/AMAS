@@ -63,6 +63,12 @@ if (!function_exists('generate_menu')) {
                         'title' => 'CONSULTAR',
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_USERS_APP',
+                    ],
+                    [
+                        'id' => '../persons/personsAdminView',
+                        'title' => 'ADMINISTRAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_USERS_APP',
                     ]
                 ]
             ],

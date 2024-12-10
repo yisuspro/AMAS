@@ -38,6 +38,12 @@ $routes->group('users', function($routes) {
     $routes->get('prueba', 'Amas\UsersController::prueba');
 });
 
+//--PERSONAS
+$routes->group('persons', function($routes) {
+    $routes->get('personsAdminView', 'Amas\PersonsController::index');
+    $routes->post('createPerson', 'Amas\PersonsController::createPerson');
+});
+
 //--PERMISOS
 $routes->group('permissions', function($routes) {
     $routes->get('listPermissionsView', 'Amas\PermissionsController::index');
