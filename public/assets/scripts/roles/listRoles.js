@@ -195,7 +195,7 @@ $(document).ready(function () {
 
             } else {
                 cerrarLogoCarga();
-                crearAlerta('se recahza ale cambio cambio', 'error');
+                crearAlerta('se rechaza ale cambio cambio', 'error');
             }
 
 
