@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\RolespermissionsEntity;
 
 class RolespermissionsModel extends Model
 {
-    protected $table = 'rolespermissions';
-    protected $primaryKey = 'RLPR_PK';
+    protected $table        = 'rolespermissions';
+    protected $primaryKey   = 'RLPR_PK';
+    protected $returnType   = RolespermissionsEntity::class;
 
     protected $allowedFields = [
         'RLPR_date_create',
@@ -18,6 +20,9 @@ class RolespermissionsModel extends Model
         'RLPR_FK_rol',
         'RLPR_state',
     ];
+
+    protected $createdField  = 'RLPR_date_create';
+    protected $updatedField  = 'RLPR_date_update';
 
     protected $useTimestamps = false;
 

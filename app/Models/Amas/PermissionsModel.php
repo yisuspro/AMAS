@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\PermissionsEntity;
 
 class PermissionsModel extends Model
 {
-    protected $table = 'permissions';
-    protected $primaryKey = 'PRMS_PK';
+    protected $table        = 'permissions';
+    protected $primaryKey   = 'PRMS_PK';
+    protected $returnType   = PermissionsEntity::class;
 
     protected $allowedFields = [
         'PRMS_name',
@@ -19,6 +21,10 @@ class PermissionsModel extends Model
         'PRMS_user_update',
         'PRMS_state'
     ];
+
+
+    protected $createdField  = 'PRMS_date_create';
+    protected $updatedField  = 'PRMS_date_update';
 
     protected $useTimestamps = false;
     // Método para insertar un usuario encriptando la contraseña

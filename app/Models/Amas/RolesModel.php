@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\RolesEntity;
 
 class RolesModel extends Model
 {
-    protected $table = 'roles';
-    protected $primaryKey = 'ROLE_PK';
+    protected $table        = 'roles';
+    protected $primaryKey   = 'ROLE_PK';
+    protected $returnType   = RolesEntity::class;
 
     protected $allowedFields = [
         'ROLE_name',
@@ -18,6 +20,9 @@ class RolesModel extends Model
         'ROLE_FK_user_update',
         'ROLE_state'
     ];
+
+    protected $createdField  = 'ROLE_date_create';
+    protected $updatedField  = 'ROLE_date_update';
 
     protected $useTimestamps = false;
 

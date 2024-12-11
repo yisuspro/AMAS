@@ -4,10 +4,13 @@ namespace App\Models\Amas;
 
 use CodeIgniter\Model;
 
+use App\Entities\Amas\DocumentspersonsEntity;
+
 class DocumentsPersonsModel extends Model
 {
-    protected $table = 'documentspersons';
-    protected $primaryKey = 'DCPR_PK';
+    protected $table        = 'documentspersons';
+    protected $primaryKey   = 'DCPR_PK';
+    protected $returnType   = DocumentspersonsEntity::class;
 
     protected $allowedFields = [
         'DCPR_name',

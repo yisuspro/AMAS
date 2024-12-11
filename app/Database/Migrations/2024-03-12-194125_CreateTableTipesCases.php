@@ -9,7 +9,7 @@ class CreateTableTipesCases extends Migration
     public function up()
     {
          //Crear tabla tipo de casos
-         $this->forge->addField([
+        $this->forge->addField([
             'TPCS_PK' => [
                 'type' => 'INT',
                 'constraint' => 11,

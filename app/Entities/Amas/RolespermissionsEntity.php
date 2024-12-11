@@ -6,7 +6,5 @@ use CodeIgniter\Entity\Entity;
 
 class RolespermissionsEntity extends Entity
 {
-    protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
-    protected $casts   = [];
+    protected $dates   = ['RLPR_date_create', 'RLPR_date_update'];
 }

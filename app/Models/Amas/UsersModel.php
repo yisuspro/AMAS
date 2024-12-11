@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\UsersEntity;
 
 class UsersModel extends Model
 {
-    protected $table = 'users';
-    protected $primaryKey = 'USER_PK';
+    protected $table        = 'users';
+    protected $primaryKey   = 'USER_PK';
+    protected $returnType   = UsersEntity::class;
 
     protected $allowedFields = [
         'USER_name',
@@ -23,6 +25,9 @@ class UsersModel extends Model
         'USER_email',
         'USER_address_ip',
     ];
+
+    protected $createdField  = 'USER_FK_user_create';
+    protected $updatedField  = 'USER_FK_user_update';
 
     protected $useTimestamps = false;
 

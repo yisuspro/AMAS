@@ -9,7 +9,7 @@ class CreateTableRolesPermissions extends Migration
     public function up()
     {
          // crear tabla roles_permissions
-         $this->forge->addField([
+        $this->forge->addField([
             'RLPR_PK' => [
                 'type' => 'INT',
                 'constraint' => 11,

@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\PersonsEntity;
 
 class PersonsModel extends Model
 {
-    protected $table = 'persons';
-    protected $primaryKey = 'PRSN_PK';
+    protected $table        = 'persons';
+    protected $primaryKey   = 'PRSN_PK';
+    protected $returnType   = PersonsEntity::class;
 
     protected $allowedFields = [
         'PRSN_document',

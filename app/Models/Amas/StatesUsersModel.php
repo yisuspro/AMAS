@@ -3,11 +3,13 @@
 namespace App\Models\Amas;
 
 use CodeIgniter\Model;
+use App\Entities\Amas\StatesusersEntity;
 
 class StatesUsersModel extends Model
 {
-    protected $table = 'statesusers';
+    protected $table      = 'statesusers';
     protected $primaryKey = 'STTS_PK';
+    protected $returnType = StatesusersEntity::class;
 
     protected $allowedFields = [
         'STTS_name',

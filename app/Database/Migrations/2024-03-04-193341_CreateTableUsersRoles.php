@@ -8,8 +8,8 @@ class CreateTableUsersRoles extends Migration
 {
     public function up()
     {
-         // crear tabla usersroles
-         $this->forge->addField([
+        // crear tabla usersroles
+        $this->forge->addField([
             'USRL_PK' => [
                 'type' => 'INT',
                 'constraint' => 11,
