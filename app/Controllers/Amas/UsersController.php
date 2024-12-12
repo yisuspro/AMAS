@@ -268,22 +268,22 @@ class UsersController extends BaseController
             ];
             $validacion = $this->UsersModel->validateUser($data);
             if ($validacion) {
-                if ($this->UsersModel->validateIPUser($validacion['USER_PK'],$addressIp)) {
-                    if ($validacion['USER_FK_state_user'] == 1) {
-                        $permissions = $this->UsersrolesModel->validateRolesUser($validacion['USER_PK']);
+                if ($this->UsersModel->validateIPUser($validacion->USER_PK,$addressIp)) {
+                    if ($validacion->USER_FK_state_user == 1) {
+                        $permissions = $this->UsersrolesModel->validateRolesUser($validacion->USER_PK);
 
                         $userData = [
-                            'USER_PK' => $validacion['USER_PK'],
-                            'USER_name' => $validacion['USER_name'],
-                            'USER_username' => $validacion['USER_username'],
+                            'USER_PK' => $validacion->USER_PK,
+                            'USER_name' => $validacion->USER_name,
+                            'USER_username' => $validacion->USER_username,
                             'PERMISSIONS' => $permissions
                         ];
 
                         $this->session->set($userData);
                         echo json_encode([
                             'msg' => 'El usuario y contraseña son correctos',
-                            'USER_PK' => $validacion['USER_PK'],
-                            'USER_reset_password' => $validacion['USER_reset_password']
+                            'USER_PK' => $validacion->USER_PK,
+                            'USER_reset_password' => $validacion->USER_reset_password
                         ]);
                     } else {
                         $this->response->setStatusCode(401);

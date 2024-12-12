@@ -106,7 +106,7 @@ if (!function_exists('generate_menu')) {
                 'children' => [
                     [
                         'id' => '../audit/listMyCase',
-                        'title' => 'CONSULTAR',
+                        'title' => 'MIS CASOS',
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_AUDITORY',
                     ],

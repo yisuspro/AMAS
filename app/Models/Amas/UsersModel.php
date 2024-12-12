@@ -68,7 +68,7 @@ class UsersModel extends Model
     {
         $user = $this->where('USER_username', $data['USER_username'])->first();
         
-        if ($user && password_verify($data['USER_password'], $user['USER_password'])) {
+        if ($user && password_verify($data['USER_password'], $user->USER_password)) {
             return $user;
         }
 
@@ -80,7 +80,7 @@ class UsersModel extends Model
         $user = $this->where('USER_PK', $USER_PK)->first();
 
         // Allow if no IP is set
-        if (empty($user['USER_address_ip']) || $user['USER_address_ip'] === $USER_address_ip) {
+        if (empty($user->USER_address_ip) || $user->USER_address_ip === $USER_address_ip) {
             return true;
         }
 
