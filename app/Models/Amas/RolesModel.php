@@ -24,7 +24,7 @@ class RolesModel extends Model
     protected $createdField  = 'ROLE_date_create';
     protected $updatedField  = 'ROLE_date_update';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
 
     /**
      * The listRoles function returns all roles from the database.

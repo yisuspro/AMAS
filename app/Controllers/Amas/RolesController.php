@@ -80,8 +80,6 @@ class RolesController extends BaseController
         $rolData = [
             'ROLE_name' => $this->request->getPost('ROLE_name'),
             'ROLE_description' => $this->request->getPost('ROLE_description'),
-            'ROLE_date_create' => date('Y-m-d H:i:s'),
-            'ROLE_date_update' => date('Y-m-d H:i:s'),
             'ROLE_FK_user_create' => $this->session->get('USER_PK'),
             'ROLE_FK_user_update' => $this->session->get('USER_PK'),
             'ROLE_state' => 1
@@ -111,7 +109,7 @@ class RolesController extends BaseController
     {
         $data = $this->RolesModel->viewRoles($id);
 
-        return view('private/views_ajax/roles/updateRolesAjax', ['title' => 'Actualizar Roles', 'data' => $data->getResultArray()]);
+        return view('private/views_ajax/roles/updateRolesAjax', ['title' => 'Actualizar Roles', 'data' => $data]);
     }
 
     /**
