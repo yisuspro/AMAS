@@ -71,37 +71,86 @@ class UsersController extends BaseController
         return view('private/views_ajax/users/createUserAjax', ['title' => 'Crear usuario']);
     }
 
-    /**
-     * The function `updateUserView` retrieves user data and passes it to a view for updating a user via
-     * AJAX in a PHP application.
-     * 
-     * @param id The `updatetUserView` function seems to be a method in a PHP class that is responsible for
-     * fetching user data based on the provided `` and then passing that data to a view for rendering.
-     * 
-     * @return A view named 'updateUserAjax' is being returned with the title 'Actualizar usuario' and the
-     * data fetched from the UsersModel for the specified user ID. The data is passed to the view as an
-     * array with the key 'data'.
-     */
+   
+   /**
+    * The function `updateUserView` retrieves user data and returns a view for updating a user with the
+    * specified ID.
+    * 
+    * @param id The `id` parameter in the `updateUserView` function is used to identify the user whose
+    * information needs to be updated. This function retrieves the user data based on the provided `id`
+    * and then passes that data to the view for displaying the user update form.
+    * 
+    * @return The `updatetUserView` function is returning a view called 'updateUserAjax' located in the
+    * 'private/views_ajax/users' directory. It is passing an array with the keys 'title' set to
+    * 'Actualizar usuario' and 'data' containing the user information fetched from the `viewUsers`
+    * method in the `UsersModel`.
+    */
     public function updatetUserView($id)
     {
         $data = $this->UsersModel->viewUsers($id);
         return view('private/views_ajax/users/updateUserAjax', ['title' => 'Actualizar usuario', 'data' => $data]);
     }
 
+    /**
+     * The function UpdatePasswordUserView displays a view for updating a user's password with the
+     * specified user ID.
+     * 
+     * @param id The `UpdatePasswordUserView` function is a PHP function that generates a view for
+     * updating a user's password. The function takes an `` parameter, which is used to identify the
+     * user for whom the password is being updated.
+     * 
+     * @return A view named 'updatePasswordUSer' is being returned with the title 'Cambio de
+     * contraseña' and the USER_PK value set to the provided  parameter.
+     */
     public function UpdatePasswordUserView($id)
     {
         return view('updatePasswordUSer', ['title' => 'Cambio de contraseña', 'USER_PK' => $id]);
     }
 
+    /**
+     * The function `addRolesUsersView` returns a view for assigning roles to users with specified
+     * title and ID.
+     * 
+     * @param id The `id` parameter in the `addRolesUsersView` function is used to pass the identifier
+     * of a user to the view. This identifier is then used within the view to perform operations
+     * specific to that user, such as assigning roles.
+     * 
+     * @return A view named 'addRolesUsersAjax' located in the 'private/views_ajax/users' directory is
+     * being returned with the data array containing the title 'Asignar roles' and the id passed as a
+     * parameter.
+     */
     public function addRolesUsersView($id)
     {
         return view('private/views_ajax/users/addRolesUsersAjax', ['title' => 'Asignar roles ',  'id' => $id]);
     }
 
+  /**
+   * The function `consultarUsersAppsView` returns a view for querying users in applications.
+   * 
+   * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/Ruv' directory is
+   * being returned with the title 'Consulta usuarios Aplicaciones'.
+   */
     public function consultarUsersAppsView()
     {
         return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
     }
+/**
+ * The function `resultConsultarUsersAppsView` retrieves user data based on the type and parameter
+ * provided and updates the status of different applications accordingly before returning a view.
+ * 
+ * @param tipo The `tipo` parameter in the `resultConsultarUsersAppsView` function is used to determine
+ * the type of operation to be performed. It is used in a switch statement to execute different logic
+ * based on its value. In this case, it is used to decide whether to call the `listUsers
+ * @param parametro The `parametro` parameter in the `resultConsultarUsersAppsView` function seems to
+ * be used as a parameter for querying user data in different models based on the `tipo` (type)
+ * provided. Depending on the value of `tipo`, different methods from `UsersRuvModel`, `
+ * 
+ * @return The `resultConsultarUsersAppsView` function is returning a view named 'listUserAjax' located
+ * in 'private/views_ajax/Ruv/' directory. The view is being passed an array with the following data:
+ * - 'title' => 'Consulta usuarios RUV'
+ * - 'tipo' => the value of the  parameter passed to the function
+ * - 'parametro' => the value of
+ */
 
     public function resultConsultarUsersAppsView($tipo,$parametro)
     {
@@ -128,19 +177,15 @@ class UsersController extends BaseController
                 if( $this->UsersRuvModel->listUsersName($parametro)->getResultArray()){
                     $aplicaciones['Ruv'] = true;
                 }
-        
-                /*if($this->UsersSiravModel->listUsersName($parametro)->getResultArray()){
-                    $aplicaciones ['Sirav'] = true;
-                }
-        
-                if($this->UsersSipodModel->listUsersName($parametro)->getResultArray()){
-                    $aplicaciones ['Sipod'] = true;
-                }*/
                 break;
         }
             
         return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Consulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
     }
+/**
+ * The `listUser` function retrieves user data from a model, prepares it for display in a table with
+ * pagination, and returns it in JSON format.
+ */
 
     public function listUser()
     {
@@ -157,6 +202,14 @@ class UsersController extends BaseController
         echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
         exit;
     }
+/**
+ * The function `register` in PHP checks if two passwords match before creating a new user with
+ * provided data.
+ *//**
+  * The function `register` in PHP handles user registration by validating input data and inserting a
+  * new user into the database if the passwords match and the user does not already exist.
+  */
+ 
 
     public function register()
     {
@@ -197,6 +250,10 @@ class UsersController extends BaseController
         }
     }
 
+   /**
+    * The PHP function `login` handles user authentication by validating credentials, IP address, and
+    * user status before setting session data or returning appropriate error messages.
+    */
     public function login()
     {
         // Obtener los datos del formulario enviados por AJAX
@@ -246,6 +303,12 @@ class UsersController extends BaseController
         }
     }
 
+/**
+ * The `logout` function in PHP destroys the session and sets the response status code to 200 before
+ * returning true.
+ * 
+ * @return The `logout` function is returning a boolean value `true`.
+ */
 
     public function logout()
     {
@@ -253,6 +316,9 @@ class UsersController extends BaseController
         $this->response->setStatusCode(200);
         return true;
     }
+/**
+ * The function `updateUsers` updates user data in a PHP application based on the provided input.
+ */
 
     public function updateUsers()
     {
@@ -275,6 +341,14 @@ class UsersController extends BaseController
         }
     }
 
+   /**
+    * The function `updateStateUsers` checks and updates the state of a user based on their ID in a PHP
+    * application.
+    * 
+    * @param id The `updateStateUsers` function you provided seems to be updating the state of a user
+    * based on the user's ID. The function first validates the user ID, then checks the current state
+    * of the user, and toggles it between 0 and 1.
+    */
     public function updateStateUsers($id)
     {
         $result = $this->UsersModel->validateUserId($id);
@@ -304,6 +378,10 @@ class UsersController extends BaseController
         }
     }
 
+   /**
+    * The function `updatePasswordUsers` in PHP checks if two passwords match, updates the user's
+    * password in the database, and sets appropriate response status codes based on the outcome.
+    */
     public function updatePasswordUsers()
     {
         if ($this->request->getPost('USER_password_P') == $this->request->getPost('USER_password_two_P')) {
@@ -326,6 +404,9 @@ class UsersController extends BaseController
             $this->response->setStatusCode(401);
         }
     }
+/**
+ * The function `UpdatePasswordUser` validates and updates a user's password based on input data.
+ */
 
 
     public function UpdatePasswordUser()
@@ -362,6 +443,14 @@ class UsersController extends BaseController
         }
     }
 
+    /**
+     * The function `listUsersRoles` retrieves user roles data based on the provided ID and returns it
+     * in a JSON format for DataTables usage.
+     * 
+     * @param id The `listUsersRoles` function in the code snippet you provided seems to be a part of a
+     * PHP script that handles the listing of roles for a specific user based on the `` parameter
+     * passed to the function.
+     */
     public function listUsersRoles($id)
     {
         $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
@@ -378,6 +467,17 @@ class UsersController extends BaseController
         exit;
     }
 
+/**
+ * The function `addRolesUsers` assigns a role to a user and handles validation and error messages
+ * accordingly.
+ * 
+ * @param ROLE_PK The `ROLE_PK` parameter in the `addRolesUsers` function represents the primary key of
+ * the role that you want to assign to a user. This parameter is used to identify the specific role
+ * that you are assigning to a user within your application.
+ * @param USER_PK The `USER_PK` parameter in the `addRolesUsers` function represents the primary key of
+ * a user in the system. This parameter is used to identify the user to whom a role is being assigned
+ * or updated within the function logic.
+ */
 
     public function addRolesUsers($ROLE_PK, $USER_PK)
     {
