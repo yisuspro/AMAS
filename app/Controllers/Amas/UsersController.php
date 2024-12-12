@@ -85,7 +85,7 @@ class UsersController extends BaseController
     public function updatetUserView($id)
     {
         $data = $this->UsersModel->viewUsers($id);
-        return view('private/views_ajax/users/updateUserAjax', ['title' => 'Actualizar usuario', 'data' => $data->getResultArray()]);
+        return view('private/views_ajax/users/updateUserAjax', ['title' => 'Actualizar usuario', 'data' => $data]);
     }
 
     public function UpdatePasswordUserView($id)
@@ -280,8 +280,8 @@ class UsersController extends BaseController
         $result = $this->UsersModel->validateUserId($id);
         //echo json_encode ($result);
         if ($result) {
-            if ($result['USER_FK_state_user'] == 1) {
-                $result['USER_FK_state_user'] = 0;
+            if ($result->USER_FK_state_user == 1) {
+                $result->USER_FK_state_user = 0;
                 if ($this->UsersModel->updateUsers($result)) {
                     echo json_encode('Cambio exitoso');
                     $this->response->setStatusCode(201);
@@ -290,7 +290,7 @@ class UsersController extends BaseController
                     $this->response->setStatusCode(401);
                 }
             } else {
-                $result['USER_FK_state_user'] = 1;
+                $result->USER_FK_state_user = 1;
                 if ($this->UsersModel->updateUsers($result)) {
                     $this->response->setStatusCode(201);
                 } else {
@@ -384,7 +384,7 @@ class UsersController extends BaseController
         echo $ROLE_PK . "/" . $USER_PK;
         $validacion = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
         if ($validacion) {
-            if ($this->UsersrolesModel->updateStateUsersRolesId($validacion['USRL_PK'], $this->session->get('USER_PK'))) {
+            if ($this->UsersrolesModel->updateStateUsersRolesId($validacion->USRL_PK, $this->session->get('USER_PK'))) {
                 echo json_encode('rol asignado exitosamente');
                 $this->response->setStatusCode(200);
             } else {

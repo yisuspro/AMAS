@@ -103,9 +103,9 @@ class RolesModel extends Model
      */
     public function updateRoles($data)
     {
-        $role = $this->find($data['ROLE_PK']);
+        $role = $this->find($data->ROLE_PK);
         if ($role) {
-            $this->update($data['ROLE_PK'], $data);
+            $this->update($data->ROLE_PK, $data);
             return true;
         }
         return false;

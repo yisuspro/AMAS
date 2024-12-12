@@ -175,7 +175,7 @@ class RolesController extends BaseController
         }
     
         // Toggle the role state
-        $role['ROLE_state'] = ($role['ROLE_state'] == 1) ? 0 : 1;
+        $role->ROLE_state = ($role->ROLE_state == 1) ? 0 : 1;
     
         // Attempt to update the role's state in the database
         if ($this->RolesModel->updateRoles($role)) {

@@ -43,13 +43,18 @@ class RolespermissionsModel extends Model
     {
         $query = $this->db->table('permissions P')
             ->select('P.PRMS_PK, P.PRMS_name, P.PRMS_description, RP.RLPR_FK_rol, RP.RLPR_state')
-            ->join('rolespermissions RP', 'P.PRMS_PK = RP.RLPR_FK_permission', 'left')
-            ->where('P.PRMS_state', 1)
-            ->where('RP.RLPR_FK_rol', $rolId)
+            ->join('(SELECT * FROM rolespermissions WHERE RLPR_FK_rol = '.$rolId.') AS RP', 'P.PRMS_PK = RP.RLPR_FK_permission', 'left')
+            ->where('P.PRMS_state',1)
             ->get();
+
+            
 
         return $query ? $query : false;
     }
+
+
+    
+
 
     /**
      * The function `validateRolesPermissionsId` checks if a role has a specific permission assigned.

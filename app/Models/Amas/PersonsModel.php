@@ -40,9 +40,9 @@ class PersonsModel extends Model
     
     public function updatePersons($data)
     {
-        $person = $this->find($data['PRSN_PK']);
+        $person = $this->find($data->PRSN_PK);
         if ($person) {
-            $this->update($data['PRSN_PK'], $data);
+            $this->update($data->PRSN_PK, $data);
             return true;
         }
         return false;
