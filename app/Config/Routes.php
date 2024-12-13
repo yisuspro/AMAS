@@ -69,8 +69,8 @@ $routes->group('roles', function($routes) {
 //----AUDITORIA------
 
 $routes->group('audit', function($routes) {
-    $routes->get('listMyCase', 'Amas\AuditoryController::listMyCase');
-    $routes->get('registerAuditCase', 'Amas\AuditoryController::registerAuditCase');
+    $routes->get('listMyCaseView', 'Amas\AuditoryController::listMyCaseView');
+    $routes->get('listMyCase', 'Amas\AuditoryController::registerAuditCase');
 });
 
 
