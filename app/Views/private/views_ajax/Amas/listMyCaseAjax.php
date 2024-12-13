@@ -37,11 +37,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createPermissionModalLabel">CREAR PERMISO</h5>
+                <h5 class="modal-title" id="createPermissionModalLabel">REGISTRAR CASO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="#" id="frm_create_permission">
+            <form method="post" action="#" id="frm_create_case">
                 <div class="modal-body">
+                <div class="mb-3">
+                        <label for="PRMS_name" class="form-label">Fecha Recepción</label>
+                        <input id="CASE_date_reception" type="date" name="CASE_date_reception" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="PRMS_name" class="form-label">Nombre permiso</label>
+                        <input id="PRMS_name" type="text" name="PRMS_name" class="form-control" placeholder="Nombre" required>
+                    </div>
                     <div class="mb-3">
                         <label for="PRMS_name" class="form-label">Nombre permiso</label>
                         <input id="PRMS_name" type="text" name="PRMS_name" class="form-control" placeholder="Nombre" required>
