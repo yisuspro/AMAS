@@ -46,6 +46,38 @@ class UsersSiravModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sirav';
 
+
+    public function getUserById($ID) {
+        $sql = "
+        SELECT
+            U.ID,
+            U.DOCUMENTO AS IDENTIFICACION,
+            U.CORREO AS CORREO_ELECTRONICO,
+            U.USERNAME AS USUARIO,
+            U.FIRMA,
+            U.CARGO,
+            U.ACTIVO,
+            U.FECHA_INACTIVACION,
+            U.FECHA_ULTIMO_ACCESO,
+            RA.NOMBRE AS NOMBRE_INACTIVO,
+            CONCAT(U.PRIMER_NOMBRE, ' ', U.SEGUNDO_NOMBRE, ' ', U.PRIMER_APELLIDO, ' ', U.SEGUNDO_APELLIDO) AS NOMBRE,
+            STUFF((SELECT DISTINCT ', ' + R.NOMBRE
+                    FROM SIRAVAdmin.dbo.ROL_USUARIO RU
+                    JOIN SIRAVAdmin.dbo.ROL R ON R.ID = RU.ID_ROL
+                    WHERE RU.ID_USUARIO = U.ID
+                    FOR XML PATH(''), TYPE
+                ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES,
+            'SIRAV' AS APLICATIVO
+        FROM SIRAVAdmin.DBO.USUARIO U
+        LEFT JOIN SIRAVAdmin.dbo.RAZON_INACTIVO RA ON RA.ID = U.ID_RAZON_INACTIVO
+        WHERE U.ID = '".$ID."'
+    ";
+            
+    $query = $this->query($sql);
+    
+    return $query ?: false;
+    }
+
     /**
      * The function `listUsersDoc` retrieves user information based on a provided identification number
      * in a PHP application.

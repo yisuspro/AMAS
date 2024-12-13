@@ -56,6 +56,34 @@ class UsersRuvModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_ruv';
 
+    public function getUserById($ID) {
+        $sql = "
+        select DISTINCT
+                U.IDENTIFICACION,
+                U.ID,
+                U.NOMBRE,
+                U.USUARIO,
+                U.CORREO_ELECTRONICO,
+                U.ACTIVO,
+                U.CARGO,
+                U.FECHA_INACTIVACION,
+                U.FECHALOGEADO,
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                'RUV' AS APLICATIVO
+            FROM TBUSUARIOS U
+            LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
+            LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
+            WHERE U.ID = '".$ID."'
+            GROUP BY 
+                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+                U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
+                U.FECHA_INACTIVACION, U.FECHALOGEADO
+        ";
+    
+        $query = $this->query($sql);
+        return $query ?: false;
+    }
+
 
     /**
      * The function `listUsersDoc` retrieves user information along with their roles based on a given

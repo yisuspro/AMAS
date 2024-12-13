@@ -36,6 +36,14 @@ class PersonsModel extends Model
     {
         return $this->find($personId);
     }
+
+    public function getPersonbyDocument($document) {
+        return $this->where('PRSN_document',$document)
+            //->join('appspersons', 'APPR_FK_person = PRSN_PK', 'left')
+            //->join('apps', 'APPS_PK = APPR_FK_app', 'left')
+            //->find()
+            ->first();
+    }
     
     
     public function updatePersons($data)

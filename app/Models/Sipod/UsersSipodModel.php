@@ -47,6 +47,34 @@ class UsersSipodModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sipod';
 
+    public function getUserById($ID) {
+        $sql = "
+        SELECT DISTINCT
+            U.IDENTIFICACION,
+            U.ID ,
+            U.NOMBRE,
+            U.USUARIO,
+            U.CORREO_ELECTRONICO,
+            U.ACTIVO,
+            U.CARGO,
+            U.FECHA_INACTIVACION,
+            U.FECHALOGEADO,
+            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+            'SIPOD' AS APLICATIVO
+        FROM SIPOD.TBUSUARIOS U
+        LEFT JOIN SIPOD.TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
+        LEFT JOIN SIPOD.TBROLES R ON R.ID = RU.ID_ROL
+        WHERE U.ID= '".$ID."'
+        GROUP BY 
+            U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+            U.CORREO_ELECTRONICO,U.ACTIVO,U.FECHA_INACTIVACION,
+            U.CARGO,U.FECHALOGEADO
+    ";
+
+
+    return $this->query($sql) ?: false;
+    }
+
     /**
      * The function `listUsersDoc` retrieves user information based on identification from a database
      * table and returns the result.
