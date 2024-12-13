@@ -32,16 +32,16 @@ $routes->group('users', function($routes) {
     $routes->get('listUsersRoles/(:num)', 'Amas\UsersController::listUsersRoles/$1');
     $routes->post('addRolesUsers/(:num)/(:num)', 'Amas\UsersController::addRolesUsers/$1/$2');
     $routes->get('getPermissionsUsers', 'Amas\UsersController::getPermissionsUsers');
-    $routes->get('consultarUsersAppsView', 'Amas\UsersController::consultarUsersAppsView');
-    $routes->get('resultConsultarUsersAppsView/(:num)/(:segment)', 'Amas\UsersController::resultConsultarUsersAppsView/$1/$2');
     $routes->get('resultConsultarUsersApps', 'Amas\UsersController::resultConsultarUsersApps');
     $routes->get('prueba', 'Amas\UsersController::prueba');
 });
 
 //--PERSONAS
 $routes->group('persons', function($routes) {
+    $routes->get('consultarUsersAppsView', 'Amas\PersonsController::consultarUsersAppsView');
     $routes->get('personsAdminView', 'Amas\PersonsController::index');
     $routes->post('createPerson', 'Amas\PersonsController::createPerson');
+    $routes->post('searchPersonWithUsers', 'Amas\PersonsController::searchPersonWithUsers');
 });
 
 //--PERMISOS

@@ -74,7 +74,8 @@ class UsersSipodModel extends Model
                 U.CARGO,
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                'SIPOD' AS APLICATIVO
             FROM SIPOD.TBUSUARIOS U
             LEFT JOIN SIPOD.TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN SIPOD.TBROLES R ON R.ID = RU.ID_ROL

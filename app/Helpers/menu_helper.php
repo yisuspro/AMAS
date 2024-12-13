@@ -59,7 +59,7 @@ if (!function_exists('generate_menu')) {
                 'permissions' => 'C_USERS_APP',
                 'children' => [
                     [
-                        'id' => 'consultarUsersAppsView',
+                        'id' => '../persons/consultarUsersAppsView',
                         'title' => 'CONSULTAR',
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_USERS_APP',

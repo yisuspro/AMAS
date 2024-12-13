@@ -124,64 +124,6 @@ class UsersController extends BaseController
         return view('private/views_ajax/users/addRolesUsersAjax', ['title' => 'Asignar roles ',  'id' => $id]);
     }
 
-  /**
-   * The function `consultarUsersAppsView` returns a view for querying users in applications.
-   * 
-   * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/Ruv' directory is
-   * being returned with the title 'Consulta usuarios Aplicaciones'.
-   */
-    public function consultarUsersAppsView()
-    {
-        return view('private/views_ajax/Ruv/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
-    }
-/**
- * The function `resultConsultarUsersAppsView` retrieves user data based on the type and parameter
- * provided and updates the status of different applications accordingly before returning a view.
- * 
- * @param tipo The `tipo` parameter in the `resultConsultarUsersAppsView` function is used to determine
- * the type of operation to be performed. It is used in a switch statement to execute different logic
- * based on its value. In this case, it is used to decide whether to call the `listUsers
- * @param parametro The `parametro` parameter in the `resultConsultarUsersAppsView` function seems to
- * be used as a parameter for querying user data in different models based on the `tipo` (type)
- * provided. Depending on the value of `tipo`, different methods from `UsersRuvModel`, `
- * 
- * @return The `resultConsultarUsersAppsView` function is returning a view named 'listUserAjax' located
- * in 'private/views_ajax/Ruv/' directory. The view is being passed an array with the following data:
- * - 'title' => 'Consulta usuarios RUV'
- * - 'tipo' => the value of the  parameter passed to the function
- * - 'parametro' => the value of
- */
-
-    public function resultConsultarUsersAppsView($tipo,$parametro)
-    {
-        $aplicaciones =[
-            'Ruv' => false,
-            'Sirav' => false,
-            'Sipod' => false,
-        ];
-        switch ($tipo) { //utiliza el metodo listUsersDoc() del modelo UsersRuvModel() para traer los datos de todos los planes 
-            case 0:
-                if( $this->UsersRuvModel->listUsersDoc($parametro)->getResultArray()){
-                    $aplicaciones['Ruv'] = true;
-                }
-        
-                if($this->UsersSiravModel->listUsersDoc($parametro)->getResultArray()){
-                    $aplicaciones ['Sirav'] = true;
-                }
-        
-                if($this->UsersSipodModel->listUsersDoc($parametro)->getResultArray()){
-                    $aplicaciones ['Sipod'] = true;
-                }
-                break;
-            case 1:
-                if( $this->UsersRuvModel->listUsersName($parametro)->getResultArray()){
-                    $aplicaciones['Ruv'] = true;
-                }
-                break;
-        }
-            
-        return view('private/views_ajax/Ruv/listUserAjax', ['title' => 'Consulta usuarios RUV', 'tipo' => $tipo, 'parametro' => $parametro, 'aplicaciones'=> $aplicaciones]);
-    }
 /**
  * The `listUser` function retrieves user data from a model, prepares it for display in a table with
  * pagination, and returns it in JSON format.

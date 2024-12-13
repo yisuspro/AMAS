@@ -83,7 +83,8 @@ class UsersRuvModel extends Model
                 U.CARGO,
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                'RUV' AS APLICATIVO
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL

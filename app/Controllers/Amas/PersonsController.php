@@ -21,7 +21,7 @@ class PersonsController extends BaseController
 
     public function index()
     {
-        return view('private/views_ajax/persons/listPersons', ['title' => 'Administración Personas']);
+        return view('private/views_ajax/persons/adminPersons', ['title' => 'Administración Personas']);
     }
 
     public function createPerson() 
@@ -80,5 +80,29 @@ class PersonsController extends BaseController
             $this->response->setStatusCode(401,'Error al crear la persona');
         }
     }
+
+    /**
+     * The function `consultarUsersAppsView` returns a view for querying users in applications.
+     * 
+     * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/persons' directory is
+     * being returned with the title 'Consulta usuarios Aplicaciones'.
+     */
+    public function consultarUsersAppsView()
+    {
+        return view('private/views_ajax/persons/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
+    }
+
+
+    public function searchPersonWithUsers()
+    {
+        $aplicaciones = [];
+
+        $aplicaciones = array_merge($aplicaciones, $this->UsersRuvModel->listUsersDoc($this->request->getPost('PRSN_document'))->getResultArray());
+        $aplicaciones = array_merge($aplicaciones, $this->UsersSiravModel->listUsersDoc($this->request->getPost('PRSN_document'))->getResultArray());
+        $aplicaciones = array_merge($aplicaciones, $this->UsersSipodModel->listUsersDoc($this->request->getPost('PRSN_document'))->getResultArray());
+
+        return json_encode($aplicaciones);
+    }
+
 
 }

@@ -80,7 +80,8 @@ class UsersSiravModel extends Model
                         JOIN SIRAVAdmin.dbo.ROL R ON R.ID = RU.ID_ROL
                         WHERE RU.ID_USUARIO = U.ID
                         FOR XML PATH(''), TYPE
-                    ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES
+                    ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES,
+                'SIRAV' AS APLICATIVO
             FROM SIRAVAdmin.DBO.USUARIO U
             LEFT JOIN SIRAVAdmin.dbo.RAZON_INACTIVO RA ON RA.ID = U.ID_RAZON_INACTIVO
             WHERE U.DOCUMENTO = '".$IDENTIFICACION."'
