@@ -36,7 +36,10 @@ html {
 .form-control{
   border-radius: 31px !important;
   border: solid 1px black;
+}
 
+.card + .card {
+  margin-top: 20px;
 }
 
 @keyframes rotacion {
