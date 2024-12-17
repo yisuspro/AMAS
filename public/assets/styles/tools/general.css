@@ -2,12 +2,13 @@ body,
 html {
     margin: 0;
     padding: 0;
+    background-color: #F5F5F5;
 }
  body{
-    
-    background-image: url('../../images/fondo/fondo3.webp'); /* Ruta a tu imagen de fondo */
+    /*
+    background-image: url('../../images/fondo/fondo3.webp');
     background-size: auto;
-    
+    */    
  }
  .pantalla-carga{
     position: absolute;
@@ -31,6 +32,13 @@ html {
 .icono-carga.rotar{
     animation: rotacion 1s ease  infinite; /* Aplicamos la animación de rotación */
 }
+
+.form-control{
+  border-radius: 31px !important;
+  border: solid 1px black;
+
+}
+
 @keyframes rotacion {
     from {
       transform: rotate(0deg); /* Definimos el inicio de la rotación */

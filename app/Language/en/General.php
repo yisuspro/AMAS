@@ -4,7 +4,7 @@
  *
  */
 return [
-    'appName' => 'AMAS',
+    'appName' => 'SUSI',
     'user' => 'Usuario',
     'users' => 'Usuarios',
     'description' => 'Descripción',
