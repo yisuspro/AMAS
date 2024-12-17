@@ -1,8 +1,11 @@
 <?php
-
 if (!function_exists('generate_menu')) {
     function generate_menu($permissions)
     {
+        // Map the permissions array to improve lookup speed
+        $permissions = array_flip($permissions);
+        
+        
         $menuItems = [
             [
                 'id' => '2P',
@@ -113,24 +116,40 @@ if (!function_exists('generate_menu')) {
                 ]
             ],
         ];
+
         $html = '';
 
         foreach ($menuItems as $item) {
-            if (in_array($item['permissions'], $permissions)) {
+            // Check if the user has permission for the parent item
+            if (isset($permissions[$item['permissions']])) {
                 $html .= '<div class="contenido-padre">';
-                $html .= '<a class="buton-menu-padre" id="' . $item['id'] . '"><i class="bi ' . $item['icon'] . '"></i> &nbsp;' . $item['title'] . '</a>';
+                $html .= '<a class="buton-menu-padre" id="' . htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8') . '"><i class="bi ' . htmlspecialchars($item['icon'], ENT_QUOTES, 'UTF-8') . '"></i> &nbsp;' . htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') . '</a>';
                 $html .= '</div>';
-
+        
+                // Check for children and add the children menu
                 if (!empty($item['children'])) {
-                    $html .= '<div class="contenido-hijo oculto" id="contenido' . $item['id'] . '" style="display: none;">';
+                    $html .= '<div class="contenido-hijo oculto" id="contenido' . htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8') . '" style="display: none;">';
+                    
                     foreach ($item['children'] as $child) {
-                        if (in_array($child['permissions_CH'], $permissions)) {
-                            $html .= '<a class="buton-menu-hijo" id="' . $child['id'] . '"><i class="bi ' . $child['icon'] . '"></i> &nbsp;' . $child['title'] . '</a>';
+                        // Check if the user has permission for the child item
+                        if (isset($permissions[$child['permissions_CH']])) {
+                            $html .= '<a class="buton-menu-hijo" id="' . htmlspecialchars($child['id'], ENT_QUOTES, 'UTF-8') . '"><i class="bi ' . htmlspecialchars($child['icon'], ENT_QUOTES, 'UTF-8') . '"></i> &nbsp;' . htmlspecialchars($child['title'], ENT_QUOTES, 'UTF-8') . '</a>';
                         }
                     }
+                    
                     $html .= '</div>';
                 }
+            } else {
+                // Optionally handle parent item without permissions
+                $html .= '<div class="contenido-padre hidden">';
+                $html .= '<a class="buton-menu-padre disabled" href="javascript:void(0);"><i class="bi ' . htmlspecialchars($item['icon'], ENT_QUOTES, 'UTF-8') . '"></i> &nbsp;' . htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') . ' (No Access)</a>';
+                $html .= '</div>';
             }
+        }
+        
+        // If no items are available based on permissions, display a message
+        if (empty($html)) {
+            $html = '<p>No menu items available based on your permissions.</p>';
         }
 
         return $html;

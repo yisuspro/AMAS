@@ -24,7 +24,7 @@ class RolespermissionsModel extends Model
     protected $createdField  = 'RLPR_date_create';
     protected $updatedField  = 'RLPR_date_update';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
 
     /**
      * This PHP function retrieves permissions for a given role ID from a database table.

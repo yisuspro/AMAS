@@ -22,12 +22,9 @@ class AppspersonsModel extends Model
         "APPR_ID_app",  
     ];
 
-
     public function getAppsByPerson($person) {
             return $this->where('APPR_FK_person',$person)
                 ->join('apps', 'APPS_PK = APPR_FK_app', 'left')
                 ->find();
-    } 
-
-
+    }
 }

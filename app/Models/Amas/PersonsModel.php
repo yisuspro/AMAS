@@ -21,39 +21,62 @@ class PersonsModel extends Model
 
     protected $useTimestamps = false;
 
+    /**
+     * List all persons in the database
+     * 
+     * @return mixed
+     */
     public function listPersons()
     {
-        return $this->select('*')->get();
+        return $this->select('*')->findAll();
     }
     
+    /**
+     * Insert a new person record into the database
+     * 
+     * @param array $data
+     * @return int|string
+     */
     public function insertPersons($data)
     {
         return $this->insert($data);
-//        return $this->insert_id();
     }
 
+    /**
+     * View a single person's details by their ID
+     * 
+     * @param int $personId
+     * @return PersonsEntity|null
+     */
     public function viewPersons($personId)
     {
         return $this->find($personId);
     }
 
-    public function getPersonbyDocument($document) {
-        return $this->where('PRSN_document',$document)
-            //->join('appspersons', 'APPR_FK_person = PRSN_PK', 'left')
-            //->join('apps', 'APPS_PK = APPR_FK_app', 'left')
-            //->find()
-            ->first();
+    /**
+     * Get person by their document
+     * 
+     * @param string $document
+     * @return PersonsEntity|null
+     */
+    public function getPersonbyDocument($document)
+    {
+        return $this->where('PRSN_document', $document)->first();
     }
-    
-    
+
+    /**
+     * Update a person's record in the database
+     * 
+     * @param PersonsEntity $data
+     * @return bool
+     */
     public function updatePersons($data)
     {
+        // Ensure the record exists before attempting to update
         $person = $this->find($data->PRSN_PK);
         if ($person) {
-            $this->update($data->PRSN_PK, $data);
-            return true;
+            return $this->update($data->PRSN_PK, $data);
         }
         return false;
     }
-
 }

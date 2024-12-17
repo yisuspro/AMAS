@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     $("#frm_consult_users").submit(function (ev) {
         ev.preventDefault();
+        $('.results').hide();
         activarLogoCarga();
         if ($('#PRSN_document').val() !== "" || $('#PRSN_name').val() !== "") {
             var data = {
@@ -47,6 +48,7 @@ $(document).ready(function () {
                         dt.empty();
                         dt.off('click', 'td.dt-control')
 
+                        $('.results').show();
 
                         // Initialize or refresh the DataTable
                         dt.DataTable({

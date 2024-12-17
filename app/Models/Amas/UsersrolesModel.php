@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models\Amas;
 
@@ -7,8 +7,8 @@ use App\Entities\Amas\UsersrolesEntity;
 
 class UsersrolesModel extends Model
 {
-    protected $table = 'usersroles';
-    protected $primaryKey = 'USRL_PK';
+    protected $table        = 'usersroles';
+    protected $primaryKey   = 'USRL_PK';
     protected $returnType   = UsersrolesEntity::class;
 
     protected $allowedFields = [
@@ -21,21 +21,29 @@ class UsersrolesModel extends Model
         'USRL_state',
     ];
 
-    protected $createdField  = 'USRL_date_create';
-    protected $updatedField  = 'USRL_date_update';
+    protected $createdField = 'USRL_date_create';
+    protected $updatedField = 'USRL_date_update';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
 
     // List roles assigned to a user
     public function listUsersRoles($id)
     {
-        $query = $this->db->table('roles R')
-            ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
-            ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')
-            ->where('R.ROLE_state', 1)
-            ->get();
 
-        return $query ? $query : false;
+        /*
+        return $this->db->table('roles R')
+        ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
+        ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')
+        ->where('R.ROLE_state', 1)
+        ->get()
+        */
+
+        return $this->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
+                    ->join('usersroles UR', 'R.ROLE_PK = UR.USRL_FK_rol AND UR.USRL_FK_user = ' . $id, 'left')
+                    ->join('roles R', 'R.ROLE_PK = UR.USRL_FK_rol')
+                    ->where('R.ROLE_state', 1)
+                    ->get()
+                    ->getResultArray(); // Convert to array
     }
 
     // Validate if a specific user-role relation exists
@@ -49,23 +57,23 @@ class UsersrolesModel extends Model
     // Toggle the state (active/inactive) of a user-role relation
     public function updateStateUsersRolesId($USRL_PK, $USER_PK)
     {
-        // Get the current state
-        $currentState = $this->where('USRL_PK', $USRL_PK)->first()['USRL_state'];
-
-        // Prepare new state
+        // Get the current state and prepare new state
+        $currentState = $this->find($USRL_PK)['USRL_state'];
         $newState = ($currentState == 1) ? 0 : 1;
-        $query = $this->set('USRL_state', $newState)
-                      ->set('USRL_date_update', date('Y-m-d H:i:s'))
-                      ->set('USRL_user_update', $USER_PK)
-                      ->where('USRL_PK', $USRL_PK)
-                      ->update();
 
-        return $query ? true : false;
+        // Update state and other fields
+        $data = [
+            'USRL_state' => $newState,
+            'USRL_date_update' => date('Y-m-d H:i:s'),
+            'USRL_user_update' => $USER_PK
+        ];
+
+        return $this->update($USRL_PK, $data);
     }
 
     public function addStateUsersRolesId($data)
     {
-        return $this->insert($data) ? true : false;
+        return $this->insert($data);
     }
 
     // Get all permissions assigned to a user through their roles

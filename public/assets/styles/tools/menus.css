@@ -104,19 +104,18 @@ nav a:hover{
     width: 250px;
     background-color: #485058;
     padding: 4px;
+    gap: 10px;
 }
 
 .contenido-hijo .oculto {
     z-index: -1;
     flex-wrap: wrap;
     width: 0px;
-
 }
 
 .buton-menu-hijo {
     width: 250px;
-    justify-content: center;
-    text-align: center;
+    margin-left: 15px;
     text-decoration: none;
     color: white;
     border-radius: 5px;

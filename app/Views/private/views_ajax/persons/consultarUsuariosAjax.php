@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="card">
+<div class="card results mt-2" >
     <div class="titulo-uno">
         <i class="bi bi-file-earmark-person">Resultados</i>
     </div>
@@ -29,5 +29,11 @@
         <button type="cancel" class="btn btn-danger" id="back" name="back">ATRAS</button>
     </div>
 </div>
+
+<style>
+    .results {
+        display: none;
+    }
+</style>
 
 <script type="text/javascript" src="<?= base_url('assets/scripts/persons/consultPersons.js'); ?>"></script>

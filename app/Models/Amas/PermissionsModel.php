@@ -26,7 +26,7 @@ class PermissionsModel extends Model
     protected $createdField  = 'PRMS_date_create';
     protected $updatedField  = 'PRMS_date_update';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     // Método para insertar un usuario encriptando la contraseña
 
 

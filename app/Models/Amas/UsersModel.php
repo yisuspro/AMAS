@@ -29,7 +29,7 @@ class UsersModel extends Model
     protected $createdField  = 'USER_FK_user_create';
     protected $updatedField  = 'USER_FK_user_update';
 
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
 
     /**
      * The insertUser function hashes the user's password and standardizes the user's name before
