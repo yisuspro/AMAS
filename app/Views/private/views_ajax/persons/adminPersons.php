@@ -94,8 +94,6 @@
 
 <style>
 .create_person{
-    max-width: 50%;
-    margin: 0 auto;
 }
 
 .form-control{

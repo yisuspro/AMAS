@@ -34,13 +34,42 @@ html {
     animation: rotacion 1s ease  infinite; /* Aplicamos la animación de rotación */
 }
 
+
+.form-label {
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 21.82px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
 .form-control{
   border-radius: 31px !important;
   border: solid 1px black;
 }
 
-.card + .card {
-  margin-top: 20px;
+
+.card{
+  border-radius: 12px;
+  color: #003188;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.card-header {
+  background-color: #003188;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 24.55px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #fff !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 13px;
 }
 
 @keyframes rotacion {

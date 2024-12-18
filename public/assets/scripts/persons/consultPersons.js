@@ -48,10 +48,21 @@ $(document).ready(function () {
                         dt.empty();
                         dt.off('click', 'td.dt-control')
 
-                        $('.results').show();
+                        $('.results').css('display', 'flex');
+                        $('.form_consult').hide();
 
                         // Initialize or refresh the DataTable
                         dt.DataTable({
+                            layout: {
+                                top2Start: '',
+                                top2End: '',
+                                topStart: '',
+                                topEnd: '',
+                                bottomStart: 'pageLength',
+                                bottomEnd: '',
+                                bottom2Start: 'info',
+                                bottom2End: 'paging'
+                            },
                             columns: [
                                 {
                                     className: 'dt-control',
