@@ -37,19 +37,4 @@ $(document).ready(function () {
             }
         });
     });
-
-
-    $('.copy-btn').on("click", function() {
-        // Get the input field next to the clicked button
-        var textToCopy = $(this).siblings('input')[0];  // Gets the corresponding input element
-
-        // Use the Clipboard API to copy the text
-        navigator.clipboard.writeText(textToCopy.value)
-            .then(function() {
-                crearAlerta('Text copied to clipboard!', 'success');
-            })
-            .catch(function(err) {
-                crearAlerta('Failed to copy text.', 'error');
-            });
-    });
 });

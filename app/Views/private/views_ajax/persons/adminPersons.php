@@ -11,7 +11,6 @@
                             <label for="PRSN_name" class="form-label">Nombre completo</label>
                             <div class="input-group">
                                 <input id="PRSN_name" type="text" name="PRSN_name" class="form-control" placeholder="Nombre" required>
-                                <button type="button" class="btn btn-outline-secondary copy-btn">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -20,7 +19,6 @@
                             <label for="PRSN_document" class="form-label">Número documento</label>
                             <div class="input-group">
                                 <input id="PRSN_document" type="text" name="PRSN_document" class="form-control" placeholder="Documento" required>
-                                <button type="button" class="btn btn-outline-secondary copy-btn">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -31,7 +29,6 @@
                             <label for="PRSN_email" class="form-label">Correo electrónico</label>
                             <div class="input-group">
                                 <input id="PRSN_email" type="email" name="PRSN_email" class="form-control" placeholder="Correo electrónico" required>
-                                <button type="button" class="btn btn-outline-secondary copy-btn">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -40,7 +37,6 @@
                             <label for="PRSN_phone" class="form-label">Teléfono</label>
                             <div class="input-group">
                                 <input id="PRSN_phone" type="text" name="PRSN_phone" class="form-control" placeholder="Teléfono" required>
-                                <button type="button" class="btn btn-outline-secondary copy-btn">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -51,7 +47,6 @@
                             <label for="PRSN_position" class="form-label">Cargo</label>
                             <div class="input-group">
                                 <input id="PRSN_position" type="text" name="PRSN_position" class="form-control" placeholder="Cargo" required>
-                                <button type="button" class="btn btn-outline-secondary copy-btn">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -93,12 +88,6 @@
 </div>
 
 <style>
-.create_person{
-}
-
-.form-control{
-    border-radius: 31px  0 0 31px!important;
-}
 
 .area-buttons{
     margin-top: 30px;

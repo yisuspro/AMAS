@@ -34,7 +34,7 @@ html {
     animation: rotacion 1s ease  infinite; /* Aplicamos la animación de rotación */
 }
 
-
+/******** INPUTS ****/
 .form-label {
   font-family: Nunito Sans;
   font-size: 16px;
@@ -43,6 +43,7 @@ html {
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  color: #003188;
 }
 
 .form-control{
@@ -50,11 +51,11 @@ html {
   border: solid 1px black;
 }
 
-
-.card{
+/******** CARDS ****/
+.card {
   border-radius: 12px;
   color: #003188;
-  max-width: 50%;
+  max-width: 60%;
   margin: 0 auto;
 }
 
@@ -69,8 +70,26 @@ html {
   text-decoration-skip-ink: none;
   color: #fff !important;
   border-radius: 12px 12px 0 0 !important;
+  padding: 10px;
+}
+
+/******** DATATABLES ****/
+.ui-state-default{
+  background-color: #003188 !important;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 24.55px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #fff !important;
   padding: 13px;
 }
+.dt-layout-cell {
+  padding: 0 !important;
+}
+
 
 @keyframes rotacion {
     from {
