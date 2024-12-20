@@ -23,14 +23,15 @@ $(document).ready(function () {
                 type: 'GET'
             },
             columns: [
-                { data: 'PRMS_PK' },
-                { data: 'PRMS_name' },
-                { data: 'PRMS_description' },
-                { data: 'PRMS_system_name', },
-                { data: 'PRMS_state', },
-                { data: 'PRMS_date_create', },
-                { data: 'PRMS_date_update', },
+                { title:'ID',data: 'PRMS_PK' },
+                { title:'NOMBRE',data: 'PRMS_name' },
+                { title:'DESCRIPCIÓN',data: 'PRMS_description' },
+                { title:'NOMBRE CORTO',data: 'PRMS_system_name', },
+                { title:'ESTADO',data: 'PRMS_state', },
+                { title:'F.CREACIÓN',data: 'PRMS_date_create', },
+                { title:'F. MODIFICACIÓN',data: 'PRMS_date_update', },
                 {
+                    title:'ACCIONES',
                     data: null,
                     render: function (data, type, row) {
                         var buttons = '';
@@ -95,15 +96,19 @@ $(document).ready(function () {
 
             ],
             layout: {
-                top: 'buttons',
-                topStart: 'pageLength',
-                topEnd: {
+                top2Start: '',
+                top2End: '',
+                topStart: '',
+                topEnd: '',
+                bottomStart: 'pageLength',
+                bottomEnd: {
                     search: {
-                        placeholder: 'buscar'
+                        placeholder: 'Buscar'
                     }
                 },
-                bottomStart: 'info',
-                bottomEnd: 'paging'
+                bottom2Start: 'info',
+                bottom2End: 'paging',
+                bottom3End: 'buttons'
             },
             rowCallback: function (row, data) {
                 if (userPermissions.includes('I_PERMI')) {

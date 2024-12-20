@@ -1,33 +1,6 @@
-<div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title ?? 'Mi Aplicación' ?></i>
-    </div>
-    <div class="seccion">
-        <table id="listRoles" class="table table-hover" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID ROL</th>
-                    <th>NOMBRE</th>
-                    <th><?= strtoupper(lang("General.description")) ?></th>
-                    <th>ESTADO</th>
-                    <th>F.CREACION</th>
-                    <th>F.MODIFICACION</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID ROL</th>
-                    <th>NOMBRE</th>
-                    <th><?= strtoupper(lang("General.description")) ?></th>
-                    <th>ESTADO</th>
-                    <th>F.CREACION</th>
-                    <th>F.MODIFICACION</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+<i class="bi bi-journal-text"><?= $title ?? 'Mi Aplicación' ?></i>
+<div class="card datatable">
+    <table id="listRoles" class="table table-hover" style="width:100%"></table>
 </div>
 
 <!-- Modal -->

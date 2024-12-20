@@ -10,7 +10,7 @@
                 <input id="PRSN_document" type="text" name="PRSN_document" class="form-control" placeholder="Número de documento">
             </div>
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Buscar</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Consultar</button>
             </div>
         </form>
     </div>
@@ -98,9 +98,6 @@
     </div>
     </div>
     <style>
-        .datatable{
-            overflow-x: scroll;
-        }
         .results {
             display: none;
         }
@@ -108,6 +105,12 @@
         .results .card {
             max-width: 90% !important; 
             min-width: 80% !important;
+        }
+
+        .btn-primary {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #003188;
         }
     </style>
 

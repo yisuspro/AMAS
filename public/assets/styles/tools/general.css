@@ -74,6 +74,10 @@ html {
 }
 
 /******** DATATABLES ****/
+.datatable{
+  overflow-x: scroll;
+}
+
 .ui-state-default{
   background-color: #003188 !important;
   font-family: Nunito Sans;

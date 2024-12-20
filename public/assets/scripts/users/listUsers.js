@@ -28,7 +28,6 @@ $(document).ready(function () {
         var dt;
         dt = $('#sample_1');
         dt.DataTable({
-            dom: null,
             order: [
                 [7, 'asc']
             ],
@@ -38,6 +37,7 @@ $(document).ready(function () {
                 type: 'GET'
             },
             order: [9, 'asc'],
+           
             columns: [
                 {
                     className: 'dt-control',
@@ -45,16 +45,17 @@ $(document).ready(function () {
                     data: null,
                     defaultContent: ''
                 },
-                { data: 'USER_PK' },
-                { data: 'USER_name' },
-                { data: 'USER_identification' },
-                { data: 'USER_username'},
-                { data: 'USER_email'},
-                { data: 'USER_address_ip'},
-                { data: 'USER_date_create', visible: false},
-                { data: 'USER_date_update', visible: false },
-                { data: 'STTS_name' },
+                { title:'ID',data: 'USER_PK' },
+                { title:'NOMBRE',data: 'USER_name' },
+                { title:'IDENTIFICACIÓN',data: 'USER_identification' },
+                { title:'USUARIO',data: 'USER_username'},
+                { title:'CORREO',data: 'USER_email'},
+                { title:'IP',data: 'USER_address_ip'},
+                { title:'CREADO POR:',data: 'USER_date_create', visible: false},
+                { title:'ACTUALIZADO POR:',data: 'USER_date_update', visible: false },
+                { title:'ESTADO',data: 'STTS_name' },
                 {
+                    title:'ACCIONES',
                     data: null,
                     exportable: false,
                     render: function (data, type, row) {
@@ -115,15 +116,19 @@ $(document).ready(function () {
                 }
             ],
             layout: {
-                top: 'buttons',
-                topStart: 'pageLength',
-                topEnd: {
+                top2Start: '',
+                top2End: '',
+                topStart: '',
+                topEnd: '',
+                bottomStart: 'pageLength',
+                bottomEnd: {
                     search: {
-                        placeholder: 'buscar'
+                        placeholder: 'Buscar'
                     }
                 },
-                bottomStart: 'info',
-                bottomEnd: 'paging'
+                bottom2Start: 'info',
+                bottom2End: 'paging',
+                bottom3End: 'buttons'
             },
             rowCallback: function (row, data) {
                 if (userPermissions.includes('I_USERS')) {

@@ -24,13 +24,14 @@ $(document).ready(function () {
                 type: 'GET'
             },
             columns: [
-                { data: 'ROLE_PK' },
-                { data: 'ROLE_name' },
-                { data: 'ROLE_description' },
-                { data: 'ROLE_state', },
-                { data: 'ROLE_date_create', },
-                { data: 'ROLE_date_update', },
-                {
+                { title:'ID ROL',data: 'ROLE_PK' },
+                { title:'NOMBRE',data: 'ROLE_name' },
+                { title:'DESCRIPCIÓN',data: 'ROLE_description' },
+                { title:'ESTADO',data: 'ROLE_state', },
+                { title:'F. CREACIÓN',data: 'ROLE_date_create', },
+                { title:'F. MODIFICACIÓN',data: 'ROLE_date_update', },
+                {   
+                    title: 'ACCIONES',
                     data: null,
                     render: function (data, type, row) {
                         var buttons = '';
@@ -98,15 +99,19 @@ $(document).ready(function () {
                 }] : [])
             ],
             layout: {
-                top: 'buttons',
-                topStart: 'pageLength',
-                topEnd: {
+                top2Start: '',
+                top2End: '',
+                topStart: '',
+                topEnd: '',
+                bottomStart: 'pageLength',
+                bottomEnd: {
                     search: {
-                        placeholder: 'buscar'
+                        placeholder: 'Buscar'
                     }
                 },
-                bottomStart: 'info',
-                bottomEnd: 'paging'
+                bottom2Start: 'info',
+                bottom2End: 'paging',
+                bottom3End: 'buttons'
             },
             rowCallback: function (row, data) {
                 if (userPermissions.includes('I_ROLES')) {
