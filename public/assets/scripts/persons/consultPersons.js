@@ -20,6 +20,13 @@ $(document).ready(function () {
                     d.CARGO +
                     '</div>'+
                     '<div class="col"></div>'+
+                '</div>'+
+                '<div class="row">'+
+                    '<div class="col form-label">RAZÓN DE INACTIVACIÓN</div>'+
+                    '<div class="col">'+
+                    d.NOMBRE_INACTIVO +
+                    '</div>'+
+                    '<div class="col"></div>'+
                 '</div>')
     }
 
@@ -122,6 +129,7 @@ $(document).ready(function () {
                                 { title: 'CORREO ELECTRONICO', data: 'CORREO_ELECTRONICO', visible: false },
                                 { title: 'ROLES', data: 'ROLES', visible: false },
                                 { title: 'CARGO', data: 'CARGO', visible: false },
+                                { title: 'NOMBRE INACTIVO', data: 'NOMBRE_INACTIVO', visible: false },
                                 {
                                     className: 'dt-control',
                                     orderable: false,

@@ -45,8 +45,7 @@ class UsersSiravModel extends Model
 
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sirav';
-
-
+    
     public function getUserById($ID) {
         $sql = "
         SELECT
