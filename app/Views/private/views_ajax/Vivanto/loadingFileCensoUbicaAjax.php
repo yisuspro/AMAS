@@ -1,7 +1,9 @@
+<div class="breadcrumb">
+    <div class="element">Vivanto</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element"><?= $title ?? 'Mi Aplicación' ?></div>
+</div>
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-file-earmark-person"><?= $title ?? 'Mi Aplicación' ?></i>
-    </div>
     <div class="seccion">
         <form method="post" action="#" id="frm_loading_censo" enctype="multipart/form-data">
             <div class="mb-3">

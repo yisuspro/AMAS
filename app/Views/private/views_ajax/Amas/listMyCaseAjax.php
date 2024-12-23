@@ -1,7 +1,10 @@
+<div class="breadcrumb">
+    <div class="element">AMAS</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element"><?= $title ?? 'Mi Aplicación' ?></div>
+</div>
+        
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title ?? 'Mi Aplicación' ?></i>
-    </div>
     <div class="seccion">
         <table id="listPermissions" class="table table-hover" style="width:100%">
             <thead>
