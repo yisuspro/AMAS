@@ -95,6 +95,28 @@ html {
 }
 
 
+/************ BREADCRUMB *********/
+
+
+.breadcrumb{
+    padding: 24px 0 24px 2.5%;
+    color: #003188;
+    font-size: 24px;
+} 
+
+.breadcrumb .element {
+  padding-right: 15px;
+}
+
+
+.breadcrumb .element:last-child {
+  font-weight: 800;
+}
+
+
+
+/***********************/
+
 @keyframes rotacion {
     from {
       transform: rotate(0deg); /* Definimos el inicio de la rotación */

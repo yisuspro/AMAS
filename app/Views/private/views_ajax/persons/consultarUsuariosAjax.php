@@ -1,8 +1,13 @@
+<div class="breadcrumb">
+    <div class="element">Personas</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element">Consulta usuarios</div>
+</div>
+
 <div class="card form_consult">
     <div class="card-header">
         CONSULTA USUARIOS APLICACIONES
-    </div>
-    
+    </div>   
     <div class="card-body">
         <form method="post" action="#" id="frm_consult_users">
             <div class="mb-3">

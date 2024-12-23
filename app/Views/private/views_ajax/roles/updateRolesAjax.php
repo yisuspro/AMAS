@@ -1,7 +1,9 @@
+<div class="breadcrumb">
+    <div class="element">Roles</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element"><?= $title ?? 'Mi Aplicación' ?></div>
+</div>
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title ?? 'Seccion' ?></i>
-    </div>
         <div class="card-body">
         <form method="post" action="#" id="frm_update_role">
             <div class="mb-3">

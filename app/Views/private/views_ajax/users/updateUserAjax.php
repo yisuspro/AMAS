@@ -1,7 +1,9 @@
+<div class="breadcrumb">
+    <div class="element">Usuarios</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element">Actualizar usuario</div>
+</div>
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-file-earmark-person">crear usuario</i>
-    </div>
     <div class="seccion ">
 
         <form method="post" action="#" id="frm_update_user">

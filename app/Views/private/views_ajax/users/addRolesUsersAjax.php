@@ -1,7 +1,10 @@
+<div class="breadcrumb">
+    <div class="element">Roles</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element"><?= $title . $id ?? 'Mi Aplicación' ?></div>
+</div>
+
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title . $id ?? 'Mi Aplicación' ?></i>
-    </div>
     <div class="card-body">
         <input id="idUser" name="idUser" type="hidden" value="<?= $id ?? 0 ?>">
 

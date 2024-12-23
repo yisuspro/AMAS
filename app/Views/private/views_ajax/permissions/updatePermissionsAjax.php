@@ -1,8 +1,10 @@
-<div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-journal-text"><?= $title ?? 'Seccion' ?></i>
-    </div>
-    
+<div class="breadcrumb">
+    <div class="element">Permisos</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element"><?= $title ?? 'Seccion' ?></div>
+</div>
+
+<div class="card">   
     <div class="seccion">
         <form method="post" action="#" id="frm_update_permission">
             <?php foreach ($data as $dataPermission) : ?>

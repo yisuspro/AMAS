@@ -1,3 +1,8 @@
+<div class="breadcrumb">
+    <div class="element">Personas</div>
+    <div class="element"><i class="bi bi-chevron-right"></i></div>
+    <div class="element">Crear usuarios</div>
+</div>
 <div class="create_person">
     <form method="post" action="#" id="frm_create_person" enctype="multipart/form-data">
         <div class="card">

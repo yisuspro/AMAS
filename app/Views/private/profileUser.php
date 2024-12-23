@@ -1,11 +1,10 @@
 <?= $this->extend('private/tools/base') ?>
 
 <?= $this->section('content') ?>
-
+<div class="breadcrumb">
+    <div class="element">Perfil</div>
+</div>
 <div class="card">
-    <div class="titulo-uno">
-        <i class="bi bi-file-earmark-person"> Perfil</i>
-    </div>
 
     <div class="seccion">
         <div class="row">
