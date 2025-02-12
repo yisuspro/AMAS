@@ -18,4 +18,9 @@ class TipescasesModel extends Model
         "TPCS_description",
         "TPCS_FK_group",
     ];
+    public function listTipescases()
+    {
+        return $this->findAll();
+    }
+
 }

@@ -18,4 +18,9 @@ class DependenciesModel extends Model
         "DPND_name",
         "DPND_description",
     ];
+    public function listDependencies()
+    {
+        return $this->findAll();
+    }
+
 }

@@ -3,7 +3,7 @@ html {
     margin: 0;
     padding: 0;
     background-color: #F5F5F5;
-    color: #575756;
+    color: #575656;
 }
  body{
     /*
@@ -55,7 +55,7 @@ html {
 .card {
   border-radius: 12px;
   color: #003188;
-  max-width: 60%;
+  max-width: 100%;
   margin: 0 auto;
 }
 

@@ -70,7 +70,7 @@ $routes->group('roles', function($routes) {
 
 $routes->group('audit', function($routes) {
     $routes->get('listMyCaseView', 'Amas\AuditoryController::listMyCaseView');
-    $routes->get('listMyCase', 'Amas\AuditoryController::registerAuditCase');
+    $routes->get('listMyCase', 'Amas\AuditoryController::listMyCase');
 });
 
 

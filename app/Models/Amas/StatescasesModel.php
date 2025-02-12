@@ -17,4 +17,9 @@ class StatescasesModel extends Model
         "STCS_name",
         "STCS_description",
     ];
+    public function listStatescases()
+    {
+        return $this->findAll();
+    }
+
 }

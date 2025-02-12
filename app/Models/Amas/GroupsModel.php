@@ -17,5 +17,10 @@ class GroupsModel extends Model
         'GRPS_name',
         'GRPS_description'
     ];
+    public function listGroups()
+    {
+        return $this->findAll();
+    }
+
 
 }

@@ -80,11 +80,11 @@ nav a:hover{
     font-size: larger;
 }
 .logo-menu:hover{
-    color: #63c49a;
+    color: #ffffff;
 }
 
 .buton-menu-padre i{
-    color: #63c49a;
+    color: #ffffff;
 }
 
 .oculto {
@@ -135,7 +135,7 @@ nav a:hover{
     display: flex;
     flex-wrap: wrap;
     width: 250px;
-    background-color: #485058;
+    background-color: #FFC107;
     padding: 4px;
     gap: 10px;
 }

@@ -17,4 +17,9 @@ class EntitiesModel extends Model
         "ENTS_name",
         "ENTS_description",
     ];
+    public function listEntities()
+    {
+        return $this->findAll();
+    }
+
 }

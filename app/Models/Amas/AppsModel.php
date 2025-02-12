@@ -17,4 +17,10 @@ class AppsModel extends Model
         "APPS_name",
         "APPS_description"
     ];
+
+    public function listApps()
+    {
+        return $this->findAll();
+    }
+
 }

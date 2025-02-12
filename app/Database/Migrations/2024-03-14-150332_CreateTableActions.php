@@ -25,9 +25,6 @@ class CreateTableActions extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'ACTN_description' => [
-                'type' => 'DATE',
-            ],
             'ACTN_FK_case' => [
                 'type' => 'INT',
                 'constraint' => 11,

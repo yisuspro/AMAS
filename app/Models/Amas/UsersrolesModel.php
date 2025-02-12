@@ -38,12 +38,11 @@ class UsersrolesModel extends Model
         ->get()
         */
 
-        return $this->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
-                    ->join('usersroles UR', 'R.ROLE_PK = UR.USRL_FK_rol AND UR.USRL_FK_user = ' . $id, 'left')
-                    ->join('roles R', 'R.ROLE_PK = UR.USRL_FK_rol')
-                    ->where('R.ROLE_state', 1)
-                    ->get()
-                    ->getResultArray(); // Convert to array
+        return $this->db->table('roles R')
+        ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
+        ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')
+        ->where('R.ROLE_state', 1)
+        ->get(); // Convert to array
     }
 
     // Validate if a specific user-role relation exists
@@ -58,8 +57,10 @@ class UsersrolesModel extends Model
     public function updateStateUsersRolesId($USRL_PK, $USER_PK)
     {
         // Get the current state and prepare new state
-        $currentState = $this->find($USRL_PK)['USRL_state'];
-        $newState = ($currentState == 1) ? 0 : 1;
+        $currentState = $this->where('USRL_PK', $USRL_PK)->first();
+       // Toggle the state of a role-permission association
+       //$currentState = $this->where('USRL_PK', $USRL_PK)->first()['USRL_state'];
+        $newState = ($currentState->USRL_state == 1) ? 0 : 1;
 
         // Update state and other fields
         $data = [

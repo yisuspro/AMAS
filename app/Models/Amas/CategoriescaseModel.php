@@ -7,7 +7,7 @@ use App\Entities\Amas\CategoriescaseEntity;
 
 class CategoriescaseModel extends Model
 {
-    protected $table            = 'categoriescases';
+    protected $table            = 'categoriescase';
     protected $primaryKey       = 'CTCS_PK';
     protected $useAutoIncrement = true;
     protected $returnType       = CategoriescaseEntity::class;
@@ -18,4 +18,10 @@ class CategoriescaseModel extends Model
         "CTCS_name",
         "CTCS_description",
     ];
+
+    public function listCategoriecase()
+    {
+        return $this->findAll();
+    }
+
 }

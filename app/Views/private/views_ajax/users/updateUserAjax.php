@@ -57,13 +57,12 @@
             </div>
             <form method="post" action="#" id="frm_update_password_users">
                 <div class="modal-body">
-                    <?php foreach ($data as $dataUser) : ?>
 
                         <div class="mb-3">
                             <label class="form-label">Id usuario</label>
-                            <input id="USER_PK_P" type="text" name="USER_PK_P" class="form-control" placeholder="Id <?= lang("General.user") ?>" value="<?= $dataUser['USER_PK'] ?? 0 ?>" readonly>
+                            <input id="USER_PK_P" type="hidden" name="USER_PK_P" class="form-control" placeholder="Id <?= lang("General.user") ?>" value="<?= $data->USER_PK ?? 0 ?>" readonly>
                         </div>
-                    <?php endforeach; ?>
+                    
                     <div class="mb-3">
                         <label class="form-label">Nueva Contraseña</label>
                         <input id="USER_password_P" type="password" name="USER_password_P" class="form-control" placeholder="Nueva contraseña" required>

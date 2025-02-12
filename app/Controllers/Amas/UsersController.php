@@ -294,7 +294,7 @@ class UsersController extends BaseController
     public function updateStateUsers($id)
     {
         $result = $this->UsersModel->validateUserId($id);
-        //echo json_encode ($result);
+       
         if ($result) {
             if ($result->USER_FK_state_user == 1) {
                 $result->USER_FK_state_user = 0;
@@ -327,15 +327,11 @@ class UsersController extends BaseController
     public function updatePasswordUsers()
     {
         if ($this->request->getPost('USER_password_P') == $this->request->getPost('USER_password_two_P')) {
-            $userData = [
-                'USER_PK' => $this->request->getPost('USER_PK_P'),
-                'USER_password' => $this->request->getPost('USER_password_P'),
-                'USER_reset_password' => 1,
-                'USER_date_update' => date('Y-m-d H:i:s'),
-                'USER_FK_user_update' => $this->session->get('USER_PK')
-            ];
+            $result = $this->UsersModel->validateUserId($this->request->getPost('USER_PK_P'));
+            $result->USER_password = $this->request->getPost('USER_password_P');
+            $result->USER_reset_password == 1;
 
-            if ($this->UsersModel->updatePasswordUsers($userData)) {
+            if ($this->UsersModel->updatePasswordUsers($result)) {
                 $this->response->setStatusCode(201);
             } else {
                 echo json_encode('Error al actualizar contraseña');
@@ -358,7 +354,7 @@ class UsersController extends BaseController
         $contraseñaNueva = $this->request->getPost('USER_password_P');
         $confirmacionContraseña = $this->request->getPost('USER_password_two_P');
 
-        $contrasena = $this->UsersModel->validatePasswords($contraseñaActual, $validate['USER_password']);
+        $contrasena = $this->UsersModel->validatePasswords($contraseñaActual, $validate->USER_password);
         if ($contrasena) {
 
             if ($contraseñaNueva == $confirmacionContraseña) {
@@ -423,8 +419,9 @@ class UsersController extends BaseController
 
     public function addRolesUsers($ROLE_PK, $USER_PK)
     {
-        echo $ROLE_PK . "/" . $USER_PK;
+        //echo $ROLE_PK . "/" . $USER_PK;
         $validacion = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
+        echo json_encode( $validacion);
         if ($validacion) {
             if ($this->UsersrolesModel->updateStateUsersRolesId($validacion->USRL_PK, $this->session->get('USER_PK'))) {
                 echo json_encode('rol asignado exitosamente');
@@ -451,6 +448,8 @@ class UsersController extends BaseController
                 $this->response->setStatusCode(401);
             }
         }
+        //$validacion = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
+       // echo json_encode($this->UsersrolesModel->updateStateUsersRolesId($validacion->USRL_PK, $this->session->get('USER_PK')));
     }
 
 
