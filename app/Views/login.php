@@ -40,7 +40,7 @@
         </div>
         <div class="alerta hidden" id="alerta">
             <div class="contAlerta" id="contAlerta"></div>
-            <button class="btn_close">X</button>
+            <button class="btn_close"><i class="bi bi-x"></i></button>
         </div>
 
         <script src="<?= base_url('assets/scripts/login.js'); ?>"></script>

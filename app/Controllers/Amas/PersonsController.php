@@ -154,9 +154,10 @@ class PersonsController extends BaseController
     
                 $this->personsModel->save($this->personsEntity);
     
-                $localPerson = $this->personsModel->getPersonbyDocument($document);
                 // Set new apps for the newly created person
                 $aplicaciones = $this->setApps($document, $this->personsModel->insertID());
+                
+                $localPerson = $this->personsModel->getPersonbyDocument($document);
             }
         }
     

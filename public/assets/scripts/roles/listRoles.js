@@ -182,7 +182,7 @@ $(document).ready(function () {
                     error: function (xhr) {
                         var json = JSON.parse(xhr.responseText);
                         cerrarLogoCarga();
-                        crearAlerta('fallo cambio' + json, 'error');
+                        crearAlerta('Fallo cambio' + json, 'error');
 
 
                     },

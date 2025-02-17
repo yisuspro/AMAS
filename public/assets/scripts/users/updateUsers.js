@@ -18,7 +18,6 @@ $(document).ready(function () {
                 var json = JSON.parse(xhr.responseText);
                 crearAlerta(json, 'error');
                 cerrarLogoCarga();
-                console.log(xhr + 'hola');
             },
 
         });

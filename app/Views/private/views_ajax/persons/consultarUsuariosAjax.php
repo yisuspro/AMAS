@@ -91,7 +91,20 @@
                 DOCUMENTOS
             </div>
             <div class="card-body">
-                DOC
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">Acuerdo de confidencialidad</label>
+                            <span class="badge text-bg-primary">Primary</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">Cédula de ciudadanía</label>
+                            <span class="badge text-bg-primary">Primary</span>
+                        </div>
+                    </div>
+                </div>    
             </div>
         </div>
     </div>

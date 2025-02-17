@@ -4,8 +4,8 @@
     display: flex;
     flex-wrap: wrap;
     position: absolute;
-    top: 7%;
-    left: 70%;
+    top: 1%;
+    right: 1%;
     text-align: center;
     z-index: 5;
     border-radius: 4px;
@@ -41,10 +41,11 @@
 
 .btn_close{
     color: rgb(0, 0, 0);
-    position: relative;
     background: none;
     border: none;
-    height: 2%;
+    margin-top: 10px;
+    height: 20px;
+    width: 20px;
 }
 .contAlerta{
     align-items: center;

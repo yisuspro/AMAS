@@ -213,12 +213,12 @@ $(document).ready(function () {
                     data: $tr,
                     success: function (data, xhr) {
                         cerrarLogoCarga();
-                        crearAlerta('cambio de estado exitoso', 'success');
+                        crearAlerta('Cambio de estado exitoso', 'success');
                     },
                     error: function (xhr) {
                         var json = JSON.parse(xhr.responseText);
                         cerrarLogoCarga();
-                        crearAlerta('fallo cambio' + json, 'error');
+                        crearAlerta('Fallo cambio' + json, 'error');
                     },
 
                 });
@@ -232,7 +232,7 @@ $(document).ready(function () {
 
             } else {
                 cerrarLogoCarga();
-                crearAlerta('se recahza ale cambio cambio', 'error');
+                crearAlerta('Se rechaza el cambio.', 'error');
             }
 
 

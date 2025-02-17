@@ -43,7 +43,7 @@ class PermissionsController extends BaseController
     {
         $data = $this->PermissionsModel->viewPermissions($id);
 
-        return view('private/views_ajax/permissions/updatePermissionsAjax', ['title' => 'Actualizar Permisos', 'data' => $data->getResultArray()]);
+        return view('private/views_ajax/permissions/updatePermissionsAjax', ['title' => 'Actualizar Permisos', 'data' => $data]);
     }
 
 

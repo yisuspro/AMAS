@@ -15,10 +15,10 @@ $(document).ready(function () {
             type: 'GET'
         },
         columns: [
-            { data: 'PRMS_PK' },
-            { data: 'PRMS_name' },
-            { data: 'PRMS_description' },
-            { data: 'RLPR_state', },
+            { title: 'ID PERMISO', data: 'PRMS_PK' },
+            { title: 'NOMBRE', data: 'PRMS_name' },
+            { title: 'DESCRIPCIÓN', data: 'PRMS_description' },
+            { title: 'ESTADO', data: 'RLPR_state', },
         ],
         buttons: [
             {
@@ -114,14 +114,14 @@ $(document).ready(function () {
                 type: 'POST',
                 data: $tr,
                 success: function(data, xhr) {
-                    crearAlerta('cambio de estado exitoso', 'success');
+                    crearAlerta('Cambio de estado exitoso', 'success');
                     $('#listRolesPermissions').DataTable().ajax.reload();
                     cerrarLogoCarga();
                 },
                 error: function(xhr) {
                     var json = JSON.parse(xhr.responseText);
                     cerrarLogoCarga();
-                    crearAlerta('fallo cambio'+json, 'error');
+                    crearAlerta('Fallo cambio'+json, 'error');
                     
 
                 },
@@ -139,7 +139,7 @@ $(document).ready(function () {
             
         } else {
             cerrarLogoCarga();
-            crearAlerta('se recahza ale cambio cambio', 'error');
+            crearAlerta('Se recahaza el cambio', 'error');
         }
 
 

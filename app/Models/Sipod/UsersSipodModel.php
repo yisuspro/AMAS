@@ -104,6 +104,7 @@ class UsersSipodModel extends Model
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
                 LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                'N/A' AS NOMBRE_INACTIVO,
                 'SIPOD' AS APLICATIVO
             FROM SIPOD.TBUSUARIOS U
             LEFT JOIN SIPOD.TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID

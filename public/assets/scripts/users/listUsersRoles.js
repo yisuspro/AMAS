@@ -17,10 +17,10 @@ $(document).ready(function () {
             type: 'GET'
         },
         columns: [
-            { data: 'ROLE_PK' },
-            { data: 'ROLE_name' },
-            { data: 'ROLE_description' },
-            { data: 'USRL_state', },
+            { title:'ID ROL',data: 'ROLE_PK' },
+            { title:'NOMBRE',data: 'ROLE_name' },
+            { title:'DESCRIPCIÓN',data: 'ROLE_description' },
+            { title:'ESTADO',data: 'USRL_state' }
         ],
         buttons: [
             {
@@ -116,30 +116,30 @@ $(document).ready(function () {
                 type: 'POST',
                 data: $tr,
                 success: function (data, xhr) {
-                    crearAlerta('cambio de estado exitoso', 'success');
+                    crearAlerta('Cambio de estado exitoso', 'success');
                     $('#listUsersRoles').DataTable().ajax.reload();
                     cerrarLogoCarga();
                 },
                 error: function (xhr) {
                     var json = JSON.parse(xhr.responseText);
                     cerrarLogoCarga();
-                    crearAlerta('fallo cambio' + json, 'error');
+                    crearAlerta('Fallo cambio' + json, 'error');
 
 
                 },
 
             });
-            if ($(this).find(' #toggleCheckbox').is(':checked')) {
-                $(this).find(' #toggleCheckbox').removeAttr('checked');
+            if ($(this).find('#toggleCheckbox').is(':checked')) {
+                $(this).find('#toggleCheckbox').removeAttr('checked');
 
             } else {
-                $(this).find(' #toggleCheckbox').attr("checked", "");
+                $(this).find('#toggleCheckbox').attr("checked", "");
             }
 
 
         } else {
             cerrarLogoCarga();
-            crearAlerta('se recahza ale cambio cambio', 'error');
+            crearAlerta('Se rechaza el cambio', 'error');
         }
 
 

@@ -16,7 +16,6 @@
                     if (data.USER_reset_password == 1) {
                         var rute = 'users/UpdatePasswordUserView/' + data.USER_PK;
                         window.location.href = rute;
-                        console.log('Redirection to password change');
                     } else {
                         var rute = 'users/profileUser';
                         window.location.href = rute;

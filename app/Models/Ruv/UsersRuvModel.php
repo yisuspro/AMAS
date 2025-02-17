@@ -113,6 +113,7 @@ class UsersRuvModel extends Model
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
                 LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                'N/A' AS NOMBRE_INACTIVO,
                 'RUV' AS APLICATIVO
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
@@ -156,6 +157,8 @@ class UsersRuvModel extends Model
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
                 LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+                'N/A' AS NOMBRE_INACTIVO,
+                'RUV' AS APLICATIVO
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
@@ -167,10 +170,5 @@ class UsersRuvModel extends Model
         $query = $this->query($sql);
     
         return $query ?: false;
-    }
-
-    public function prueba()
-    {
-       
     }
 }

@@ -13,7 +13,7 @@ $(document).ready(function () {
             processData: false,
             success: function (data, xhr, response) {
                 cerrarLogoCarga();
-                crearAlerta('carga exitosa', 'success');
+                crearAlerta('Carga exitosa', 'success');
                 data = JSON.parse(data);
                 console.log(data)
 
@@ -62,8 +62,6 @@ $(document).ready(function () {
                 var json = JSON.parse(xhr.responseText);
                 crearAlerta(json, 'error');
                 cerrarLogoCarga();
-                console.log(xhr.responseText + 'hola')
-                console.log(response.responseText + 'hola')
             },
 
         });

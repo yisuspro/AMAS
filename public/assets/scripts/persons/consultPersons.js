@@ -172,7 +172,6 @@ $(document).ready(function () {
                     var json = JSON.parse(xhr.responseText);
                     crearAlerta(json, 'error');
                     cerrarLogoCarga();
-                    console.log(xhr + 'hola')
                 },
             });
         } else {
@@ -189,10 +188,10 @@ $(document).ready(function () {
         // Use the Clipboard API to copy the text
         navigator.clipboard.writeText(textToCopy.value)
             .then(function() {
-                crearAlerta('Text copied to clipboard!', 'success');
+                crearAlerta('Texto copiado al portapapeles!', 'success');
             })
             .catch(function(err) {
-                crearAlerta('Failed to copy text.', 'error');
+                crearAlerta('Error al copiar el texto.', 'error');
             });
     });
 });

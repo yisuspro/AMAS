@@ -104,7 +104,7 @@ class PermissionsModel extends Model
      */
     public function viewPermissions($data)
     {
-        return $this->where('PRMS_PK', $data)->get() ?? false;
+        return $this->find($data);
     }
     
     /**

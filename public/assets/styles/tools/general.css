@@ -73,6 +73,13 @@ html {
   padding: 10px;
 }
 
+.area-buttons{
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
 /******** DATATABLES ****/
 .datatable{
   overflow-x: scroll;

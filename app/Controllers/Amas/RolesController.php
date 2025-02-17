@@ -199,7 +199,11 @@ class RolesController extends BaseController
      */
     public function addPermissionsRolesViews($id)
     {
-        return view('private/views_ajax/roles/addPermissionsRolesAjax', ['title' => 'Asignar permisos ',  'id' => $id]);
+
+        $role =  $this->RolesModel->viewRoles($id);
+
+
+        return view('private/views_ajax/roles/addPermissionsRolesAjax', ['title' => 'Asignar permisos ',  'role' => $role]);
     }
 
     /**

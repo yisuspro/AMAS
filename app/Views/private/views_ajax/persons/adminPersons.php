@@ -92,14 +92,4 @@
     </form>
 </div>
 
-<style>
-
-.area-buttons{
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-</style>
-
 <script type="text/javascript" src="<?= base_url('assets/scripts/persons/createPerson.js'); ?>"></script>
