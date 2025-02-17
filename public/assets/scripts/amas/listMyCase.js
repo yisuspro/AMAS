@@ -60,7 +60,7 @@ $(document).ready(function () {
                 { title:'GRUPO',data: 'GRPS_name', },
                 { title:'APP',data: 'APPS_name', },
                 { title:'NIVEL',data: 'CTCS_name', },
-                { title:'RESPONSABLE',data: 'USER_name', },
+                { title:'RESPONSABLE',data: 'USER_name', visible: false },
                 { title:'F.SOLUCIÓN',data: 'CASE_date_solution', },
                 {
                     title:'ACCIONES',
@@ -68,9 +68,16 @@ $(document).ready(function () {
                     render: function (data, type, row) {
                         var buttons = '';
 
-                        if (userPermissions.includes('E_PERMI')) {
+                        if (userPermissions.includes('E_AUDIT_CASE')) {
                             buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
                         }
+                        if (userPermissions.includes('I_AUDIT_CASE')) {
+                            buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                        }
+                        if (userPermissions.includes('C_AUDIT_CASE')) {
+                            buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                        }
+
                         return buttons;
                     }
 
@@ -118,11 +125,11 @@ $(document).ready(function () {
                     },
                 },
                 ...(userPermissions.includes('CR_CASO') ? [{
-                    text: '<i class="bi bi-plus-lg">CREAR CASO</i>',
+                    text: '<i class="bi bi-plus-lg">REGISTRAR CASO</i>',
                     className: 'btn btn-success',
-                    titleAttr: 'Agregar Permiso',
+                    titleAttr: 'Registrar caso',
                     action: function (e, dt, node, config) {
-                        $('#createPermissionModal').modal('show');
+                        $('#createCaseModal').modal('show');
                     },
                 }] : [])
 

@@ -1,29 +1,25 @@
 $(document).ready(function () {
 
-    $("#frm_create_permission").on("submit",function (ev) {
+    $("#frm_create_case").on("submit",function (ev) {
         ev.preventDefault();
-        
         // Show loading spinner
         activarLogoCarga();
-        
         // Perform AJAX request
         $.ajax({
-            url: '../permissions/createPermissions',
+            url: '../audit/createMyCases',
             type: 'POST',
             data: $(this).serialize(),
             success: function (data, xhr) {
                 // Hide loading spinner
                 cerrarLogoCarga();
-                
                 // Show success message
                 crearAlerta('Permiso creado correctamente', 'success');
-                
-                // Reset the form and close the modal
-                $('#frm_create_permission')[0].reset();
-                $('#createPermissionModal').modal('hide');
+                 // Reset the form and close the modal
+                $('#frm_create_case')[0].reset();
+                $('#createCaseModal').modal('hide');
                 
                 // Reload DataTable to reflect the new permission
-                $('#listPermissions').DataTable().ajax.reload();
+                $('#listMycases').DataTable().ajax.reload();
             },
             error: function (xhr) {
                 // Ensure the response is valid JSON
@@ -46,4 +42,5 @@ $(document).ready(function () {
         });
     });
 
+  
 });
