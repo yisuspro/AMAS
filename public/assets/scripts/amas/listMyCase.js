@@ -69,13 +69,13 @@ $(document).ready(function () {
                         var buttons = '';
 
                         if (userPermissions.includes('E_AUDIT_CASE')) {
-                            buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                            buttons += "<a id='Act_case' name='Act_case' title='Editar Caso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
                         }
                         if (userPermissions.includes('I_AUDIT_CASE')) {
-                            buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                            buttons += "<a id='Ina_case' name='Ina_case' title='Inactivar Caso' type='button' class='form btn btn-danger btn-xs'><i class='bi bi-trash3'></i></a>";
                         }
                         if (userPermissions.includes('C_AUDIT_CASE')) {
-                            buttons += "<a id='Act_permissions' name='Act_permissions' title='Actualizar Permiso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                            buttons += "<a id='Cons_case' name='Cons_case' title='Consultar caso' type='button' class='form btn btn-primary btn-xs'><i class='bi bi-eye'></i></a>";
                         }
 
                         return buttons;

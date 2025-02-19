@@ -71,7 +71,7 @@ if (!function_exists('generate_menu')) {
                         'id' => '../persons/personsAdminView',
                         'title' => 'ADMINISTRAR',
                         'icon' => 'bi-journal-text',
-                        'permissions_CH' => 'C_USERS_APP',
+                        'permissions_CH' => 'CR_CASO',
                     ]
                 ]
             ],
