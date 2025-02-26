@@ -56,13 +56,13 @@ class UsersRuvModel extends Model
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_ruv';
 
-    public function getUserById($ID) {
+    public function getUserById($ID)
+    {
         $sql = "
         select DISTINCT
                 U.IDENTIFICACION,
                 U.ID,
-                U.NOMBRE,
-                U.USUARIO,
+                
                 U.CORREO_ELECTRONICO,
                 U.ACTIVO,
                 U.CARGO,
@@ -74,13 +74,13 @@ class UsersRuvModel extends Model
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.ID = '".$ID."'
+            WHERE U.ID = '" . $ID . "'
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
                 U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
                 U.FECHA_INACTIVACION, U.FECHALOGEADO
         ";
-    
+
         $query = $this->query($sql);
         return $query ?: false;
     }
@@ -118,17 +118,17 @@ class UsersRuvModel extends Model
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION = '".$IDENTIFICACION."'
+            WHERE U.IDENTIFICACION like '%" . $IDENTIFICACION . "%'
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
                 U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
                 U.FECHA_INACTIVACION, U.FECHALOGEADO
         ";
-    
+        
         $query = $this->query($sql);
-        return $query ?: false;
+        return $query;
     }
-    
+
 
     /**
      * The function `listUsersName` retrieves user information based on a provided name parameter from a
@@ -162,13 +162,13 @@ class UsersRuvModel extends Model
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
             LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.NOMBRE like ".$NAME."
+            WHERE U.NOMBRE like " . $NAME . "
             GROUP BY 
                 U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, U.CORREO_ELECTRONICO,
                 U.ACTIVO,U.CARGO,U.FECHA_INACTIVACION,U.FECHALOGEADO
         ";
         $query = $this->query($sql);
-    
+
         return $query ?: false;
     }
 }

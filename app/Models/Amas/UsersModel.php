@@ -178,7 +178,7 @@ class UsersModel extends Model
      */
     public function updateUsers($data)
     {
-        return $this->update($data->USER_PK, $data) ?: false;
+        return $this->update($data['USER_PK'], $data) ?: false;
     }
 
     /**
@@ -197,6 +197,7 @@ class UsersModel extends Model
     {
        
         $data->USER_password = password_hash($data->USER_password, PASSWORD_DEFAULT);
+        echo json_encode($data);
         return $this->update($data->USER_PK, $data) ?: false;
     }
 

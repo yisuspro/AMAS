@@ -42,6 +42,7 @@ $routes->group('persons', function($routes) {
     $routes->get('personsAdminView', 'Amas\PersonsController::index');
     $routes->post('createPerson', 'Amas\PersonsController::createPerson');
     $routes->post('searchPersonWithUsers', 'Amas\PersonsController::searchPersonWithUsers');
+    $routes->get('prueba/(:num)', 'Amas\PersonsController::prueba/$1');
 });
 
 //--PERMISOS

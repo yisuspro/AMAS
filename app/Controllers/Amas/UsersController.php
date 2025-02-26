@@ -275,7 +275,7 @@ class UsersController extends BaseController
             'USER_email' => $this->request->getPost('USER_email'),
             'USER_address_ip' => $this->request->getPost('USER_address_ip'),
         ];
-        if ($result = $this->UsersModel->updateUsers($userData)) {
+        if ($this->UsersModel->updateUsers($userData)) {
             $this->response->setStatusCode(200);
         } else {
             echo json_encode('Error al crear usuario');
@@ -329,7 +329,8 @@ class UsersController extends BaseController
         if ($this->request->getPost('USER_password_P') == $this->request->getPost('USER_password_two_P')) {
             $result = $this->UsersModel->validateUserId($this->request->getPost('USER_PK_P'));
             $result->USER_password = $this->request->getPost('USER_password_P');
-            $result->USER_reset_password == 1;
+            $result->USER_reset_password = 1;
+            $result->USER_FK_user_update = $this->session->get('USER_PK');
 
             if ($this->UsersModel->updatePasswordUsers($result)) {
                 $this->response->setStatusCode(201);
@@ -350,20 +351,17 @@ class UsersController extends BaseController
     public function UpdatePasswordUser()
     {
         $validate = $this->UsersModel->validateUserId($this->request->getPost('USER_PK_P'));
-        $contraseñaActual = $this->request->getPost('USER_password_A');
-        $contraseñaNueva = $this->request->getPost('USER_password_P');
-        $confirmacionContraseña = $this->request->getPost('USER_password_two_P');
-
-        $contrasena = $this->UsersModel->validatePasswords($contraseñaActual, $validate->USER_password);
+        
+        $contrasena = $this->UsersModel->validatePasswords($this->request->getPost('USER_password_A'), $validate->USER_password);
         if ($contrasena) {
 
-            if ($contraseñaNueva == $confirmacionContraseña) {
+            if ($this->request->getPost('USER_password_P') == $this->request->getPost('USER_password_two_P')) {
                 $userData = [
                     'USER_PK' => $this->request->getPost('USER_PK_P'),
-                    'USER_password' => $contraseñaNueva,
+                    'USER_password' => $this->request->getPost('USER_password_P'),
                     'USER_reset_password' => 0,
                     'USER_date_update' => date('Y-m-d H:i:s'),
-                    'USER_FK_user_update' => $this->session->get('USER_PK')
+
                 ];
                 if ($this->UsersModel->updatePasswordUsers($userData)) {
                     $this->response->setStatusCode(201);
