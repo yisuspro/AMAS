@@ -39,6 +39,12 @@ class Roles extends Seeder
             ['PRMS_name' => 'Consultar usuarios apps', 'PRMS_description' => 'Permite consultar usuarios en varias aplicaciones', 'PRMS_system_name' => 'C_USERS_APP', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'Registro poblacionales', 'PRMS_description' => 'Modulo de control para registros poblacionales', 'PRMS_system_name' => 'REG_POBLA', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'Migrar censo registro poblacional', 'PRMS_description' => 'Permiso para migrar censos', 'PRMS_system_name' => 'M_CEN_REG_POBLA', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'Consultar usuarios apps', 'PRMS_description' => 'permite consultar usuarios en varias aplicaciones', 'PRMS_system_name' => 'C_USERS_APP', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'consultar auditoria', 'PRMS_description' => 'sirve para consultar la auditoria de los cambios realizados en la aplicacion o base de datos', 'PRMS_system_name' => 'C_AUDITORY', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'crear caso', 'PRMS_description' => 'Crear casos en la auditoria', 'PRMS_system_name' => 'CR_CASO', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'Editar caso auditoria', 'PRMS_description' => 'permite editar casos de auditoria', 'PRMS_system_name' => 'E_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'inactivar caso auditoria', 'PRMS_description' => 'inactiva los casos de auditoria', 'PRMS_system_name' => 'I_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'Consultar caso auditoria', 'PRMS_description' => 'consultar caso de auditoria', 'PRMS_system_name' => 'C_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
 
         ];
         $this->db->table('permissions')->insertBatch($dataPermissions);
@@ -68,14 +74,19 @@ class Roles extends Seeder
 
         // Cargamos datos base de la tabla de usuario
         $dataUsers = [
-            [ 'USER_name'=>'admin','USER_username' => 'administrador','USER_password' => password_hash('admin123', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
-
+            [ 'USER_PK'=>1,'USER_name'=>'admin','USER_username' => 'administrador','USER_password' => password_hash('Admin123', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
+            [ 'USER_PK'=>20,'USER_name'=>'JESUS ANDRES CASTELLANOS AGUILAR','USER_username' => 'jesusadmin','USER_password' => password_hash('Admin123*', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
+            [ 'USER_PK'=>27,'USER_name'=>'EILEEN RODRIGUEZ','USER_username' => 'erodrigueze','USER_password' => password_hash('Colombia2025#', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
+            [ 'USER_PK'=>34,'USER_name'=>'DANIEL FELIPE AVENDAÑO PUIN','USER_username' => 'dalaven','USER_password' => password_hash('Dalaven2025*', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
+           
         ];
         $this->db->table('users')->insertBatch($dataUsers);
 
         // Cargamos datos base de la tabla de roles para le usuario
         $dataUsersRoles = [
             [ 'USRL_FK_user'=> 1,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
+            [ 'USRL_FK_user'=> 20,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
+            [ 'USRL_FK_user'=> 34,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
 
         ];
         $this->db->table('usersroles')->insertBatch($dataUsersRoles);
