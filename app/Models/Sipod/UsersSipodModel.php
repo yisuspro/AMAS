@@ -52,14 +52,14 @@ class UsersSipodModel extends Model
         SELECT DISTINCT
             U.IDENTIFICACION,
             U.ID ,
-            U.NOMBRE,
-            U.USUARIO,
+            CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE,
+            CONVERT(U.USUARIO, 'AL32UTF8') AS USUARIO,
             U.CORREO_ELECTRONICO,
             U.ACTIVO,
             U.CARGO,
             U.FECHA_INACTIVACION,
             U.FECHALOGEADO,
-            LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+            CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
             'N/A' AS NOMBRE_INACTIVO,
             'SIPOD' AS APLICATIVO
         FROM SIPOD.TBUSUARIOS U
@@ -96,14 +96,14 @@ class UsersSipodModel extends Model
             SELECT DISTINCT
                 U.IDENTIFICACION,
                 U.ID ,
-                U.NOMBRE,
-                U.USUARIO,
+                CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE,
+                CONVERT(U.USUARIO, 'AL32UTF8') AS USUARIO,
                 U.CORREO_ELECTRONICO,
                 U.ACTIVO,
                 U.CARGO,
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
+                CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
                 'N/A' AS NOMBRE_INACTIVO,
                 'SIPOD' AS APLICATIVO
             FROM SIPOD.TBUSUARIOS U

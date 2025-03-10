@@ -60,25 +60,27 @@ class UsersRuvModel extends Model
     {
         $sql = "
         select DISTINCT
-                U.IDENTIFICACION,
-                U.ID,
-                
-                U.CORREO_ELECTRONICO,
-                U.ACTIVO,
-                U.CARGO,
-                U.FECHA_INACTIVACION,
-                U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
-                'N/A' AS NOMBRE_INACTIVO,
-                'RUV' AS APLICATIVO
-            FROM TBUSUARIOS U
-            LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
-            LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.ID = '" . $ID . "'
-            GROUP BY 
-                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
-                U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
-                U.FECHA_INACTIVACION, U.FECHALOGEADO
+            U.IDENTIFICACION,
+            U.ID,
+            CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE,
+            CONVERT(U.USUARIO, 'AL32UTF8') AS USUARIO,
+            U.CORREO_ELECTRONICO,
+            U.ACTIVO,
+            U.CARGO,
+            U.FECHA_INACTIVACION,
+            U.FECHALOGEADO,
+            CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
+            'N/A' AS NOMBRE_INACTIVO,
+            'RUV' AS APLICATIVO
+        FROM TBUSUARIOS U
+        LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
+        LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
+        WHERE U.ID =" . $ID . "
+        GROUP BY 
+            U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+            U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
+            U.FECHA_INACTIVACION, U.FECHALOGEADO
+        
         ";
 
         $query = $this->query($sql);
@@ -101,30 +103,30 @@ class UsersRuvModel extends Model
      */
     public function listUsersDoc($IDENTIFICACION)
     {
-        $sql = "
-        select DISTINCT
-                U.IDENTIFICACION,
-                U.ID,
-                U.NOMBRE,
-                U.USUARIO,
-                U.CORREO_ELECTRONICO,
-                U.ACTIVO,
-                U.CARGO,
-                U.FECHA_INACTIVACION,
-                U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles,
-                'N/A' AS NOMBRE_INACTIVO,
-                'RUV' AS APLICATIVO
-            FROM TBUSUARIOS U
-            LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
-            LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
-            WHERE U.IDENTIFICACION like '%" . $IDENTIFICACION . "%'
-            GROUP BY 
-                U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
-                U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
-                U.FECHA_INACTIVACION, U.FECHALOGEADO
+        $sql = "select DISTINCT
+            U.IDENTIFICACION,
+            U.ID,
+            CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE,
+            CONVERT(U.USUARIO, 'AL32UTF8') AS USUARIO,
+            U.CORREO_ELECTRONICO,
+            U.ACTIVO,
+            U.CARGO,
+            U.FECHA_INACTIVACION,
+            U.FECHALOGEADO,
+            CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
+            'N/A' AS NOMBRE_INACTIVO,
+            'RUV' AS APLICATIVO
+        FROM TBUSUARIOS U
+        LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
+        LEFT JOIN TBROLES R ON R.ID = RU.ID_ROL
+        WHERE U.IDENTIFICACION like '%" . $IDENTIFICACION . "%'
+        GROUP BY 
+            U.IDENTIFICACION, U.ID, U.NOMBRE, U.USUARIO, 
+            U.CORREO_ELECTRONICO, U.ACTIVO, U.CARGO, 
+            U.FECHA_INACTIVACION, U.FECHALOGEADO
         ";
-        
+
+        //$sql = "select U.id,CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE from TBUSUARIOS U where U.IDENTIFICACION like '1022418865'";
         $query = $this->query($sql);
         return $query;
     }
@@ -149,14 +151,14 @@ class UsersRuvModel extends Model
             SELECT DISTINCT
                 U.IDENTIFICACION,
                 U.ID ,
-                U.NOMBRE,
-                U.USUARIO,
+                CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE,
+                CONVERT(U.USUARIO, 'AL32UTF8') AS USUARIO,
                 U.CORREO_ELECTRONICO,
                 U.ACTIVO,
                 U.CARGO,
                 U.FECHA_INACTIVACION,
                 U.FECHALOGEADO,
-                LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre) AS roles
+                CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
                 'N/A' AS NOMBRE_INACTIVO,
                 'RUV' AS APLICATIVO
             FROM TBUSUARIOS U

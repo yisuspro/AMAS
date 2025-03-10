@@ -8,6 +8,7 @@ use App\Models\Amas\PersonsModel;
 use App\Models\Amas\DocumentsPersonsModel;
 use App\Entities\Amas\AppspersonsEntity;
 use App\Entities\Amas\PersonsEntity;
+use PhpParser\Node\Stmt\Echo_;
 
 class PersonsController extends BaseController
 {
@@ -111,26 +112,30 @@ class PersonsController extends BaseController
     public function searchPersonWithUsers()
     {
         $document = $this->request->getPost('PRSN_document');
+       // $document = '1018429456';
         $aplicaciones = [];
     
         // Try to find the person based on the document
         $localPerson = $this->personsModel->getPersonbyDocument($document);
-    
+        //echo json_encode($localPerson);
         if ($localPerson) {
             // If the person exists, fetch associated apps
             $apps = $this->appsPersonsModel->getAppsByPerson($localPerson->PRSN_PK);
-    
+           // echo json_encode($apps);
             // Fetch users based on app type
             foreach ($apps as $app) {
 
-                if($app->APPR_FK_app == 1)
+                if($app->APPR_FK_app == 1){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersRuvModel->getUserById($app->APPR_ID_app)->getResultArray());
-                if($app->APPR_FK_app == 2)
+                    
+                }elseif($app->APPR_FK_app == 2){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersSiravModel->getUserById($app->APPR_ID_app)->getResultArray());
-                if($app->APPR_FK_app == 3)
+                }elseif($app->APPR_FK_app == 3){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersSipodModel->getUserById($app->APPR_ID_app)->getResultArray());
+                }
+                   //echo json_encode($aplicaciones);
             }
-    
+            
             // If no apps are found, set new apps
             if (!$apps) {
                 $aplicaciones = $this->setApps($document, $localPerson->PRSN_PK);
@@ -143,7 +148,7 @@ class PersonsController extends BaseController
                 $this->UsersSiravModel->listUsersDoc($document)->getResultArray(),
                 $this->UsersSipodModel->listUsersDoc($document)->getResultArray()
             );
-    
+            echo json_encode($aplicaciones);
             // If users are found, save the person and associate new apps
             if (count($aplicaciones)) {
                 $this->personsEntity->PRSN_name = $aplicaciones[0]['NOMBRE'];
@@ -163,4 +168,23 @@ class PersonsController extends BaseController
     
         return json_encode(["info" => $localPerson,"data"=>$aplicaciones]);
     }
+
+ /**
+  * The function "prueba" in PHP takes in a parameter named .
+  * 
+  * @param data The parameter `` in the `prueba` function is a variable that will hold the data
+  * passed to the function when it is called. You can perform operations on this data within the
+  * function as needed.
+  */
+    public function prueba($data)
+    {
+       $ruv = $this->UsersRuvModel->listUsersDoc($data)->getResultArray();
+       echo json_encode($ruv);
+        $sirav = $this->UsersSiravModel->listUsersDoc($data)->getResultArray();
+        echo json_encode($sirav);
+        $sipod=$this->UsersSipodModel->listUsersDoc($data)->getResultArray();
+        echo json_encode($sipod);
+
+    }
 }
+   
