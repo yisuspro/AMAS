@@ -26,12 +26,22 @@ class PersonsController extends BaseController
         $this->appsPersonsEntity = new AppspersonsEntity();
         $this->personsEntity = new PersonsEntity();
     }
+/**
+ * The index function returns a view for managing persons with the title "Administración Personas".
+ * 
+ * @return A view named 'adminPersons' located in the 'private/views_ajax/persons' directory is being
+ * returned with the title 'Administración Personas'.
+ */
 
     public function index()
     {
         return view('private/views_ajax/persons/adminPersons', ['title' => 'Administración Personas']);
     }
 
+   /**
+    * The function `createPerson` creates a new person record with associated documents in a PHP
+    * application.
+    */
     public function createPerson()
     {
         $personData = [
@@ -58,6 +68,24 @@ class PersonsController extends BaseController
         }
     }
 
+   /**
+    * The function `uploadDocument` uploads a file to a specified path and inserts document data into a
+    * database table related to a specific person.
+    * 
+    * @param file The `file` parameter in the `uploadDocument` function represents the file that is
+    * being uploaded. It is typically an instance of a file uploaded through a form in a web
+    * application.
+    * @param personId The `personId` parameter in the `uploadDocument` function represents the unique
+    * identifier of the person for whom the document is being uploaded. It is used to associate the
+    * uploaded document with the specific person in the system.
+    * @param uploadPath The `uploadPath` parameter in the `uploadDocument` function represents the
+    * directory path where the uploaded document will be stored on the server. This is the location
+    * where the file will be moved to after it has been successfully uploaded.
+    * @param documentType The `documentType` parameter in the `uploadDocument` function represents the
+    * type of document being uploaded. It is used to specify the category or type of the document being
+    * uploaded, such as identification card, passport, driver's license, etc. This information is
+    * important for categorizing and organizing the documents
+    */
     private function uploadDocument($file, $personId, $uploadPath, $documentType)
     {
         if ($file && $file->isValid()) {
@@ -76,11 +104,33 @@ class PersonsController extends BaseController
             $this->documentPerson->insertDocumentPersons($documentData);
         }
     }
+/**
+ * The function `consultarUsersAppsView` returns a view for querying users in applications.
+ * 
+ * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/persons' directory
+ * is being returned with the title 'Consulta usuarios Aplicaciones'.
+ */
 
     public function consultarUsersAppsView()
     {
         return view('private/views_ajax/persons/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
     }
+/**
+ * The `setApps` function iterates over a list of models to retrieve user data based on a document
+ * number and saves the information to a database table while returning the collected user data.
+ * 
+ * @param document The `document` parameter in the `setApps` function seems to represent some kind of
+ * document identifier or reference. It is used within the function to retrieve user information from
+ * different models based on the document provided.
+ * @param person The `setApps` function you provided seems to be setting applications for a specific
+ * person based on their document number. It loops through an array of models representing different
+ * applications, retrieves users for each application, and then saves the application information for
+ * the person in the `appsPersonsEntity`.
+ * 
+ * @return The `setApps` function is returning an array of applications (``) after
+ * iterating through the `` array and merging user data from different models into the
+ * `` array.
+ */
 
     private function setApps($document, $person)
     {
@@ -108,16 +158,21 @@ class PersonsController extends BaseController
 
         return $aplicaciones;
     }
+/**
+ * The function `searchPersonWithUsers` searches for a person by document, retrieves associated apps
+ * and users, and sets new apps if needed.
+ * 
+ * @return The `searchPersonWithUsers` function returns a JSON response containing information about a
+ * person and associated applications. The response includes two main keys:
+ * 1. "info": Contains information about the local person retrieved based on the provided document.
+ * 2. "data": Contains an array of users associated with the person's applications.
+ */
 
-    public function searchPersonWithUsers()
+    public function searchPersonWithUsers()  
     {
         $document = $this->request->getPost('PRSN_document');
-       // $document = '1018429456';
         $aplicaciones = [];
-    
-        // Try to find the person based on the document
         $localPerson = $this->personsModel->getPersonbyDocument($document);
-        //echo json_encode($localPerson);
         if ($localPerson) {
             // If the person exists, fetch associated apps
             $apps = $this->appsPersonsModel->getAppsByPerson($localPerson->PRSN_PK);
@@ -148,7 +203,7 @@ class PersonsController extends BaseController
                 $this->UsersSiravModel->listUsersDoc($document)->getResultArray(),
                 $this->UsersSipodModel->listUsersDoc($document)->getResultArray()
             );
-            echo json_encode($aplicaciones);
+            
             // If users are found, save the person and associate new apps
             if (count($aplicaciones)) {
                 $this->personsEntity->PRSN_name = $aplicaciones[0]['NOMBRE'];

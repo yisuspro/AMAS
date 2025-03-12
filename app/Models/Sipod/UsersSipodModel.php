@@ -46,6 +46,20 @@ class UsersSipodModel extends Model
 
     protected $useTimestamps = false;
     protected $DBGroup = 'bd_sipod';
+/**
+ * The function `getUserById` retrieves user information based on the provided ID from a database table
+ * in PHP.
+ * 
+ * @param ID The code you provided is a PHP function that retrieves user information based on the
+ * provided ID from a database. It constructs a SQL query to select specific columns from the tables
+ * TBUSUARIOS, TBROLES_USUARIO, and TBROLES in the SIPOD database.
+ * 
+ * @return The function `getUserById` is returning the result of a SQL query that fetches user
+ * information based on the provided ``. The query selects various fields from the
+ * `SIPOD.TBUSUARIOS` table and performs some conversions and aggregations. The result is grouped by
+ * certain fields and returned by executing the query using the `query` method. If the query is
+ * successful, the function
+ */
 
     public function getUserById($ID) {
         $sql = "
