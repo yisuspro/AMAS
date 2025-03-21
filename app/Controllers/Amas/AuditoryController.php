@@ -56,6 +56,20 @@ class AuditoryController extends BaseController
         return view('private/views_ajax/Amas/listMyCaseAjax', ['title' => 'Mis casos']);
     }
 
+    /**
+     * The function `listAllCaseView` returns a view for listing all case views with the title
+     * "Auditoria casos".
+     * 
+     * @return A view named 'listAllCaseAjax' located in the 'private/views_ajax/Amas' directory is
+     * being returned with the title 'Auditoria casos' passed as data.
+     */
+    public function listAllCaseView()
+    {
+        //
+
+        return view('private/views_ajax/Amas/listAllCaseAjax', ['title' => 'Auditoria casos']);
+    }
+
  /**
   * The function `listMyCaseView` retrieves various lists of categories, dependencies, entities,
   * groups, states, and types of cases for display in a view.
@@ -85,6 +99,33 @@ class AuditoryController extends BaseController
                                                                 'apps' => $apps
                                                             ]);
     }
+
+    public function updateCaseView($CASE_PK)
+    {
+        //
+        $categoriescase = $this->CategoriescaseModel->listCategoriecase();
+        $dependencies = $this->DependenciesModel->listDependencies();
+        $entities =$this->EntitiesModel->listEntities();
+        $groups = $this->GroupsModel->listGroups();
+        $statescases =$this->StatescasesModel->listStatescases();
+        $tipescases =$this->TipescasesModel->listTipescases();
+        $apps = $this->AppsModel->listApps();
+        $case = $this->CasesModel->listCasePk($CASE_PK);
+        return view('private/views_ajax/Amas/updateCaseAjax', ['title' => 'Editar caso No.'.$case->CASE_number,
+                                                                'categoriescase'=>$categoriescase,
+                                                                'dependencies'=> $dependencies,
+                                                                'entities'=>$entities,
+                                                                'groups'=> $groups,
+                                                                'statescases' => $statescases,
+                                                                'tipescases'=> $tipescases,
+                                                                'apps' => $apps,
+                                                                'case' => $case
+                                                            ]);
+
+        
+    }
+
+    
  /**
   * The function `listMyCase` returns a view for listing cases with the title "Mis casos".
   * 
@@ -98,6 +139,23 @@ class AuditoryController extends BaseController
         $start  = intval($this->request->getPost("start"));
         $length = intval($this->request->getPost("length"));
         $data = $this->CasesModel->listCaseID($this->session->get('USER_PK'));           //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
+        $output = array(                                    //creacion del vector de salida
+            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
+            "recordsTotal" => $data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
+            "recordsFiltered" => $data->getNumRows(),         //envio el numero de filas para el calculo de la paginacion de la tabla
+            "data" => $data->getResultArray()                                 //envia todos los datos de la tabla
+        );
+        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
+        exit;
+        
+    }
+    public function listAllCase()
+    {
+        
+        $draw   = intval($this->request->getPost("draw"));             //trae las varibles draw, start, length para la creacion de la tabla
+        $start  = intval($this->request->getPost("start"));
+        $length = intval($this->request->getPost("length"));
+        $data = $this->CasesModel->listCases();           //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
         $output = array(                                    //creacion del vector de salida
             "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
             "recordsTotal" => $data->getNumRows(),             //envia el numero de filas  para saber cuantos usuarios son en total
@@ -147,8 +205,8 @@ class AuditoryController extends BaseController
             if($this->request->getPost('form_observations')){
                 $observationsData[] = [
                     'OBSV_FK_case' => $idCase,
-                    'OBSV_name' => $this->request->getPost('form_observations'),
-                    'OBSV_description' => ''
+                    'OBSV_name' =>'',
+                    'OBSV_description' => $this->request->getPost('form_observations')
                 ];
                 if($this->ObservationsModel->insertObservation($observationsData)){
                     $this->response->setStatusCode(201);

@@ -122,7 +122,7 @@ $(document).ready(function () {
                             ],
                             columns: [
                                 { title: 'ID', data: 'ID' },
-                                { title: 'APLICACIÓN', data: 'APLICATIVO' },
+                                { title: 'APP', data: 'APLICATIVO' },
                                 { title: 'NOMBRE', data: 'NOMBRE' },
                                 { title: 'USUARIO', data: 'USUARIO' },
                                 { title: 'ESTADO', data: 'ACTIVO' },

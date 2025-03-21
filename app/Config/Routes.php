@@ -73,6 +73,10 @@ $routes->group('audit', function($routes) {
     $routes->get('listMyCaseView', 'Amas\AuditoryController::listMyCaseView');
     $routes->get('listMyCase', 'Amas\AuditoryController::listMyCase');
     $routes->post('createMyCases', 'Amas\AuditoryController::createMyCases');
+    $routes->get('listAllCaseView', 'Amas\AuditoryController::listAllCaseView');
+    $routes->get('listAllCase', 'Amas\AuditoryController::listAllCase');
+    $routes->get('updateCaseView/(:num)', 'Amas\AuditoryController::updateCaseView/$1');
+    $routes->post('updateCase', 'Amas\AuditoryController::updateCase');
 });
 
 

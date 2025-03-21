@@ -113,6 +113,13 @@ if (!function_exists('generate_menu')) {
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_AUDITORY',
                     ],
+                    [
+                        'id' => '../audit/listAllCaseView',
+                        'title' => 'AUD. MESA',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_AUDITORY_ALL',
+                    ],
+                   
                 ]
             ],
         ];

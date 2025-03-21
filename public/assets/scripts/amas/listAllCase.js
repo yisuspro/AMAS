@@ -35,17 +35,33 @@ $(document).ready(function () {
             );
         }
         var dt;
-        dt = $('#listMycases');
+        dt = $('#listAllcases');
+        
         dt.DataTable({
+            ordering: false, // Desactiva la función de ordenar en toda la tabla
             dom: null,
             order: [
-                [0, 'desc']
+                [2, 'desc']
             ],
             scrollX: true,
             ajax: {
-                url: "../audit/listMyCase",
+                url: "../audit/listAllCase",
                 type: 'GET'
             },
+            columnDefs: [
+                { width: '10px', targets: 0 },  // Columna de control (expansión)
+                { width: '10px', targets: 1 },  // ID (oculto)
+                { width: '20px', targets: 2 }, // Caso
+                { width: '100px', targets: 3 }, // Estado
+                { width: '100px', targets: 4 }, // Tipo
+                { width: '100px', targets: 5 }, // Grupo
+                { width: '30px', targets: 6 }, // APP
+                { width: '30px', targets: 7 },  // Nivel
+                { width: '200px', targets: 8 }, // Responsable
+                { width: '100px', targets: 9 }, // Fecha solución
+                { width: '100px', targets: 10 } // Acciones (botones)
+            ],
+            fixedColumns: true ,
             columns: [
                 {
                     className: 'dt-control',
@@ -56,30 +72,31 @@ $(document).ready(function () {
                 { title:'ID',data: 'CASE_PK' , visible: false},
                 { title:'CASO',data: 'CASE_number', },
                 { title:'ESTADO',data: 'STCS_name',
-                    render: function (data, type) {
-                       if (data =='SOLUCIONADO') {
-                            color = 'green';
-                        }
-                        else if(data =='RECHAZADO'){
-                            color = 'red';
-                        }
-        
-                        return `<span style="color:${color}">${data}</span>`;
-                    }
-                 },
+                    render: function (data) {
+                    if (data =='SOLUCIONADO') {
+                         color = 'green';
+                     }
+                     else if(data =='RECHAZADO'){
+                         color = 'red';
+                     }
+     
+                     return `<span style="color:${color}">${data}</span>`;
+                 } },
                 { title:'TIPO',data: 'TPCS_name', },
                 { title:'GRUPO',data: 'GRPS_name', },
                 { title:'APP',data: 'APPS_name', },
                 { title:'NIVEL',data: 'CTCS_name', },
-                { title:'RESPONSABLE',data: 'USER_name', visible: false },
-                { title:'F.SOLUCIÓN',data: 'CASE_date_solution', },
+                { title:'RESPONSABLE',data: 'USER_name' },
+                { title:'F.RECEPCIÓN',data: 'CASE_date_reception' },
+                { title:'F.SOLUCIÓN',data: 'CASE_date_solution' },
                 {
                     title:'ACCIONES',
                     data: null,
                     render: function (data, type, row) {
                         var buttons = '';
+
                         if (userPermissions.includes('E_AUDIT_CASE')) {
-                            buttons += "<a id='Update_case' name='Update_case' title='Editar Caso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
+                            buttons += "<a id='Act_case' name='Act_case' title='Editar Caso' type='button' class='form btn btn-warning btn-xs'><i class='bi bi-pencil-square'></i></a>";
                         }
                         if (userPermissions.includes('I_AUDIT_CASE')) {
                             buttons += "<a id='Ina_case' name='Ina_case' title='Inactivar Caso' type='button' class='form btn btn-danger btn-xs'><i class='bi bi-trash3'></i></a>";
@@ -159,7 +176,30 @@ $(document).ready(function () {
                 bottom2End: 'paging',
                 bottom3End: ''
             },
-            
+            initComplete: function () {
+                this.api()
+                    .columns()
+                    .every(function () {
+                        let column = this;
+                        let title = column.header().textContent;
+         
+                        // Create input element
+                        let input = document.createElement('input');
+                        input.placeholder = title;
+                        column.header().replaceChildren(input);
+                        input.style.width = "100%";
+                        input.style.fontSize = "12px";
+         
+                        // Event listener for user input
+                        input.addEventListener('keyup', () => {
+                            if (column.search() !== this.value) {
+                                column.search(input.value).draw();
+                            }
+                        });
+                    });
+                    this.api().columns.adjust();
+
+            }
             
         });
         dt.on('click', 'td.dt-control', function (e) {
@@ -174,25 +214,6 @@ $(document).ready(function () {
                 // Open this row
                 row.child(format(row.data())).show();
             }
-        });
-
-        dt.on('click', '#Update_case', function (e) {
-
-            e.preventDefault();
-            $tr = $(this).closest('tr');
-            var O = dt.DataTable().row($tr).data();
-            var r = confirm("Seguro deseas editar la informacion del permiso" + O.PRMS_system_name);
-            if (r == true) {
-                activarLogoCarga();
-                var id = '../audit/updateCaseView/' + O.CASE_PK;
-                $(".area-trabajo").load(id, function () {
-                    cerrarLogoCarga();
-                });
-                crearAlerta('Vista modificacion permisos abierta correctamente', 'success');
-            } else {
-                crearAlerta('Cambio rechazado', 'error');
-            }
-
         });
 
 

@@ -15,6 +15,7 @@ class Roles extends Seeder
             ['ROLE_name' => 'CRUZES', 'ROLE_description' => 'registro de cruzes', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
             ['ROLE_name' => 'ADMIN', 'ROLE_description' => 'registro casos herramientas', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
             ['ROLE_name' => 'VALORACION 1448', 'ROLE_description' => 'Ajustes para 1448', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
+            ['ROLE_name' => 'LIDER mesa de servicios', 'ROLE_description' => 'lider de mesa de servicios, procesos de seguimiento y auditoria', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
 
         ];
         $this->db->table('roles')->insertBatch($dataRoles);
@@ -45,6 +46,7 @@ class Roles extends Seeder
             ['PRMS_name' => 'Editar caso auditoria', 'PRMS_description' => 'permite editar casos de auditoria', 'PRMS_system_name' => 'E_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'inactivar caso auditoria', 'PRMS_description' => 'inactiva los casos de auditoria', 'PRMS_system_name' => 'I_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'Consultar caso auditoria', 'PRMS_description' => 'consultar caso de auditoria', 'PRMS_system_name' => 'C_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ['PRMS_name' => 'consulta casos mesas', 'PRMS_description' => 'consultar todos los casos registrados por la mesa', 'PRMS_system_name' => 'C_AUDITORY_ALL', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
 
         ];
         $this->db->table('permissions')->insertBatch($dataPermissions);
