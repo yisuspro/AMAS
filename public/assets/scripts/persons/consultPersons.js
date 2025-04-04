@@ -1,34 +1,47 @@
 $(document).ready(function () {
     function format(d) {
         // `d` is the original data object for the row
-            return ('<div class="row">'+
-                '<div class="col form-label">PERMISOS</div>'+
-                '<div class="col">'+d.ROLES+'</div>'+
-                '<div class="col">'+
-                    '<div class="mb-3">'+
-                        '<label for="DCPR_name_1" class="form-label">Fecha de vigencia</label>'+
-                        '<input type="text" value="'+d.FECHA_INACTIVACION+'" class="form-control" readonly>'+
-                    '</div>'+
-                    '<div class="mb-3">'+
-                        '<label for="DCPR_name_1" class="form-label">Fecha último acceso</label>'+
-                        '<input type="text" value="'+d.FECHALOGEADO+'" class="form-control" readonly>'+
-                    '</div>'+
-                '</div>'+
-                '<div class="row">'+
-                    '<div class="col form-label">CARGO</div>'+
-                    '<div class="col">'+
-                    d.CARGO +
-                    '</div>'+
-                    '<div class="col"></div>'+
-                '</div>'+
-                '<div class="row">'+
-                    '<div class="col form-label">RAZÓN DE INACTIVACIÓN</div>'+
-                    '<div class="col">'+
-                    d.NOMBRE_INACTIVO +
-                    '</div>'+
-                    '<div class="col"></div>'+
-                '</div>')
+        let html = `
+            <div class="row">
+                <div class="col form-label">PERMISOS</div>
+                <div class="col">${d.ROLES}</div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de vigencia</label>
+                        <input type="text" value="${d.FECHA_INACTIVACION}" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha último acceso</label>
+                        <input type="text" value="${d.FECHALOGEADO}" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col form-label">CARGO</div>
+                <div class="col">${d.CARGO}</div>
+                <div class="col"></div>
+            </div>
+            `;
+    
+        if (d.APLICATIVO === 'SIRAV') {
+            html += `
+            <div class="row">
+                <div class="col form-label">RAZÓN DE INACTIVACIÓN</div>
+                <div class="col">${d.NOMBRE_INACTIVO}</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col form-label">FIRMA</div>
+                <div class="col">${d.FIRMA}</div>
+                <div class="col"></div>
+            </div>
+            `;
+        }
+    
+        return html;
     }
+    
 
     $("#frm_consult_users").submit(function (ev) {
         ev.preventDefault();
@@ -175,7 +188,7 @@ $(document).ready(function () {
                         }
 
                         dtcases.empty();
-                        
+
                         dtcases.DataTable({
                             layout: {
                                 top2Start: '',
@@ -274,6 +287,8 @@ $(document).ready(function () {
     $('.copy-btn').on("click", function() {
         // Get the input field next to the clicked button
         var textToCopy = $(this).siblings('input')[0];  // Gets the corresponding input element
+
+        console.log(textToCopy)
 
         // Use the Clipboard API to copy the text
         navigator.clipboard.writeText(textToCopy.value)

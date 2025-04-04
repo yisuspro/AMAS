@@ -160,6 +160,7 @@ class UsersRuvModel extends Model
                 U.FECHALOGEADO,
                 CONVERT(LISTAGG(R.nombre, ', ') WITHIN GROUP (ORDER BY R.nombre),'AL32UTF8') AS roles,
                 'N/A' AS NOMBRE_INACTIVO,
+                '' AS FIRMA,
                 'RUV' AS APLICATIVO
             FROM TBUSUARIOS U
             LEFT JOIN TBROLES_USUARIO RU ON RU.ID_USUARIO = U.ID
