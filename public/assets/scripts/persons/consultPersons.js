@@ -264,8 +264,20 @@ $(document).ready(function () {
                                 } },
                                 { title:'TIPO',data: 'TPCS_name', },
                                 { title:'APP',data: 'APPS_name', },
-                                { title:'F.RECEPCIÓN',data: 'CASE_date_reception' },
-                                { title:'F.SOLUCIÓN',data: 'CASE_date_solution' },
+                                { title:'F.RECEPCIÓN',data: 'CASE_date_reception.date',
+                                    render: function (data) {
+                                        const date = new Date(data);
+                                        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                                        return `<span>${formattedDate}</span>`;
+                                } 
+                                 },
+                                { title:'F.SOLUCIÓN',data: 'CASE_date_solution.date',
+                                    render: function (data) {
+                                        const date = new Date(data);
+                                        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                                        return `<span>${formattedDate}</span>`;
+                                } 
+                                 },
                             ],
                             data: cases
                         });

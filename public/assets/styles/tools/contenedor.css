@@ -28,5 +28,7 @@
     
 }
 table.dataTable{
-margin: 0;
+    margin: 0;
+    border-left-color: #003188;
+    border-right-color: #003188;
 }
