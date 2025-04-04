@@ -8,6 +8,7 @@ use App\Models\Amas\PersonsModel;
 use App\Models\Amas\DocumentsPersonsModel;
 use App\Entities\Amas\AppspersonsEntity;
 use App\Entities\Amas\PersonsEntity;
+use App\Models\Amas\CasesModel;
 use PhpParser\Node\Stmt\Echo_;
 
 class PersonsController extends BaseController
@@ -17,6 +18,7 @@ class PersonsController extends BaseController
     protected $appsPersonsModel;
     protected $appsPersonsEntity;
     protected $personsEntity;
+    protected $casesModel;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class PersonsController extends BaseController
         $this->appsPersonsModel = new AppspersonsModel();
         $this->appsPersonsEntity = new AppspersonsEntity();
         $this->personsEntity = new PersonsEntity();
+        $this->casesModel = new CasesModel();
     }
 /**
  * The index function returns a view for managing persons with the title "Administración Personas".
@@ -221,7 +224,9 @@ class PersonsController extends BaseController
             }
         }
     
-        return json_encode(["info" => $localPerson,"data"=>$aplicaciones]);
+        $cases = $this->casesModel->listCaseDocument($document);
+
+        return json_encode(["info" => $localPerson,"data"=>$aplicaciones,"cases" => $cases]);
     }
 
  /**

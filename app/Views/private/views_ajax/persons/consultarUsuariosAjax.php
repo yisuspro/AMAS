@@ -109,9 +109,17 @@
         </div>
     </div>
     <div class="col">
-
         <div class="card datatable" >
             <table id="table_users" class="table table-hover" style="width:100%"></table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                AUDITORIA
+            </div>
+            <div class="datatable">
+                <table id="table_cases" class="table table-hover" style="width:100%"></table>
+            </div>
         </div>
     </div>
     </div>

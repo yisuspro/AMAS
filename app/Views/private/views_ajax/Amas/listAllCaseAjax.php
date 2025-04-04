@@ -6,9 +6,7 @@
 
 <div class="card">
     <div class="seccion">
-        <table id="listAllcases" class="table table-hover" style="width: 100%">
-            
-        </table>
+        <table id="listAllcases" class="table table-hover" style="width: 100%"></table>
     </div>
 </div>
 

@@ -27,7 +27,7 @@ $(document).ready(function () {
                 '<dd>' +
                 d.actions +
                 '</dd>' +
-                '<dt>OBSERVACIONE</dt>' +
+                '<dt>OBSERVACIONES</dt>' +
                 '<dd>' +
                 d.observations +
                 '</dd>'  + '</dl>'
