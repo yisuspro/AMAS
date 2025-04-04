@@ -104,7 +104,7 @@ class UsersController extends BaseController
      */
     public function UpdatePasswordUserView($id)
     {
-        return view('updatePasswordUSer', ['title' => 'Cambio de contraseña', 'USER_PK' => $id]);
+        return view('updatePasswordUser', ['title' => 'Cambio de contraseña', 'USER_PK' => $id]);
     }
 
     /**
@@ -339,7 +339,7 @@ class UsersController extends BaseController
                 $this->response->setStatusCode(401);
             }
         } else {
-            echo json_encode('contraseñas no coinciden');
+            echo json_encode('Contraseñas no coinciden');
             $this->response->setStatusCode(401);
         }
     }
@@ -352,8 +352,8 @@ class UsersController extends BaseController
     {
         $validate = $this->UsersModel->validateUserId($this->request->getPost('USER_PK_P'));
         
-        $contrasena = $this->UsersModel->validatePasswords($this->request->getPost('USER_password_A'), $validate->USER_password);
-        if ($contrasena) {
+        $password = $this->UsersModel->validatePasswords($this->request->getPost('USER_password_A'), $validate->USER_password);
+        if ($password) {
 
             if ($this->request->getPost('USER_password_P') == $this->request->getPost('USER_password_two_P')) {
                 $userData = [
@@ -364,6 +364,7 @@ class UsersController extends BaseController
 
                 ];
                 if ($this->UsersModel->updatePasswordUsers($userData)) {
+                    echo json_encode('Contraseña Actualizada');
                     $this->response->setStatusCode(201);
                 } else {
                     echo json_encode('Error al actualizar contraseña');

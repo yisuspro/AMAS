@@ -194,11 +194,9 @@ class UsersModel extends Model
      * update fails, it will return `false`.
      */
     public function updatePasswordUsers($data)
-    {
-       
-        $data->USER_password = password_hash($data->USER_password, PASSWORD_DEFAULT);
-        echo json_encode($data);
-        return $this->update($data->USER_PK, $data) ?: false;
+    {  
+        $data["USER_password"] = password_hash($data["USER_password"], PASSWORD_DEFAULT);
+        return $this->update($data["USER_PK"], $data) ?: false;
     }
 
    /**

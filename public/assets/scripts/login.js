@@ -9,9 +9,6 @@
             success: function (response) {
                 try {
                     var data = JSON.parse(response);
-                    console.log(data.USER_reset_password);
-                    console.log(data.USER_PK);
-                    
                     // Redirection logic based on password reset flag
                     if (data.USER_reset_password == 1) {
                         var rute = 'users/UpdatePasswordUserView/' + data.USER_PK;

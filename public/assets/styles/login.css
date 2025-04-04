@@ -1,5 +1,5 @@
 
-.login-page{
+.login-page, .resetpassword-page{
     min-height: 100vh;
     max-height: 100vh;
 }

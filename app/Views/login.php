@@ -12,11 +12,11 @@
     <body>
         <div class="row login-page m-0">
             <div class="col-6 banner-section">
-            <h1  class="text-center susi"><?= lang("General.appName") ?></h1>    
-            <h3  class="text-center"> Sistema Unificado de Servicios de la Información </h3>
-            <div class="img-login">
+                <h1  class="text-center susi"><?= lang("General.appName") ?></h1>    
+                <h3  class="text-center"> Sistema Unificado de Servicios de la Información </h3>
+                <div class="img-login">
 
-            </div>    
+                </div>    
             </div>
             <div class="col-6 form-section">
                 <div class="img-unidad"></div>

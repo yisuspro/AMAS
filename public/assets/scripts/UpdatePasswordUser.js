@@ -12,8 +12,9 @@
                 //window.location.href = rute;
 
                 try {
-                    var json = JSON.parse(xhr.responseText); // Parse the response if needed
-                    console.log(json);
+                    //var json = JSON.parse(xhr.responseText); // Parse the response if needed
+                    crearAlerta('Contraseña Actualizada', 'success');
+                    window.location.href = '/users/profileUser';
                 } catch (e) {
                     console.error('Error parsing response:', e);
                     alert('An error occurred while processing the response.');
@@ -28,7 +29,6 @@
                     
                     try {
                         var json = JSON.parse(xhr.responseText);
-                        console.log(json);
                         crearAlerta(json, 'error'); // Show an alert with the error details
                     } catch (e) {
                         console.error('Error parsing error response:', e);
