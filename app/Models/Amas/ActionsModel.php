@@ -36,8 +36,7 @@ class ActionsModel extends Model
      * with the `` parameter.
      */
     public function insertActions($data)
-    {
-      
+    {  
        return $this->insertBatch($data);
     }
 }

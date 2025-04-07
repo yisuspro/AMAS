@@ -5,6 +5,8 @@ namespace App\Models\Amas;
 use CodeIgniter\Model;
 use App\Entities\Amas\CasesEntity;
 
+/* The `CasesModel` class in PHP defines methods to retrieve and manipulate case data along with
+related information from a database. */
 class CasesModel extends Model
 {
     protected $table            = 'cases';
@@ -133,6 +135,21 @@ class CasesModel extends Model
     }
 
 
+    /**
+     * The function `listCaseDocument` retrieves case documents with various related information based on a
+     * specified user document.
+     * 
+     * @param USER_document The `listCaseDocument` function seems to be querying a database to retrieve
+     * case documents based on certain conditions. The function joins multiple tables to fetch related
+     * information and filters the results based on the `ACTN_modified_record` column matching the provided
+     * `` value.
+     * 
+     * @return The `listCaseDocument` function is returning a result set of records from a database query.
+     * The function is selecting all columns (`*`) from a table and joining multiple tables using left
+     * joins based on specified foreign key relationships. The query fetches records from tables
+     * `statescases`, `tipescases`, `groups`, `entities`, `categoriescase`, `dependencies`, `apps`, and
+     * `actions
+     */
     public function listCaseDocument($USER_document)
     {
         $builder = $this->select("*")
