@@ -1,8 +1,25 @@
 <nav>
     <div class="header--title">
-        Fecha y hora actual <br>
+         <span id="currentDate"></span><br>
+         <script>
+            function updateDateTime() {
+                const date = new Date();
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                };
+                const currentDate = date.toLocaleDateString('es-CO', options);
+                const currentTime = date.toLocaleTimeString('es-CO');
+                document.getElementById("currentDate").innerHTML = "Fecha y hora actual: " + currentDate + " " + currentTime;
+            }
+            
+            updateDateTime();
+            setInterval(updateDateTime, 120000);
+        </script>
+
         <div class="text-primary">Sistema Unificado de Servicios de la Información</div>
-    
     </div>
     <div class="botones-menu-sup">      
          <!-- Otros elementos del menú -->

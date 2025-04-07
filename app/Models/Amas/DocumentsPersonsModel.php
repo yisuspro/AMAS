@@ -35,15 +35,15 @@ class DocumentsPersonsModel extends Model
 
     public function viewDocumentPersons($personId)
     {
-        return $this->where('DCPR_FK_userauditory',$personId)->findAll();
+        return $this->where('DCPR_FK_person',$personId)->findAll();
     }
     
     
     public function updateDocumentPersons($data)
     {
-        $person = $this->find($data['DCPR_PK']);
+        $person = $this->find($data->DCPR_PK);
         if ($person) {
-            $this->update($data['DCPR_PK'], $data);
+            $this->update($data->DCPR_PK, $data);
             return true;
         }
         return false;

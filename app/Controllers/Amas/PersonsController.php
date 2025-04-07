@@ -227,7 +227,7 @@ class PersonsController extends BaseController
     
         $cases = $this->casesModel->listCaseDocument($document);
 
-        $documents = $this->documentPerson->viewDocumentPersons($localPerson["PRSN_PK"]);
+        $documents = $this->documentPerson->viewDocumentPersons($localPerson->PRSN_PK);
 
         return json_encode([
             "info"      => $localPerson,

@@ -52,7 +52,7 @@ class RolesModel extends Model
     public function insertRoles($data)
     {
         // Check if the role name exists
-        if ($this->roleNameExists($data['ROLE_name'])) {
+        if ($this->roleNameExists($data->ROLE_name)) {
             return false; // or throw an exception
         }
         return $this->insert($data);

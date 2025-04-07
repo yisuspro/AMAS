@@ -59,7 +59,6 @@ class UsersrolesModel extends Model
         // Get the current state and prepare new state
         $currentState = $this->where('USRL_PK', $USRL_PK)->first();
        // Toggle the state of a role-permission association
-       //$currentState = $this->where('USRL_PK', $USRL_PK)->first()['USRL_state'];
         $newState = ($currentState->USRL_state == 1) ? 0 : 1;
 
         // Update state and other fields

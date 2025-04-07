@@ -3,6 +3,7 @@
 namespace App\Controllers\Amas;
 
 use App\Controllers\BaseController;
+use App\Entities\Amas\CasesEntity;
 use CodeIgniter\HTTP\ResponseInterface;
 //--- MODELS-----//
 use App\Models\Amas\CasesModel;
@@ -29,6 +30,8 @@ class AuditoryController extends BaseController
     protected $StatescasesModel;
     protected $TipescasesModel;
 
+    protected $CasesEntity;
+
     public function __construct()
     {
         $this->CasesModel = new CasesModel();
@@ -41,14 +44,16 @@ class AuditoryController extends BaseController
         $this->ObservationsModel = new ObservationsModel();
         $this->StatescasesModel = new StatescasesModel();
         $this->TipescasesModel = new TipescasesModel();
+        
+        $this->CasesEntity = new CasesEntity();
 
     }
 
-   /**
-    * The index function returns a view for listing cases with the title "Mis casos".
-    * 
-    * @return A view named 'listMyCaseAjax' located in the 'private/views_ajax/Amas' directory is being
-    * returned with the title 'Mis casos' passed as data.
+    /**
+        * The index function returns a view for listing cases with the title "Mis casos".
+        * 
+        * @return A view named 'listMyCaseAjax' located in the 'private/views_ajax/Amas' directory is being
+        * returned with the title 'Mis casos' passed as data.
     */
     public function index()
     {
@@ -63,21 +68,21 @@ class AuditoryController extends BaseController
      * 
      * @return A view named 'listAllCaseAjax' located in the 'private/views_ajax/Amas' directory is
      * being returned with the title 'Auditoria casos' passed as data.
-     */
+    */
     public function listAllCaseView()
     {
         return view('private/views_ajax/Amas/listAllCaseAjax', ['title' => 'Auditoria casos']);
     }
 
-   /**
-    * The function `getCaseFormData` returns an array of data from various models related to different
-    * categories of cases.
-    * 
-    * @return An array is being returned with data from various models such as CategoriescaseModel,
-    * DependenciesModel, EntitiesModel, GroupsModel, StatescasesModel, TipescasesModel, and AppsModel.
-    * Each model provides a list of specific data related to categories, dependencies, entities,
-    * groups, states, types, and apps.
-    */
+    /**
+        * The function `getCaseFormData` returns an array of data from various models related to different
+        * categories of cases.
+        * 
+        * @return An array is being returned with data from various models such as CategoriescaseModel,
+        * DependenciesModel, EntitiesModel, GroupsModel, StatescasesModel, TipescasesModel, and AppsModel.
+        * Each model provides a list of specific data related to categories, dependencies, entities,
+        * groups, states, types, and apps.
+    **/
     private function getCaseFormData()
     {
         return [
@@ -92,14 +97,15 @@ class AuditoryController extends BaseController
     }
 
 
-    /**
-     * The function `listMyCaseView` retrieves various lists of categories, dependencies, entities,
-    * groups, states, and types of cases for display in a view.
-    * 
-    * @return The `listMyCaseView` function is returning a view named
-    * 'private/views_ajax/Amas/listMyCaseAjax' with the following data:
-    */
     
+    /**
+     * The function `listMyCaseView` retrieves case form data and sets the title before returning a
+     * view for displaying the user's cases.
+     * 
+     * @return A view named 'listMyCaseAjax' located in the 'private/views_ajax/Amas' directory with
+     * the data retrieved from the 'getCaseFormData' method. The view will have a title set to 'Mis
+     * casos'.
+     */
     public function listMyCaseView()
     {
         $data = $this->getCaseFormData();
@@ -108,6 +114,19 @@ class AuditoryController extends BaseController
         return view('private/views_ajax/Amas/listMyCaseAjax', $data);
     }
     
+    /**
+     * The function `updateCaseView` retrieves case data and displays it for editing in a view.
+     * 
+     * @param CASE_PK The `CASE_PK` parameter in the `updateCaseView` function is likely an identifier
+     * for a specific case in a system or database. It is used to retrieve information about a
+     * particular case that needs to be updated. This parameter is passed to the function to fetch the
+     * relevant case data and then prepare
+     * 
+     * @return The `updateCaseView` function is returning a view called `updateCaseAjax` located in the
+     * `private/views_ajax/Amas` directory. The view is being passed the `` array, which includes
+     * the title "Editar caso No. " followed by the `CASE_number` from the `` object, as well as
+     * the `` object itself.
+     */
     public function updateCaseView($CASE_PK)
     {
         $data = $this->getCaseFormData();
@@ -119,6 +138,10 @@ class AuditoryController extends BaseController
         return view('private/views_ajax/Amas/updateCaseAjax', $data);
     }
     
+   /**
+    * The `listMyCase` function retrieves case data based on the user's ID and returns it in a JSON
+    * format for use in a table display.
+    */
     public function listMyCase()
     {
         
@@ -136,6 +159,11 @@ class AuditoryController extends BaseController
         exit;
         
     }
+
+   /**
+    * The `listAllCase` function retrieves data from a CasesModel and outputs it in JSON format for use
+    * in creating a table.
+    */
     public function listAllCase()
     {
         
@@ -161,7 +189,7 @@ class AuditoryController extends BaseController
      */
     public function createMyCases()
     {
-        $caseData = [
+        $caseData = $this->CasesEntity->fill([ 
             'CASE_FK_agent'          => $this->session->get('USER_PK'),
             'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
             'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
@@ -172,9 +200,9 @@ class AuditoryController extends BaseController
             'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
             'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
             'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
-        ];
+        ]);
     
-        $idCase = $this->CasesModel->insertCase($caseData);
+        $idCase = $this->CasesModel->insertCase($this->CasesEntity);
     
         if (!$idCase) {
             return $this->response->setStatusCode(401, 'Error al crear el caso');
@@ -187,7 +215,7 @@ class AuditoryController extends BaseController
                 return [
                     'ACTN_FK_case'         => $idCase,
                     'ACTN_modified_record' => $action,
-                    'ACTN_description'     => $caseData['CASE_FK_tipe_case'] ?? 'aranda',
+                    'ACTN_description'     => $caseData->CASE_FK_tipe_case ?? 'aranda',
                 ];
             }, $actions);
     

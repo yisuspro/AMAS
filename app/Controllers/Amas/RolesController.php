@@ -3,15 +3,18 @@
 namespace App\Controllers\Amas;
 
 use App\Controllers\BaseController;
+use App\Entities\Amas\RolesEntity;
+
 //use App\Models\RolesModel;
 
 class RolesController extends BaseController
 {
 
+    protected $roleEntity;
 
     public function __construct()
     {
-        
+        $this->roleEntity = new RolesEntity();
     }
 
     /**
@@ -77,15 +80,15 @@ class RolesController extends BaseController
     public function createRoles()
     {
         // Retrieve data from the POST request
-        $rolData = [
+        $this->roleEntity->fill([
             'ROLE_name' => $this->request->getPost('ROLE_name'),
             'ROLE_description' => $this->request->getPost('ROLE_description'),
             'ROLE_FK_user_create' => $this->session->get('USER_PK'),
             'ROLE_FK_user_update' => $this->session->get('USER_PK'),
             'ROLE_state' => 1
-        ];
+        ]);
 
-        if ($this->RolesModel->insertRoles($rolData)) {
+        if ($this->RolesModel->insertRoles($this->roleEntity)) {
             $this->response->setStatusCode(201);
         } else {
             $this->response->setStatusCode(401,'Error al crear permiso');
@@ -262,7 +265,7 @@ class RolesController extends BaseController
         if ($validacion) {
             // If association exists, update its state
             $userUpdate = $this->session->get('USER_PK');
-            if ($this->RolespermissionsModel->updateStateRolesPermissionsId($validacion['RLPR_PK'], $userUpdate)) {
+            if ($this->RolespermissionsModel->updateStateRolesPermissionsId($validacion->RLPR_PK, $userUpdate)) {
                 $this->response->setStatusCode(200)->setBody(['message' => 'Permiso asignado exitosamente']);
             } else {
                 $this->response->setStatusCode(401)->setBody(['error' => 'Error al asignar el permiso']);

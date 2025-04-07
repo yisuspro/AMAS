@@ -96,17 +96,23 @@ class RolespermissionsModel extends Model
     public function updateStateRolesPermissionsId($id, $user)
     {
         // Toggle the state of a role-permission association
-        $currentState = $this->where('RLPR_PK', $id)->first()['RLPR_state'];
-
+        $currentRecord = $this->where('RLPR_PK', $id)->first();
+    
+        if (!$currentRecord) {
+            return false;
+        }
+    
         // Determine the new state (0 if current is 1, 1 if current is 0)
-        $newState = $currentState == 1 ? 0 : 1;
-
-        $updated = $this->set('RLPR_state', $newState)
-            ->set('RLPR_date_update', date('Y-m-d H:i:s'))
-            ->set('RLPR_user_update', $user)
+        $newState = ($currentRecord->RLPR_state == 1) ? 0 : 1;
+    
+        $updated = $this->set([
+                'RLPR_state'        => $newState,
+                'RLPR_date_update'  => date('Y-m-d H:i:s'),
+                'RLPR_user_update'  => $user
+            ])
             ->where('RLPR_PK', $id)
             ->update();
-
+    
         return $updated ? true : false;
     }
 

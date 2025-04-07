@@ -121,7 +121,7 @@ class PermissionsModel extends Model
      */
     public function updatePermissions($data)
     {
-        return $this->set($data)->where('PRMS_PK', $data['PRMS_PK'])->update() ? true : false;
+        return $this->set($data)->where('PRMS_PK', $data->PRMS_PK)->update() ? true : false;
     }
     
 }

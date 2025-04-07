@@ -46,8 +46,8 @@ class UsersModel extends Model
      */
     public function insertUser($data)
     {
-        $data['USER_password'] = password_hash($data['USER_password'], PASSWORD_DEFAULT);
-        $data['USER_name'] = strtoupper($data['USER_name']);  // Standardize user name
+        $data->USER_password = password_hash($data->USER_password, PASSWORD_DEFAULT);
+        $data->USER_name = strtoupper($data->USER_name);  // Standardize user name
 
         return $this->insert($data);
     }
@@ -66,9 +66,9 @@ class UsersModel extends Model
      */
     public function validateUser($data)
     {
-        $user = $this->where('USER_username', $data['USER_username'])->first();
+        $user = $this->where('USER_username', $data->USER_username)->first();
         
-        if ($user && password_verify($data['USER_password'], $user->USER_password)) {
+        if ($user && password_verify($data->USER_password, $user->USER_password)) {
             return $user;
         }
 

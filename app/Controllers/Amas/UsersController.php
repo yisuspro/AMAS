@@ -209,7 +209,8 @@ class UsersController extends BaseController
             return $this->respondWithError('El usuario ya existe', 401);
         }
     
-        $userData = [
+
+        $this->UserEntity->fill([
             'USER_name'             => $this->request->getPost('USER_name'),
             'USER_username'         => $this->request->getPost('USER_username'),
             'USER_identification'   => $identification,
@@ -222,9 +223,9 @@ class UsersController extends BaseController
             'USER_reset_password'   => 1,
             'USER_email'            => $this->request->getPost('USER_email'),
             'USER_address_ip'       => $this->request->getPost('USER_address_ip'),
-        ];
+        ]);
     
-        if ($this->UsersModel->insertUser($userData)) {
+        if ($this->UsersModel->insertUser($this->UserEntity)) {
             return $this->respondWithSuccess('Usuario creado correctamente', 200);
         }
     
@@ -246,12 +247,12 @@ class UsersController extends BaseController
             return $this->respondWithError('Por favor ingresa los datos completos', 400);
         }
     
-        $data = [
+        $this->UserEntity->fill([
             'USER_username' => $username,
             'USER_password' => $password,
-        ];
+        ]);
     
-        $user = $this->UsersModel->validateUser($data);
+        $user = $this->UsersModel->validateUser($this->UserEntity);
     
         if (!$user) {
             return $this->respondWithError('Usuario o contraseña no coinciden', 401);

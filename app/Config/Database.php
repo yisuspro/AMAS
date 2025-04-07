@@ -51,7 +51,7 @@ class Database extends Config
     public array $bd_caracterizacion = [
         'DSN'          => '',
         'hostname'     => '',
-        'username'     => 'caracterizacion',
+        'username'     => '',
         'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
@@ -62,7 +62,7 @@ class Database extends Config
     public array $bd_ruv = [
         'DSN'          => '',
         'hostname'     => '',
-        'username'     => 'ruv',
+        'username'     => '',
         'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
@@ -75,7 +75,7 @@ class Database extends Config
     public array $bd_sipod = [
         'DSN'          => '',
         'hostname'     => '',
-        'username'     => 'Consulta',
+        'username'     => '',
         'password'     => '',
         'database'     => '',
         'DBDriver'     => 'OCI8'
@@ -87,7 +87,7 @@ class Database extends Config
     public array $bd_sirav = [
         'DSN'      => '',
         'hostname' => '', // Nombre o dirección IP del servidor SQL Server
-        'username' => 'juan.huertas',
+        'username' => '',
         'password' => '',
         'database' => '', // No es necesario proporcionar el nombre de la base de datos
         'DBDriver' => 'SQLSRV', // Usar el controlador SQL Server
@@ -135,10 +135,10 @@ class Database extends Config
    
 
     public $bd_reg_poblacional = [
-        'DSN'      => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=30.0.1.70)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=PRUEBASRN)))',
-        'hostname' => '30.0.1.70',
-        'username' => 'DAE_PRUEBAS',
-        'password' => 'sWd43.D2',
+        'DSN'      => '',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
         'database' => '',
         'DBDriver' => 'oci8',
         'DBPrefix' => '',
