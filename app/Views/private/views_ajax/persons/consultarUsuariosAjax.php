@@ -79,9 +79,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        ALERT
-                    </div>
                 </div>    
             </div>
         </div>
@@ -113,7 +110,7 @@
             <table id="table_users" class="table table-hover" style="width:100%"></table>
         </div>
 
-        <div class="card">
+        <div class="card mt-2">
             <div class="card-header">
                 AUDITORIA
             </div>

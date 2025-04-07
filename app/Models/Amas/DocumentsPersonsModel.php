@@ -35,7 +35,7 @@ class DocumentsPersonsModel extends Model
 
     public function viewDocumentPersons($personId)
     {
-        return $this->find($personId);
+        return $this->where('DCPR_FK_userauditory',$personId)->findAll();
     }
     
     
