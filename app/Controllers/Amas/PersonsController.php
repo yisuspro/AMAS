@@ -29,12 +29,12 @@ class PersonsController extends BaseController
         $this->personsEntity = new PersonsEntity();
         $this->casesModel = new CasesModel();
     }
-/**
- * The index function returns a view for managing persons with the title "Administración Personas".
- * 
- * @return A view named 'adminPersons' located in the 'private/views_ajax/persons' directory is being
- * returned with the title 'Administración Personas'.
- */
+    /**
+     * The index function returns a view for managing persons with the title "Administración Personas".
+     * 
+     * @return A view named 'adminPersons' located in the 'private/views_ajax/persons' directory is being
+     * returned with the title 'Administración Personas'.
+     */
 
     public function index()
     {
@@ -107,34 +107,34 @@ class PersonsController extends BaseController
             $this->documentPerson->insertDocumentPersons($documentData);
         }
     }
-/**
- * The function `consultarUsersAppsView` returns a view for querying users in applications.
- * 
- * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/persons' directory
- * is being returned with the title 'Consulta usuarios Aplicaciones'.
- */
 
+    /**
+     * The function `consultarUsersAppsView` returns a view for querying users in applications.
+     * 
+     * @return A view named 'consultarUsuariosAjax' located in the 'private/views_ajax/persons' directory
+     * is being returned with the title 'Consulta usuarios Aplicaciones'.
+     */
     public function consultarUsersAppsView()
     {
         return view('private/views_ajax/persons/consultarUsuariosAjax', ['title' => 'Consulta usuarios Aplicaciones']);
     }
-/**
- * The `setApps` function iterates over a list of models to retrieve user data based on a document
- * number and saves the information to a database table while returning the collected user data.
- * 
- * @param document The `document` parameter in the `setApps` function seems to represent some kind of
- * document identifier or reference. It is used within the function to retrieve user information from
- * different models based on the document provided.
- * @param person The `setApps` function you provided seems to be setting applications for a specific
- * person based on their document number. It loops through an array of models representing different
- * applications, retrieves users for each application, and then saves the application information for
- * the person in the `appsPersonsEntity`.
- * 
- * @return The `setApps` function is returning an array of applications (``) after
- * iterating through the `` array and merging user data from different models into the
- * `` array.
- */
 
+    /**
+     * The `setApps` function iterates over a list of models to retrieve user data based on a document
+     * number and saves the information to a database table while returning the collected user data.
+     * 
+     * @param document The `document` parameter in the `setApps` function seems to represent some kind of
+     * document identifier or reference. It is used within the function to retrieve user information from
+     * different models based on the document provided.
+     * @param person The `setApps` function you provided seems to be setting applications for a specific
+     * person based on their document number. It loops through an array of models representing different
+     * applications, retrieves users for each application, and then saves the application information for
+     * the person in the `appsPersonsEntity`.
+     * 
+     * @return The `setApps` function is returning an array of applications (``) after
+     * iterating through the `` array and merging user data from different models into the
+     * `` array.
+     */
     private function setApps($document, $person)
     {
         $aplicaciones = [];
@@ -161,37 +161,36 @@ class PersonsController extends BaseController
 
         return $aplicaciones;
     }
-/**
- * The function `searchPersonWithUsers` searches for a person by document, retrieves associated apps
- * and users, and sets new apps if needed.
- * 
- * @return The `searchPersonWithUsers` function returns a JSON response containing information about a
- * person and associated applications. The response includes two main keys:
- * 1. "info": Contains information about the local person retrieved based on the provided document.
- * 2. "data": Contains an array of users associated with the person's applications.
- */
+    
+    /**
+     * The function `searchPersonWithUsers` searches for a person by document, retrieves associated apps
+     * and users, and sets new apps if needed.
+     * 
+     * @return The `searchPersonWithUsers` function returns a JSON response containing information about a
+     * person and associated applications. The response includes two main keys:
+     * 1. "info": Contains information about the local person retrieved based on the provided document.
+     * 2. "data": Contains an array of users associated with the person's applications.
+     */
 
     public function searchPersonWithUsers()  
     {
         $document = $this->request->getPost('PRSN_document');
         $aplicaciones = [];
         $localPerson = $this->personsModel->getPersonbyDocument($document);
+
         if ($localPerson) {
             // If the person exists, fetch associated apps
             $apps = $this->appsPersonsModel->getAppsByPerson($localPerson->PRSN_PK);
-           // echo json_encode($apps);
             // Fetch users based on app type
             foreach ($apps as $app) {
 
                 if($app->APPR_FK_app == 1){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersRuvModel->getUserById($app->APPR_ID_app)->getResultArray());
-                    
                 }elseif($app->APPR_FK_app == 2){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersSiravModel->getUserById($app->APPR_ID_app)->getResultArray());
                 }elseif($app->APPR_FK_app == 3){
                     $aplicaciones = array_merge($aplicaciones, $this->UsersSipodModel->getUserById($app->APPR_ID_app)->getResultArray());
                 }
-                   //echo json_encode($aplicaciones);
             }
             
             // If no apps are found, set new apps
@@ -209,11 +208,13 @@ class PersonsController extends BaseController
             
             // If users are found, save the person and associate new apps
             if (count($aplicaciones)) {
-                $this->personsEntity->PRSN_name = $aplicaciones[0]['NOMBRE'];
-                $this->personsEntity->PRSN_document = $document;
-                $this->personsEntity->PRSN_email = $aplicaciones[0]['CORREO_ELECTRONICO'];
-                $this->personsEntity->PRSN_phone = 0; // No phone in the response
-                $this->personsEntity->PRSN_position = $aplicaciones[0]['CARGO'];
+                $this->personsEntity->fill([
+                    'PRSN_name'     => $aplicaciones[0]['NOMBRE'],
+                    'PRSN_document' => $document,
+                    'PRSN_email'    => $aplicaciones[0]['CORREO_ELECTRONICO'],
+                    'PRSN_phone'    => 0,
+                    'PRSN_position' => $aplicaciones[0]['CARGO'],
+                ]);
     
                 $this->personsModel->save($this->personsEntity);
     
@@ -226,16 +227,23 @@ class PersonsController extends BaseController
     
         $cases = $this->casesModel->listCaseDocument($document);
 
-        return json_encode(["info" => $localPerson,"data"=>$aplicaciones,"cases" => $cases]);
+        $documents = $this->documentPerson->viewDocumentPersons($localPerson["PRSN_PK"]);
+
+        return json_encode([
+            "info"      => $localPerson,
+            "data"      => $aplicaciones,
+            "cases"     => $cases,
+            "documents" => $documents
+        ]);
     }
 
- /**
-  * The function "prueba" in PHP takes in a parameter named .
-  * 
-  * @param data The parameter `` in the `prueba` function is a variable that will hold the data
-  * passed to the function when it is called. You can perform operations on this data within the
-  * function as needed.
-  */
+    /**
+     * The function "prueba" in PHP takes in a parameter named .
+    * 
+    * @param data The parameter `` in the `prueba` function is a variable that will hold the data
+    * passed to the function when it is called. You can perform operations on this data within the
+    * function as needed.
+    */
     public function prueba($data)
     {
        $ruv = $this->UsersRuvModel->listUsersDoc($data)->getResultArray();
@@ -244,7 +252,6 @@ class PersonsController extends BaseController
         echo json_encode($sirav);
         $sipod=$this->UsersSipodModel->listUsersDoc($data)->getResultArray();
         echo json_encode($sipod);
-
     }
 }
    
