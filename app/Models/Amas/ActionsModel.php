@@ -18,7 +18,6 @@ class ActionsModel extends Model
     protected $allowedFields    = [
         "ACTN_modified_record",
         "ACTN_description",
-        "ACTN_description",
         "ACTN_FK_case"
     ];
 
@@ -38,5 +37,11 @@ class ActionsModel extends Model
     public function insertActions($data)
     {  
        return $this->insertBatch($data);
+    }
+
+    public function validatiionActions($data,$CASE_PK)
+    {
+      
+        return $this->where('ACTN_modified_record',$data)->where('ACTN_FK_case',$CASE_PK)?? false;
     }
 }

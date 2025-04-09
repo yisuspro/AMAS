@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="seccion">
-    <form method="post" action="#" id="frm_create_case">
+    <form method="post" action="#" id="frm_update_case">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
@@ -20,6 +20,10 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-6">
+                                <label for="CASE_PK" class="form-label">ID_AMAS</label>
+                                <input id="CASE_PK" type="text" name="CASE_PK" class="form-control"  value="<?= $case->CASE_PK?>" readonly>
+                            </div>
                             <div class="col-md-6">
                                 <label for="CASE_number" class="form-label">No. de caso</label>
                                 <input id="CASE_number" type="text" name="CASE_number" class="form-control" placeholder="Numero de caso" value="<?= $case->CASE_number?>" required>
@@ -46,7 +50,7 @@
                         <div class="col-md-6">
                         <label for="CASE_FK_entities" class="form-label">Entidad</label>
                             <select class="form-select" name="CASE_FK_entities" id="CASE_FK_entities">
-                                <option value="<?=$case->ENTS_name?>"selected><?=$case->ENTS_name?></option>
+                                <option value="<?=$case->ENTS_PK?>"selected><?=$case->ENTS_name?></option>
                                 <?= implode('', array_map(fn($entities) => "<option value=\"" . esc($entities->ENTS_PK) . "\">" . esc($entities->ENTS_PK) . " - " . esc($entities->ENTS_name) . "</option>", $entities)) ?>
                             </select>
                         </div>
@@ -76,17 +80,19 @@
                     </div>
                     <div class="mb-3">
                             <label for="form_actions" class="form-label">Accion realizada</label>
-                            <textarea name="form_actions" id= "form_actions" placeholder="Insertar  accion" class="form-control" rows="5"><?=$case->actions?></textarea>
+                            <textarea name="form_actions" id= "form_actions" placeholder="Insertar  accion" class="form-control" rows="5" disabled><?=$case->actions?></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="form_observations" class="form-label">Observacion</label>
-                            <textarea name="form_observations" id= "form_observations" placeholder="Insertar  accion" class="form-control" rows="5"><?=$case->observations?></textarea>
+                            <textarea name="form_observations" id= "form_observations" placeholder="Insertar  accion" class="form-control" rows="5" disabled><?=$case->observations?></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-block">Crear</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success btn-block">Actualizar</button>
+                    
+                    <button type="button" name="back<?= $viwe ?? '' ?>" id="back<?= $viwe ?? '' ?>" class="btn btn-danger">Atras</button>
+                    
                 </div>
             </form>
     </div>

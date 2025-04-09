@@ -1,25 +1,21 @@
 $(document).ready(function () {
 
-    $("#frm_create_case").on("submit",function (ev) {
+    $("#frm_update_case").on("submit",function (ev) {
         ev.preventDefault();
         // Show loading spinner
         activarLogoCarga();
         // Perform AJAX request
         $.ajax({
-            url: '../audit/createMyCases',
+            url: '../audit/updateCase',
             type: 'POST',
             data: $(this).serialize(),
             success: function (data, xhr) {
-                // Hide loading spinner
-                cerrarLogoCarga();
-                // Show success message
+               
+                 // Hide loading spinner
+                 cerrarLogoCarga();
+                 // Show success message
                 crearAlerta('Caso creado correctamente', 'success');
-                 // Reset the form and close the modal
-                $('#frm_create_case')[0].reset();
-                $('#createCaseModal').modal('hide');
-                
-                // Reload DataTable to reflect the new permission
-                $('#listMycases').DataTable().ajax.reload();
+                $(".area-trabajo").load('../audit/listMyCaseView');
             },
             error: function (xhr) {
                 // Ensure the response is valid JSON
@@ -39,5 +35,13 @@ $(document).ready(function () {
         });
     });
 
+     // Handle back button click
+     $("#back").on('click', function (e) {
+        e.preventDefault();
+        activarLogoCarga();
+        $(".area-trabajo").load('../audit/listMyCaseView', function () {
+            cerrarLogoCarga();
+        });
+    });
   
 });

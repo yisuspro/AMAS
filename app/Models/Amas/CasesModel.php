@@ -188,4 +188,11 @@ class CasesModel extends Model
        }
        
     }
+
+    public function updateCase($caseData)
+    {
+      
+        return $this->set($caseData)->where('CASE_PK', $caseData['CASE_PK'])->update() ? true : false;
+       
+    }
 }

@@ -20,7 +20,7 @@ use App\Models\Amas\TipescasesModel;
 class AuditoryController extends BaseController
 {
     protected $CasesModel;
-    protected $ActionsModel; 
+    protected $ActionsModel;
     protected $AppsModel;
     protected $CategoriescaseModel;
     protected $DependenciesModel;
@@ -157,7 +157,6 @@ class AuditoryController extends BaseController
         );
         echo json_encode($output);                                              //envio del vector de salida con los parametros correspondientes
         exit;
-        
     }
 
    /**
@@ -179,7 +178,6 @@ class AuditoryController extends BaseController
         );
         echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
         exit;
-        
     }
 
 
@@ -241,4 +239,3 @@ class AuditoryController extends BaseController
     }
     
 }
-

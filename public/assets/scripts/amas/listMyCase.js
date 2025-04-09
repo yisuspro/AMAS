@@ -181,18 +181,12 @@ $(document).ready(function () {
             e.preventDefault();
             $tr = $(this).closest('tr');
             var O = dt.DataTable().row($tr).data();
-            var r = confirm("Seguro deseas editar la informacion del permiso" + O.PRMS_system_name);
-            if (r == true) {
-                activarLogoCarga();
-                var id = '../audit/updateCaseView/' + O.CASE_PK;
-                $(".area-trabajo").load(id, function () {
-                    cerrarLogoCarga();
-                });
-                crearAlerta('Vista modificacion permisos abierta correctamente', 'success');
-            } else {
-                crearAlerta('Cambio rechazado', 'error');
-            }
-
+            activarLogoCarga();
+            var id = '../audit/updateCaseView/' + O.CASE_PK + '/1';
+            $(".area-trabajo").load(id, function () {
+                   cerrarLogoCarga();
+                   crearAlerta('Vista modificacion casos abierta correctamente', 'success');
+            });
         });
 
 
