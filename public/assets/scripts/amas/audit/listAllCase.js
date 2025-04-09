@@ -152,9 +152,9 @@ $(document).ready(function () {
                     },
                 },
                 ...(userPermissions.includes('CR_CASO') ? [{
-                    text: '<i class="bi bi-plus-lg">REGISTRAR CASO</i>',
-                    className: 'btn btn-success',
-                    titleAttr: 'Registrar caso',
+                    text: '<i class="bi bi-pencil-square">GENERAR REPORTE</i>',
+                    className: 'btn btn-primary',
+                    titleAttr: 'Generara reporte',
                     action: function (e, dt, node, config) {
                         $('#createCaseModal').modal('show');
                     },
