@@ -199,8 +199,6 @@ class CasesModel extends Model
     */
     public function updateCase($caseData)
     {
-      
-        $this->set($caseData)->where('CASE_PK', $caseData['CASE_PK'])->update() ? true : false;
-       
+        return $this->save($caseData);
     }
 }

@@ -147,22 +147,23 @@ class AuditoryController extends BaseController
 
     public function updateCase()
     {
-        $caseData =([ 
-            'CASE_FK_agent'          => $this->session->get('USER_PK'),
-            'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
-            'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
-            'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
-            'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
-            'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
-            'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
-            'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
-            'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
-            'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
-            'CASE_PK'      => $this->request->getPost('CASE_PK'),
-        ]);
-    
+
+        $this->CasesEntity->fill([
+                'CASE_PK'                => $this->request->getPost('CASE_PK'),
+                'CASE_FK_agent'          => $this->session->get('USER_PK'),
+                'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
+                'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
+                'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
+                'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
+                'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
+                'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
+                'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
+                'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
+                'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
+            ]
+        );
        
-        if ($this->CasesModel->updateCase($caseData)) {
+        if (!$this->CasesModel->updateCase($this->CasesEntity)) {
             return $this->response->setStatusCode(401, 'Error al actualizar el caso');
         }
     }
