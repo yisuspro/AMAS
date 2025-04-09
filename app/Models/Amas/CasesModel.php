@@ -189,10 +189,18 @@ class CasesModel extends Model
        
     }
 
+   /**
+    * The function `updateCase` updates a case record in a database table based on the provided case
+    * data.
+    * 
+    * @param caseData The `updateCase` function is used to update a case record in a database table.
+    * The function takes a parameter ``, which is an array containing the data to be updated
+    * for the case.
+    */
     public function updateCase($caseData)
     {
       
-        return $this->set($caseData)->where('CASE_PK', $caseData['CASE_PK'])->update() ? true : false;
+        $this->set($caseData)->where('CASE_PK', $caseData['CASE_PK'])->update() ? true : false;
        
     }
 }

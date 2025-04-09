@@ -14,7 +14,7 @@ $(document).ready(function () {
                  // Hide loading spinner
                  cerrarLogoCarga();
                  // Show success message
-                crearAlerta('Caso creado correctamente', 'success');
+                crearAlerta('Caso actualizado correctamente', 'success');
                 $(".area-trabajo").load('../audit/listMyCaseView');
             },
             error: function (xhr) {

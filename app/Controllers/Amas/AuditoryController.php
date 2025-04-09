@@ -137,6 +137,35 @@ class AuditoryController extends BaseController
     
         return view('private/views_ajax/Amas/updateCaseAjax', $data);
     }
+/**
+ * The function `updateCase` updates a case with data provided through POST requests and returns an
+ * error message if the update fails.
+ * 
+ * @return If the `` is falsy (evaluates to false), the function will return a response with a
+ * status code of 401 and a message indicating an error occurred while updating the case.
+ */
+
+    public function updateCase()
+    {
+        $caseData =([ 
+            'CASE_FK_agent'          => $this->session->get('USER_PK'),
+            'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
+            'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
+            'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
+            'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
+            'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
+            'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
+            'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
+            'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
+            'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
+            'CASE_PK'      => $this->request->getPost('CASE_PK'),
+        ]);
+    
+       
+        if ($this->CasesModel->updateCase($caseData)) {
+            return $this->response->setStatusCode(401, 'Error al actualizar el caso');
+        }
+    }
     
    /**
     * The `listMyCase` function retrieves case data based on the user's ID and returns it in a JSON
