@@ -4,7 +4,6 @@ namespace App\Controllers\Amas;
 
 use App\Controllers\BaseController;
 use App\Entities\Amas\CasesEntity;
-use CodeIgniter\HTTP\ResponseInterface;
 //--- MODELS-----//
 use App\Models\Amas\CasesModel;
 use App\Models\Amas\ActionsModel;
@@ -44,7 +43,7 @@ class AuditoryController extends BaseController
         $this->ObservationsModel = new ObservationsModel();
         $this->StatescasesModel = new StatescasesModel();
         $this->TipescasesModel = new TipescasesModel();
-        
+
         $this->CasesEntity = new CasesEntity();
 
     }
@@ -57,8 +56,6 @@ class AuditoryController extends BaseController
     */
     public function index()
     {
-        //
-
         return view('private/views_ajax/Amas/audit/listMyCaseAjax', ['title' => 'Mis casos']);
     }
 
@@ -73,30 +70,6 @@ class AuditoryController extends BaseController
     {
         return view('private/views_ajax/Amas/audit/listAllCaseAjax', ['title' => 'Auditoria casos']);
     }
-
-    /**
-        * The function `getCaseFormData` returns an array of data from various models related to different
-        * categories of cases.
-        * 
-        * @return An array is being returned with data from various models such as CategoriescaseModel,
-        * DependenciesModel, EntitiesModel, GroupsModel, StatescasesModel, TipescasesModel, and AppsModel.
-        * Each model provides a list of specific data related to categories, dependencies, entities,
-        * groups, states, types, and apps.
-    **/
-    private function getCaseFormData()
-    {
-        return [
-            'categoriescase' => $this->CategoriescaseModel->listCategoriecase(),
-            'dependencies'   => $this->DependenciesModel->listDependencies(),
-            'entities'       => $this->EntitiesModel->listEntities(),
-            'groups'         => $this->GroupsModel->listGroups(),
-            'statescases'    => $this->StatescasesModel->listStatescases(),
-            'tipescases'     => $this->TipescasesModel->listTipescases(),
-            'apps'           => $this->AppsModel->listApps(),
-        ];
-    }
-
-
     
     /**
      * The function `listMyCaseView` retrieves case form data and sets the title before returning a
@@ -138,33 +111,17 @@ class AuditoryController extends BaseController
         return view('private/views_ajax/Amas/audit/updateCaseAjax', $data);
     }
 
-/**
- * The `updateCase` function in PHP updates a case entity with data from the request and returns an
- * error response if the update fails.
- * 
- * @return If the `updateCase` method is unable to update the case successfully, it will return a
- * response with a status code of 401 and a message indicating "Error al actualizar el caso" (Error
- * updating the case).
- */
-
-
+    /**
+     * The `updateCase` function in PHP updates a case entity with data from the request and returns an
+     * error response if the update fails.
+     * 
+     * @return If the `updateCase` method is unable to update the case successfully, it will return a
+     * response with a status code of 401 and a message indicating "Error al actualizar el caso" (Error
+     * updating the case).
+     */
     public function updateCase()
     {
-
-        $this->CasesEntity->fill([
-                'CASE_PK'                => $this->request->getPost('CASE_PK'),
-                'CASE_FK_agent'          => $this->session->get('USER_PK'),
-                'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
-                'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
-                'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
-                'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
-                'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
-                'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
-                'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
-                'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
-                'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
-            ]
-        );
+        $this->CasesEntity->fill($this->getCaseDataFromRequest());
        
         if (!$this->CasesModel->updateCase($this->CasesEntity)) {
             return $this->response->setStatusCode(401, 'Error al actualizar el caso');
@@ -177,19 +134,7 @@ class AuditoryController extends BaseController
     */
     public function listMyCase()
     {
-        
-        $draw   = intval($this->request->getPost("draw"));                      //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        $data = $this->CasesModel->listCaseID($this->session->get('USER_PK'));  //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
-        $output = array(                                                        //creacion del vector de salida
-            "draw" => $draw,                                                    //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),                              //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),                           //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()                                   //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                                              //envio del vector de salida con los parametros correspondientes
-        exit;
+        return $this->listCasesDataTable($this->CasesModel->listCaseID($this->session->get('USER_PK')));
     }
 
    /**
@@ -198,19 +143,7 @@ class AuditoryController extends BaseController
     */
     public function listAllCase()
     {
-        
-        $draw   = intval($this->request->getPost("draw"));  //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        $data = $this->CasesModel->listCases();             //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
-        $output = array(                                    //creacion del vector de salida
-            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),          //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),       //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()               //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
-        exit;
+        return $this->listCasesDataTable($this->CasesModel->listCases());
     }
 
 
@@ -220,19 +153,7 @@ class AuditoryController extends BaseController
      */
     public function createMyCases()
     {
-        $caseData = $this->CasesEntity->fill([ 
-            'CASE_FK_agent'          => $this->session->get('USER_PK'),
-            'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
-            'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
-            'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
-            'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
-            'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
-            'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
-            'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
-            'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
-            'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
-        ]);
-    
+        $caseData = $this->CasesEntity->fill($this->getCaseDataFromRequest());
         $idCase = $this->CasesModel->insertCase($this->CasesEntity);
     
         if (!$idCase) {
@@ -270,5 +191,80 @@ class AuditoryController extends BaseController
     
         return $this->response->setStatusCode(201);
     }
+
     
+    /**
+        * The function `getCaseFormData` returns an array of data from various models related to different
+        * categories of cases.
+        * 
+        * @return An array is being returned with data from various models such as CategoriescaseModel,
+        * DependenciesModel, EntitiesModel, GroupsModel, StatescasesModel, TipescasesModel, and AppsModel.
+        * Each model provides a list of specific data related to categories, dependencies, entities,
+        * groups, states, types, and apps.
+    **/
+    private function getCaseFormData()
+    {
+        return [
+            'categoriescase' => $this->CategoriescaseModel->listCategoriecase(),
+            'dependencies'   => $this->DependenciesModel->listDependencies(),
+            'entities'       => $this->EntitiesModel->listEntities(),
+            'groups'         => $this->GroupsModel->listGroups(),
+            'statescases'    => $this->StatescasesModel->listStatescases(),
+            'tipescases'     => $this->TipescasesModel->listTipescases(),
+            'apps'           => $this->AppsModel->listApps(),
+        ];
+    }
+    
+    /**
+     * The function `listCasesDataTable` generates a JSON response for a DataTable with data from a
+     * given source.
+     * 
+     * @param data The `listCasesDataTable` function takes a parameter ``, which is expected to be
+     * an instance of a class that has the following methods:
+     * 
+     * @return The `listCasesDataTable` function is returning a JSON response containing the following
+     * keys and values:
+     * - "draw": The value of the "draw" parameter obtained from the POST request
+     * - "recordsTotal": The total number of rows in the dataset
+     * - "recordsFiltered": The total number of rows in the dataset (same as recordsTotal in this case)
+     * - "data": An array of
+     */
+    private function listCasesDataTable($data)
+    {
+        $draw = (int) $this->request->getPost("draw");
+        
+        $output = [
+            "draw" => $draw,
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ];
+        
+        return $this->response->setJSON($output);
+    }
+
+    /**
+     * The function `getCaseDataFromRequest` retrieves case data from the request in PHP.
+     * 
+     * @return array An array containing data related to a case, extracted from the request object. The
+     * array includes keys such as 'CASE_PK', 'CASE_FK_agent', 'CASE_number', 'CASE_date_reception',
+     * 'CASE_date_solution', 'CASE_FK_app', 'CASE_FK_case_categorie', 'CASE_FK_entities',
+     * 'CASE_FK_dependence', 'CASE_FK_state_case',
+     */
+    private function getCaseDataFromRequest()
+    {
+        return [
+            'CASE_PK'                => $this->request->getPost('CASE_PK'),
+            'CASE_FK_agent'          => $this->session->get('USER_PK'),
+            'CASE_number'            => $this->request->getPost('CASE_number') ?? 'Correo',
+            'CASE_date_reception'    => $this->request->getPost('CASE_date_reception'),
+            'CASE_date_solution'     => $this->request->getPost('CASE_date_solution'),
+            'CASE_FK_app'            => $this->request->getPost('CASE_FK_app'),
+            'CASE_FK_case_categorie' => $this->request->getPost('CASE_FK_case_categorie'),
+            'CASE_FK_entities'       => $this->request->getPost('CASE_FK_entities'),
+            'CASE_FK_dependence'     => $this->request->getPost('CASE_FK_dependence'),
+            'CASE_FK_state_case'     => $this->request->getPost('CASE_FK_state_case'),
+            'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
+        ];
+    }
 }

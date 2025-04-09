@@ -25,7 +25,6 @@ class PermissionsController extends BaseController
     {
         return view('private/views_ajax/permissions/listPermissionsAjax', ['title' => 'Listar Permisos']);
     }
-
     /**
      * The function `updatePermissionsView` retrieves permission data from the model and passes it to a
      * view for updating permissions.
@@ -43,7 +42,10 @@ class PermissionsController extends BaseController
     {
         $data = $this->PermissionsModel->viewPermissions($id);
 
-        return view('private/views_ajax/permissions/updatePermissionsAjax', ['title' => 'Actualizar Permisos', 'data' => $data]);
+        return view('private/views_ajax/permissions/updatePermissionsAjax', [
+            'title' => 'Actualizar Permisos',
+            'data' => $data
+        ]);
     }
 
 
@@ -53,28 +55,16 @@ class PermissionsController extends BaseController
      */
     public function listPermissions()
     {
-        // Retrieve the request parameters (draw, start, length)
-        $draw   = intval($this->request->getPost("draw"));
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-    
-        // Fetch the permissions data from the model
+        $draw = (int) $this->request->getPost("draw");
         $permissionsData = $this->PermissionsModel->listPermissions();
-    
-        // Get the number of rows (total count) to use for pagination
         $totalRecords = $permissionsData->getNumRows();
-    
-        // Prepare the output response
-        $output = [
-            "draw" => $draw,                                    // Table drawing counter
-            "recordsTotal" => $totalRecords,                     // Total number of records
-            "recordsFiltered" => $totalRecords,                  // Filtered records (same as total for now)
-            "data" => $permissionsData->getResultArray()         // Result data
-        ];
-    
-        // Return the JSON-encoded response
-        echo json_encode($output);
-        exit;
+
+        return $this->response->setJSON([
+            "draw" => $draw,
+            "recordsTotal" => $totalRecords,
+            "recordsFiltered" => $totalRecords,
+            "data" => $permissionsData->getResultArray()
+        ]);
     }
     
     /**
@@ -88,28 +78,23 @@ class PermissionsController extends BaseController
      */
     public function createPermissions()
     {
-        // Prepare permission data from the request
-        $this->PermissionsEntity->fill([
-            'PRMS_name'        => $this->request->getPost('PRMS_name'),
-            'PRMS_description' => $this->request->getPost('PRMS_description'),
-            'PRMS_system_name' => $this->request->getPost('PRMS_system_name'),
-            'PRMS_date_create' => date('Y-m-d H:i:s'),
-            'PRMS_date_update' => date('Y-m-d H:i:s'),
-            'PRMS_user_create' => $this->session->get('USER_PK'),
-            'PRMS_user_update' => $this->session->get('USER_PK'),
-            'PRMS_state'       => 1
-        ]);
-        // Check if the permission system name already exists
-        if ($this->PermissionsModel->validatePermissions($this->request->getPost('PRMS_system_name'))) {
-            echo json_encode('Error nombre corto de permiso ya existe');
-            $this->response->setStatusCode(401);
-        } else {   
-            if ($this->PermissionsModel->insertPermissions($this->PermissionsEntity)) {
-                $this->response->setStatusCode(201);
-            } else {
-                $this->response->setStatusCode(401,'Error al crear permiso');
-            }
+        $systemName = $this->request->getPost('PRMS_system_name');
+        
+        if ($this->PermissionsModel->validatePermissions($systemName)) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON(['error' => 'Error: nombre corto de permiso ya existe']);
         }
+
+        $this->fillPermissionEntity();
+        
+        if ($this->PermissionsModel->insertPermissions($this->PermissionsEntity)) {
+            return $this->response->setStatusCode(201);
+        }
+
+        return $this->response
+            ->setStatusCode(401)
+            ->setJSON(['error' => 'Error al crear permiso']);
     }
 
     /**
@@ -124,28 +109,23 @@ class PermissionsController extends BaseController
      */
     public function updatePermissions()
     {
-        // Prepare permission data from the request
-        $this->PermissionsEntity->fill([
-            'PRMS_PK'          => $this->request->getPost('PRMS_PK'),
-            'PRMS_name'        => $this->request->getPost('PRMS_name'),
-            'PRMS_description' => $this->request->getPost('PRMS_description'),
-            'PRMS_system_name' => $this->request->getPost('PRMS_system_name'),
-            'PRMS_date_update' => date('Y-m-d H:i:s'),
-            'PRMS_user_update' => $this->session->get('USER_PK'),
-            'PRMS_state'       => 1
-        ]);
-
-        // Check if the permission exists by ID
-        if (!$this->PermissionsModel->validatePermissionsId($this->request->getPost('PRMS_PK'))) {
-            echo json_encode('Error no se encuentra permiso');
-            $this->response->setStatusCode(401);
+        $permissionId = $this->request->getPost('PRMS_PK');
+        
+        if (!$this->PermissionsModel->validatePermissionsId($permissionId)) {
+            return $this->response
+                ->setStatusCode(404)
+                ->setJSON(['error' => 'Error: permiso no encontrado']);
         }
-    
+
+        $this->fillPermissionEntity();
+        
         if ($this->PermissionsModel->updatePermissions($this->PermissionsEntity)) {
-            $this->response->setStatusCode(201);
-        } else {
-            $this->response->setStatusCode(401,'Error al actualizar el permiso');
-        }     
+            return $this->response->setStatusCode(201);
+        }
+
+        return $this->response
+            ->setStatusCode(401)
+            ->setJSON(['error' => 'Error al actualizar el permiso']);
     }
 
     
@@ -162,23 +142,46 @@ class PermissionsController extends BaseController
      */
     public function updateStatePermissions($id)
     {
-        // Validate if the permission exists by ID
-        $result = $this->PermissionsModel->validatePermissionsId($id);
-    
-        if (!$result) {
-            $this->response->setStatusCode(404,'Permiso no encontrado');
+        $permission = $this->PermissionsModel->validatePermissionsId($id);
+        
+        if (!$permission) {
+            return $this->response
+                ->setStatusCode(404)
+                ->setJSON(['error' => 'Permiso no encontrado']);
         }
-    
-        // Toggle the permission state (1 -> 0 or 0 -> 1)
-        $result['PRMS_state'] = ($result['PRMS_state'] == 1) ? 0 : 1;
-    
-        // Try updating the permission state
-        if ($this->PermissionsModel->updatePermissions($result)) {
-            $this->response->setStatusCode(201,'Estado del permiso actualizado correctamente');
-        } else {   
-            // If the update fails, return an error
-            $this->response->setStatusCode(401,'Error al actualizar estado del permiso');
+        $permission->PRMS_state = $permission->PRMS_state == 1 ? 0 : 1;
+        if ($this->PermissionsModel->updatePermissions($permission)) {
+            return $this->response
+                ->setStatusCode(201)
+                ->setJSON(['message' => 'Estado del permiso actualizado correctamente']);
         }
+
+        return $this->response
+            ->setStatusCode(401)
+            ->setJSON(['error' => 'Error al actualizar estado del permiso']);
     }
      
+    
+    /**
+     * The function `fillPermissionEntity` populates a permissions entity with data from a request and
+     * sets create/update information based on the request data.
+     */
+    private function fillPermissionEntity()
+    {
+        $this->PermissionsEntity->fill([
+            'PRMS_PK'          => $this->request->getPost('PRMS_PK'),
+            'PRMS_name'        => $this->request->getPost('PRMS_name'),
+            'PRMS_description' => $this->request->getPost('PRMS_description'),
+            'PRMS_system_name' => $this->request->getPost('PRMS_system_name'),
+            'PRMS_date_update' => date('Y-m-d H:i:s'),
+            'PRMS_user_update' => $this->session->get('USER_PK'),
+            'PRMS_state'       => 1
+        ]);
+
+        // Only set create date and user for new records
+        if (!$this->request->getPost('PRMS_PK')) {
+            $this->PermissionsEntity->PRMS_date_create = date('Y-m-d H:i:s');
+            $this->PermissionsEntity->PRMS_user_create = $this->session->get('USER_PK');
+        }
+    }
 }
