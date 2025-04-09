@@ -98,4 +98,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url('assets/scripts/amas/updateCases.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/updateCases.js'); ?>"></script>

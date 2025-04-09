@@ -59,7 +59,7 @@ class AuditoryController extends BaseController
     {
         //
 
-        return view('private/views_ajax/Amas/listMyCaseAjax', ['title' => 'Mis casos']);
+        return view('private/views_ajax/Amas/audit/listMyCaseAjax', ['title' => 'Mis casos']);
     }
 
     /**
@@ -71,7 +71,7 @@ class AuditoryController extends BaseController
     */
     public function listAllCaseView()
     {
-        return view('private/views_ajax/Amas/listAllCaseAjax', ['title' => 'Auditoria casos']);
+        return view('private/views_ajax/Amas/audit/listAllCaseAjax', ['title' => 'Auditoria casos']);
     }
 
     /**
@@ -111,7 +111,7 @@ class AuditoryController extends BaseController
         $data = $this->getCaseFormData();
         $data['title'] = 'Mis casos';
     
-        return view('private/views_ajax/Amas/listMyCaseAjax', $data);
+        return view('private/views_ajax/Amas/audit/listMyCaseAjax', $data);
     }
     
     /**
@@ -135,15 +135,18 @@ class AuditoryController extends BaseController
         $data['title'] = 'Editar caso No. ' . $case->CASE_number;
         $data['case'] = $case;
     
-        return view('private/views_ajax/Amas/updateCaseAjax', $data);
+        return view('private/views_ajax/Amas/audit/updateCaseAjax', $data);
     }
+
 /**
- * The function `updateCase` updates a case with data provided through POST requests and returns an
- * error message if the update fails.
+ * The `updateCase` function in PHP updates a case entity with data from the request and returns an
+ * error response if the update fails.
  * 
- * @return If the `` is falsy (evaluates to false), the function will return a response with a
- * status code of 401 and a message indicating an error occurred while updating the case.
+ * @return If the `updateCase` method is unable to update the case successfully, it will return a
+ * response with a status code of 401 and a message indicating "Error al actualizar el caso" (Error
+ * updating the case).
  */
+
 
     public function updateCase()
     {

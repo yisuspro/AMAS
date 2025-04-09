@@ -102,5 +102,5 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url('assets/scripts/amas/listMyCase.js'); ?>"></script>
-<script type="text/javascript" src="<?= base_url('assets/scripts/amas/createCases.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listMyCase.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/createCases.js'); ?>"></script>

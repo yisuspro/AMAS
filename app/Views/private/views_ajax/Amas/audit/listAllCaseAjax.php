@@ -9,4 +9,4 @@
         <table id="listAllcases" class="table table-hover" style="width: 100%"></table>
     </div>
 </div>
-<script type="text/javascript" src="<?= base_url('assets/scripts/amas/listAllCase.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listAllCase.js'); ?>"></script>
