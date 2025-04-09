@@ -24,6 +24,12 @@ $(document).ready(function () {
                 type: 'GET'
             },
             columns: [
+                {
+                    className: 'dt-control',
+                    orderable: false,
+                    data: null,
+                    defaultContent: ''
+                },
                 { title:'ID ROL',data: 'ROLE_PK' },
                 { title:'NOMBRE',data: 'ROLE_name' },
                 { title:'DESCRIPCIÓN',data: 'ROLE_description' },
@@ -136,6 +142,23 @@ $(document).ready(function () {
             },
 
 
+        });
+
+        dt.on('click', 'td.dt-control', function (e) {
+            let tr = e.target.closest('tr');
+            let row = dt.DataTable().row(tr);
+         
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+            }
+            else {
+                // Open this row
+                row.child(JSON.stringify(row.data())
+                        .replace(/{/g, '[')
+                        .replace(/}/g, ']')
+                        .replace(/:/g, '=>')).show();
+            }
         });
 
         dt.on('click', '#Act_roles', function (e) {
