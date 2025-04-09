@@ -15,42 +15,11 @@ class UsersController extends BaseController
         $this->UserEntity = new UsersEntity();
     }
 
-    /**
-     * The function `respondWithSuccess` sets the HTTP status code and outputs a JSON response with a
-     * success status and message.
-     * 
-     * @param message The `` parameter in the `respondWithSuccess` function is the message that
-     * you want to send back as part of the response when the operation is successful. It could be a
-     * success message, a confirmation message, or any other relevant information that you want to
-     * communicate to the user.
-     * @param code The `` parameter in the `respondWithSuccess` function is used to specify the
-     * HTTP status code that will be set in the response. By default, it is set to `200` which
-     * represents a successful response. However, you can override this default value by providing a
-     * different HTTP status code
-     */
-    private function respondWithSuccess($message, $code = 200)
+    private function jsonResponse(string $status, string $message, int $code = 200)
     {
-        $this->response->setStatusCode($code);
-        echo json_encode(['status' => 'success', 'message' => $message]);
-        exit;
-    }
-
-    /**
-     * The function `respondWithError` sets the HTTP status code and outputs an error message in JSON
-     * format before exiting the script.
-     * 
-     * @param message The `` parameter in the `respondWithError` function is the error message
-     * that you want to send back as a response when an error occurs. It is a string that describes the
-     * error that occurred.
-     * @param code The `` parameter in the `respondWithError` function is used to specify the HTTP
-     * status code that will be set in the response. By default, it is set to 400 (Bad Request) if not
-     * provided when calling the function. This allows you to customize the HTTP status code based on
-     */
-    private function respondWithError($message, $code = 400)
-    {
-        $this->response->setStatusCode($code);
-        echo json_encode(['status' => 'error', 'message' => $message]);
-        exit;
+        return $this->response
+            ->setStatusCode($code)
+            ->setJSON(['status' => $status, 'message' => $message]);
     }
 
 
@@ -74,8 +43,8 @@ class UsersController extends BaseController
 
     public function getPermissionsUsers()
     {
-        $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
-        echo json_encode($Roles);
+        $roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
+        return $this->response->setJSON($roles);
     }
     /**
      * The listUsersView function returns a view for listing users with the title "Consulta usuario".
@@ -98,8 +67,8 @@ class UsersController extends BaseController
      */
     public function profileUser()
     {
-        $Roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
-        $menu = generate_menu($Roles);
+        $roles = $this->UsersrolesModel->validateRolesUser($this->session->get('USER_PK'));
+        $menu = generate_menu($roles);
         return view('private/profileUser', ['title' => 'Perfil', 'menu' => $menu]);
     }
 
@@ -172,21 +141,11 @@ class UsersController extends BaseController
      * pagination, and returns it in JSON format.
      */
 
-    public function listUser()
-    {
-        $draw   = intval($this->request->getPost("draw"));  //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        $data = $this->UsersModel->listUsers();             //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
-        $output = array(                                    //creacion del vector de salida
-            "draw" => $draw,                                //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),          //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),       //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()               //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                          //envio del vector de salida con los parametros correspondientes
-        exit;
-    }
+     public function listUser()
+     {
+         $data = $this->UsersModel->listUsers();
+         return $this->buildDataTableResponse($data);
+     }
 
     /**
      * The function `register` in PHP checks if two passwords match before creating a new user with
@@ -197,39 +156,38 @@ class UsersController extends BaseController
     */
     public function register()
     {
-        $password     = $this->request->getPost('USER_password');
+        $password = $this->request->getPost('USER_password');
         $passwordConf = $this->request->getPost('USER_password_two');
         $identification = $this->request->getPost('USER_identification');
-    
+
         if ($password !== $passwordConf) {
-            return $this->respondWithError('Las contraseñas no coinciden', 401);
+            return $this->jsonResponse('error', 'Las contraseñas no coinciden', 401);
         }
-    
+
         if (!$this->UsersModel->validateUserDoc($identification)) {
-            return $this->respondWithError('El usuario ya existe', 401);
+            return $this->jsonResponse('error', 'El usuario ya existe', 401);
         }
-    
 
         $this->UserEntity->fill([
-            'USER_name'             => $this->request->getPost('USER_name'),
-            'USER_username'         => $this->request->getPost('USER_username'),
-            'USER_identification'   => $identification,
-            'USER_password'         => $password,
-            'USER_date_create'      => date('Y-m-d H:i:s'),
-            'USER_date_update'      => date('Y-m-d H:i:s'),
-            'USER_FK_user_create'   => $this->session->get('USER_PK'),
-            'USER_FK_user_update'   => $this->session->get('USER_PK'),
-            'USER_FK_state_user'    => 1,
-            'USER_reset_password'   => 1,
-            'USER_email'            => $this->request->getPost('USER_email'),
-            'USER_address_ip'       => $this->request->getPost('USER_address_ip'),
+            'USER_name' => $this->request->getPost('USER_name'),
+            'USER_username' => $this->request->getPost('USER_username'),
+            'USER_identification' => $identification,
+            'USER_password' => $password,
+            'USER_date_create' => date('Y-m-d H:i:s'),
+            'USER_date_update' => date('Y-m-d H:i:s'),
+            'USER_FK_user_create' => $this->session->get('USER_PK'),
+            'USER_FK_user_update' => $this->session->get('USER_PK'),
+            'USER_FK_state_user' => 1,
+            'USER_reset_password' => 1,
+            'USER_email' => $this->request->getPost('USER_email'),
+            'USER_address_ip' => $this->request->getPost('USER_address_ip'),
         ]);
-    
-        if ($this->UsersModel->insertUser($this->UserEntity)) {
-            return $this->respondWithSuccess('Usuario creado correctamente', 200);
+
+        if ($this->UsersModel->insert($this->UserEntity)) {
+            return $this->jsonResponse('success', 'Usuario creado correctamente');
         }
-    
-        return $this->respondWithError('Error al crear el usuario', 500);
+
+        return $this->jsonResponse('error', 'Error al crear el usuario', 500);
     }
     
 
@@ -239,53 +197,47 @@ class UsersController extends BaseController
     */
     public function login()
     {
-        $username  = $this->request->getPost('USER_username');
-        $password  = $this->request->getPost('USER_password');
-        $addressIp = $_SERVER['REMOTE_ADDR'];
-    
+        $username = $this->request->getPost('USER_username');
+        $password = $this->request->getPost('USER_password');
+        $addressIp = $this->request->getIPAddress();
+
         if (empty($username) || empty($password)) {
-            return $this->respondWithError('Por favor ingresa los datos completos', 400);
+            return $this->jsonResponse('error', 'Por favor ingresa los datos completos', 400);
         }
-    
         $this->UserEntity->fill([
             'USER_username' => $username,
             'USER_password' => $password,
         ]);
-    
         $user = $this->UsersModel->validateUser($this->UserEntity);
     
         if (!$user) {
-            return $this->respondWithError('Usuario o contraseña no coinciden', 401);
+            return $this->jsonResponse('error', 'Usuario o contraseña no coinciden', 401);
         }
     
         if (!$this->UsersModel->validateIPUser($user->USER_PK, $addressIp)) {
-            return $this->respondWithError('La dirección IP no coincide con la registrada para el usuario', 403);
+            return $this->jsonResponse('error', 'La dirección IP no coincide con la registrada', 403);
         }
     
-        if ((int)$user->USER_FK_state_user !== 1) {
-            return $this->respondWithError('Usuario inactivo, por favor validar con el administrador del sistema', 403);
+        if ($user->USER_FK_state_user !== 1) {
+            return $this->jsonResponse('error', 'Usuario inactivo, contacte al administrador', 403);
         }
     
         // Roles o permisos
         $permissions = $this->UsersrolesModel->validateRolesUser($user->USER_PK);
-    
-        // Establecer datos en sesión
-        $this->session->set([
-            'USER_PK'       => $user->USER_PK,
-            'USER_name'     => $user->USER_name,
-            'USER_username' => $user->USER_username,
-            'PERMISSIONS'   => $permissions
-        ]);
-    
 
-        $this->response->setStatusCode(200);
-        echo json_encode([
-            'status'              => 'success',  
-            'msg'                 => 'El usuario y contraseña son correctos',
-            'USER_PK'             => $user->USER_PK,
+        $this->session->set([
+            'USER_PK' => $user->USER_PK,
+            'USER_name' => $user->USER_name,
+            'USER_username' => $user->USER_username,
+            'PERMISSIONS' => $permissions
+        ]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'msg' => 'Autenticación exitosa',
+            'USER_PK' => $user->USER_PK,
             'USER_reset_password' => $user->USER_reset_password
         ]);
-        exit;
     }
     
 
@@ -296,35 +248,33 @@ class UsersController extends BaseController
      * @return The `logout` function is returning a boolean value `true`.
      */
 
-    public function logout()
-    {
-        $this->session->destroy();
-        $this->response->setStatusCode(200);
-        return true;
-    }
+     public function logout()
+     {
+         $this->session->destroy();
+         return $this->jsonResponse('success', 'Sesión cerrada correctamente');
+     }
     /**
      * The function `updateUsers` updates user data in a PHP application based on the provided input.
      */
 
     public function updateUsers()
     {
-        // Datos del nuevo usuario
         $this->UserEntity->fill([
-            'USER_PK'               => $this->request->getPost('USER_PK'),
-            'USER_name'             => $this->request->getPost('USER_name'),
-            'USER_username'         => $this->request->getPost('USER_username'),
-            'USER_identification'   => $this->request->getPost('USER_identification'),
-            'USER_date_update'      => date('Y-m-d H:i:s'),
-            'USER_FK_user_update'   => $this->session->get('USER_PK'),
-            'USER_email'            => $this->request->getPost('USER_email'),
-            'USER_address_ip'       => $this->request->getPost('USER_address_ip'),
+            'USER_PK' => $this->request->getPost('USER_PK'),
+            'USER_name' => $this->request->getPost('USER_name'),
+            'USER_username' => $this->request->getPost('USER_username'),
+            'USER_identification' => $this->request->getPost('USER_identification'),
+            'USER_date_update' => date('Y-m-d H:i:s'),
+            'USER_FK_user_update' => $this->session->get('USER_PK'),
+            'USER_email' => $this->request->getPost('USER_email'),
+            'USER_address_ip' => $this->request->getPost('USER_address_ip'),
         ]);
-        
+
         if ($this->UsersModel->updateUsers($this->UserEntity)) {
-            return $this->respondWithSuccess('Usuario actualizado correctamente', 200);
+            return $this->jsonResponse('success', 'Usuario actualizado correctamente');
         }
     
-        return $this->respondWithError('Error al actualizar usuario', 401);
+        return $this->jsonResponse('error', 'Error al actualizar usuario', 401);
     }
 
    /**
@@ -340,17 +290,16 @@ class UsersController extends BaseController
         $user = $this->UsersModel->validateUserId($id);
     
         if (!$user) {
-            return $this->respondWithError('Usuario no encontrado', 404);
+            return $this->jsonResponse('error', 'Usuario no encontrado', 404);
         }
     
-        // Toggle del estado actual (1 -> 0, 0 -> 1)
         $user->USER_FK_state_user = $user->USER_FK_state_user == 1 ? 0 : 1;
     
         if ($this->UsersModel->updateUsers($user)) {
-            return $this->respondWithSuccess('Cambio de estado exitoso', 200);
+            return $this->jsonResponse('success', 'Estado actualizado correctamente');
         }
     
-        return $this->respondWithError('Error al actualizar estado del usuario', 500);
+        return $this->jsonResponse('error', 'Error al actualizar estado del usuario', 500);
     }
     
 
@@ -364,14 +313,13 @@ class UsersController extends BaseController
         $passwordRepeat = $this->request->getPost('USER_password_two_P');
 
         if ($password !== $passwordRepeat) {
-            return $this->respondWithError('Las contraseñas no coinciden', 402);
+            return $this->jsonResponse('error', 'Las contraseñas no coinciden', 402);
         }
 
         $userId = $this->request->getPost('USER_PK_P');
         $user = $this->UsersModel->validateUserId($userId);
-
         if (!$user) {
-            return $this->respondWithError('Usuario no encontrado', 404);
+            return $this->jsonResponse('error', 'Usuario no encontrado', 404);
         }
 
         $user->USER_password = $password;
@@ -379,10 +327,10 @@ class UsersController extends BaseController
         $user->USER_FK_user_update = $this->session->get('USER_PK');
 
         if ($this->UsersModel->updatePasswordUsers($user)) {
-            return $this->respondWithSuccess('Contraseña actualizada correctamente', 201);
+            return $this->jsonResponse('success', 'Contraseña actualizada correctamente', 201);
         }
 
-        return $this->respondWithError('Error al actualizar la contraseña', 500);
+        return $this->jsonResponse('error', 'Error al actualizar la contraseña', 500);
     }
     
     /**
@@ -391,23 +339,22 @@ class UsersController extends BaseController
      */
     public function UpdatePasswordUser()
     {
-        $userId         = $this->request->getPost('USER_PK_P');
-        $currentPass    = $this->request->getPost('USER_password_A');
-        $newPass        = $this->request->getPost('USER_password_P');
+        $userId = $this->request->getPost('USER_PK_P');
+        $currentPass = $this->request->getPost('USER_password_A');
+        $newPass = $this->request->getPost('USER_password_P');
         $newPassConfirm = $this->request->getPost('USER_password_two_P');
 
         $user = $this->UsersModel->validateUserId($userId);
-
         if (!$user) {
-            return $this->respondWithError('Usuario no encontrado', 404);
+            return $this->jsonResponse('error', 'Usuario no encontrado', 404);
         }
 
         if (!$this->UsersModel->validatePasswords($currentPass, $user->USER_password)) {
-            return $this->respondWithError('La contraseña actual no coincide', 403);
+            return $this->jsonResponse('error', 'La contraseña actual no coincide', 403);
         }
 
         if ($newPass !== $newPassConfirm) {
-            return $this->respondWithError('Las nuevas contraseñas no coinciden', 402);
+            return $this->jsonResponse('error', 'Las nuevas contraseñas no coinciden', 402);
         }
 
         $this->UserEntity->fill([
@@ -418,10 +365,10 @@ class UsersController extends BaseController
         ]);
 
         if ($this->UsersModel->updatePasswordUsers($this->UserEntity)) {
-            return $this->respondWithSuccess('Contraseña actualizada correctamente', 201);
+        return $this->jsonResponse('success', 'Contraseña actualizada correctamente', 201);
         }
 
-        return $this->respondWithError('Error al actualizar la contraseña', 401);
+        return $this->jsonResponse('error', 'Error al actualizar la contraseña', 401);
     }
 
     /**
@@ -434,18 +381,8 @@ class UsersController extends BaseController
      */
     public function listUsersRoles($id)
     {
-        $draw   = intval($this->request->getPost("draw"));      //trae las varibles draw, start, length para la creacion de la tabla
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-        $data = $this->UsersrolesModel->listUsersRoles($id);    //utiliza el metodo listar() del modelo plan() para traer los datos de todos los planes 
-        $output = array(                                        //creacion del vector de salida
-            "draw" => $draw,                                    //envio la variable de dibujo de la tabla                    
-            "recordsTotal" => $data->getNumRows(),              //envia el numero de filas  para saber cuantos usuarios son en total
-            "recordsFiltered" => $data->getNumRows(),           //envio el numero de filas para el calculo de la paginacion de la tabla
-            "data" => $data->getResultArray()                   //envia todos los datos de la tabla
-        );
-        echo json_encode($output);                              //envio del vector de salida con los parametros correspondientes
-        exit;
+        $data = $this->UsersrolesModel->listUsersRoles($id);
+        return $this->buildDataTableResponse($data);
     }
 
     /**
@@ -459,46 +396,58 @@ class UsersController extends BaseController
      * a user in the system. This parameter is used to identify the user to whom a role is being assigned
      * or updated within the function logic.
      */
-
-     public function addRolesUsers($ROLE_PK, $USER_PK)
-     {
-         $currentUser = $this->session->get('USER_PK');
-         $roleExists = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
-     
-         if ($roleExists) {
-             // Reactivar el rol existente
-             if ($this->UsersrolesModel->updateStateUsersRolesId($roleExists->USRL_PK, $currentUser)) {
-                 return $this->respondWithSuccess('Rol asignado exitosamente', 200);
-             }
-             return $this->respondWithError('Error al asignar el permiso', 401);
-         }
-     
-         // Agregar nuevo rol
-         $data = [
-             'USRL_date_create' => date('Y-m-d H:i:s'),
-             'USRL_date_update' => date('Y-m-d H:i:s'),
-             'USRL_user_create' => $currentUser,
-             'USRL_user_update' => $currentUser,
-             'USRL_FK_rol' => $ROLE_PK,
-             'USRL_FK_user' => $USER_PK,
-             'USRL_state' => 1,
-         ];
-     
-         if ($this->UsersrolesModel->addStateUsersRolesId($data)) {
-             return $this->respondWithSuccess('Rol agregado exitosamente', 200);
-         }
-     
-         return $this->respondWithError('Error al agregar rol', 401);
-        //$validacion = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
-        // echo json_encode($this->UsersrolesModel->updateStateUsersRolesId($validacion->USRL_PK, $this->session->get('USER_PK')));
-     }
-     
-
-    public function prueba()
+    public function addRolesUsers($ROLE_PK, $USER_PK)
     {
-        //$Roles =[8,6,7];
-        //$permissions = $this->RolespermissionsModel->validatePermissionsRole($Roles);
-        $Roles =  $this->UsersRuvModel->prueba();
-        echo json_encode($Roles);
+        $currentUser = $this->session->get('USER_PK');
+        $roleExists = $this->UsersrolesModel->validateUsersRolesId($USER_PK, $ROLE_PK);
+        if ($roleExists) {
+            if ($this->UsersrolesModel->updateStateUsersRolesId($roleExists->USRL_PK, $currentUser)) {
+                return $this->jsonResponse('success', 'Rol asignado exitosamente');
+            }
+            return $this->jsonResponse('error', 'Error al asignar el permiso', 401);
+        }
+     
+        $data = [
+            'USRL_date_create' => date('Y-m-d H:i:s'),
+            'USRL_date_update' => date('Y-m-d H:i:s'),
+            'USRL_user_create' => $currentUser,
+            'USRL_user_update' => $currentUser,
+            'USRL_FK_rol' => $ROLE_PK,
+            'USRL_FK_user' => $USER_PK,
+            'USRL_state' => 1,
+        ];
+
+        if ($this->UsersrolesModel->addStateUsersRolesId($data)) {
+            return $this->jsonResponse('success', 'Rol agregado exitosamente');
+        }
+
+        return $this->jsonResponse('error', 'Error al agregar rol', 401);
+    }
+
+    /**
+     * The function `buildDataTableResponse` constructs a JSON response for a DataTable with
+     * information about the data and records.
+     * 
+     * @param data The `data` parameter in the `buildDataTableResponse` function is expected to be an
+     * object that represents a dataset, likely retrieved from a database query. This dataset should
+     * have methods like `getNumRows()` and `getResultArray()` that provide information about the data
+     * and allow access to the actual data rows
+     * 
+     * @return The function `buildDataTableResponse` is returning a JSON response with the following
+     * structure:
+     * - "draw": The value of the "draw" parameter from the POST request, casted to an integer.
+     * - "recordsTotal": The total number of rows in the dataset.
+     * - "recordsFiltered": The total number of rows in the dataset (same as "recordsTotal" in this
+     * case).
+     * - "
+     */
+    private function buildDataTableResponse($data)
+    {
+        return $this->response->setJSON([
+            "draw" => (int) $this->request->getPost("draw"),
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ]);
     }
 }

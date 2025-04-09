@@ -9,25 +9,26 @@ use App\Models\Amas\DocumentsPersonsModel;
 use App\Entities\Amas\AppspersonsEntity;
 use App\Entities\Amas\PersonsEntity;
 use App\Models\Amas\CasesModel;
-use PhpParser\Node\Stmt\Echo_;
 
 class PersonsController extends BaseController
 {
     protected $personsModel;
     protected $documentPerson;
     protected $appsPersonsModel;
+    protected $casesModel;
+    
     protected $appsPersonsEntity;
     protected $personsEntity;
-    protected $casesModel;
 
     public function __construct()
     {
         $this->personsModel = new PersonsModel();
         $this->documentPerson = new DocumentsPersonsModel();
         $this->appsPersonsModel = new AppspersonsModel();
+        $this->casesModel = new CasesModel();
+
         $this->appsPersonsEntity = new AppspersonsEntity();
         $this->personsEntity = new PersonsEntity();
-        $this->casesModel = new CasesModel();
     }
     /**
      * The index function returns a view for managing persons with the title "Administración Personas".
@@ -41,35 +42,53 @@ class PersonsController extends BaseController
         return view('private/views_ajax/persons/adminPersons', ['title' => 'Administración Personas']);
     }
 
-   /**
-    * The function `createPerson` creates a new person record with associated documents in a PHP
-    * application.
-    */
+   
+    /**
+     * The function `createPerson` creates a new person entity with specified details and uploads
+     * associated documents, returning a success message or an error message accordingly.
+     * 
+     * @return If the `insertPersons` method in the `personsModel` is successful in inserting the
+     * person entity data and returns a person ID, then the function will upload documents for that
+     * person and return a response with status code 201 indicating that the documents were uploaded
+     * successfully.
+     */
     public function createPerson()
     {
-        $personData = [
+        $this->personsEntity->fill([
             'PRSN_name' => $this->request->getPost('PRSN_name'),
             'PRSN_document' => $this->request->getPost('PRSN_document'),
             'PRSN_email' => $this->request->getPost('PRSN_email'),
             'PRSN_phone' => $this->request->getPost('PRSN_phone'),
             'PRSN_position' => $this->request->getPost('PRSN_position')
-        ];
+        ]);
 
-        $files = [
-            $this->request->getFile('DCPR_name_1'),
-            $this->request->getFile('DCPR_name_2')
-        ];
+        if ($personId = $this->personsModel->insertPersons($this->personsEntity)) {
+            $this->uploadDocuments($personId);
+            return $this->response->setStatusCode(201, 'Documentos cargados satisfactoriamente');
+        }
 
-        if ($saveId = $this->personsModel->insertPersons($personData)) {
-            $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR . getenv('app.uploadPath');
-            foreach ($files as $index => $file) {
-                $this->uploadDocument($file, $saveId, $uploadPath, $index + 1);
+        return $this->response->setStatusCode(401, 'Error al crear la persona');
+    }
+
+    /**
+     * The function `uploadDocuments` uploads documents for a specific person based on the provided
+     * person ID and document types.
+     * 
+     * @param int personId The `personId` parameter is an integer value that represents the unique
+     * identifier of a person for whom the documents are being uploaded. It is used to associate the
+     * uploaded documents with the specific person in the system.
+     */
+    private function uploadDocuments(int $personId)
+    {
+        $uploadPath = realpath(ROOTPATH . '../') . DIRECTORY_SEPARATOR . getenv('app.uploadPath');
+        
+        foreach ([1, 2] as $docType) {
+            if ($file = $this->request->getFile("DCPR_name_$docType")) {
+                $this->uploadDocument($file, $personId, $uploadPath, $docType);
             }
-            $this->response->setStatusCode(201, 'Documentos cargados satisfactoriamente');
-        } else {
-            $this->response->setStatusCode(401, 'Error al crear la persona');
         }
     }
+
 
    /**
     * The function `uploadDocument` uploads a file to a specified path and inserts document data into a
@@ -91,20 +110,18 @@ class PersonsController extends BaseController
     */
     private function uploadDocument($file, $personId, $uploadPath, $documentType)
     {
-        if ($file && $file->isValid()) {
+        if ($file->isValid() && !$file->hasMoved()) {
             $filename = $file->getRandomName();
             $file->move($uploadPath, $filename);
 
-            $documentData = [
+            $this->documentPerson->insertDocumentPersons([
                 'DCPR_name' => $filename,
                 'DCPR_description' => '',
                 'DCPR_location' => $uploadPath,
                 'DCPR_state' => 1,
                 'DCPR_FK_person' => $personId,
                 'DCPR_FK_typedocument' => $documentType,
-            ];
-
-            $this->documentPerson->insertDocumentPersons($documentData);
+            ]);
         }
     }
 
@@ -235,23 +252,6 @@ class PersonsController extends BaseController
             "cases"     => $cases,
             "documents" => $documents
         ]);
-    }
-
-    /**
-     * The function "prueba" in PHP takes in a parameter named .
-    * 
-    * @param data The parameter `` in the `prueba` function is a variable that will hold the data
-    * passed to the function when it is called. You can perform operations on this data within the
-    * function as needed.
-    */
-    public function prueba($data)
-    {
-       $ruv = $this->UsersRuvModel->listUsersDoc($data)->getResultArray();
-       echo json_encode($ruv);
-        $sirav = $this->UsersSiravModel->listUsersDoc($data)->getResultArray();
-        echo json_encode($sirav);
-        $sipod=$this->UsersSipodModel->listUsersDoc($data)->getResultArray();
-        echo json_encode($sipod);
     }
 }
    

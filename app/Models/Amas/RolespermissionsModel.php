@@ -129,7 +129,7 @@ class RolespermissionsModel extends Model
      */
     public function addStateRolesPermissionsId($data)
     {
-        return $this->insert($data) ? true : false;
+        return $this->save($data);
     }
 
     /**

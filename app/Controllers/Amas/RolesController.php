@@ -5,8 +5,6 @@ namespace App\Controllers\Amas;
 use App\Controllers\BaseController;
 use App\Entities\Amas\RolesEntity;
 
-//use App\Models\RolesModel;
-
 class RolesController extends BaseController
 {
 
@@ -41,32 +39,15 @@ class RolesController extends BaseController
      */
     public function listRoles()
     {
-        $draw   = intval($this->request->getPost("draw"));   // Fetch draw variable
-        $start  = intval($this->request->getPost("start"));  // Fetch start variable
-        $length = intval($this->request->getPost("length")); // Fetch length variable
-
-        // Fetch the list of roles from the model
         $data = $this->RolesModel->listRoles();
-
-        // If no data returned, handle the error
-       /* if (!$data) {
-            $this->response->setStatusCode(404, 'No roles found');
-        }
-*/
-        // Prepare the output array
-        $output = [
-            "draw" => $draw,                              // The draw number to return to the client
-            "recordsTotal" => $data->getNumRows(),        // Total number of roles
-            "recordsFiltered" => $data->getNumRows(),     // Total number of filtered roles (same here as no filtering logic applied)
-            "data" => $data->getResultArray()             // The role data in array format
-        ];
-
-        // Send the response as JSON
-        //$this->response->setStatusCode(200)->setBody($output);
-        echo json_encode($output);
-        exit;
+        
+        return $this->response->setJSON([
+            "draw" => (int) $this->request->getPost("draw"),
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ]);
     }
-
 
     /**
      * The function `createRoles` creates a new role with specified data and returns a success or error
@@ -89,10 +70,10 @@ class RolesController extends BaseController
         ]);
 
         if ($this->RolesModel->insertRoles($this->roleEntity)) {
-            $this->response->setStatusCode(201);
-        } else {
-            $this->response->setStatusCode(401,'Error al crear permiso');
+            return $this->response->setStatusCode(201);
         }
+
+        return $this->response->setStatusCode(401, 'Error al crear permiso');
     }
 
     /**
@@ -137,21 +118,19 @@ class RolesController extends BaseController
 
         // Validate the inputs
         if (empty($roleData['ROLE_name']) || empty($roleData['ROLE_description'])) {
-            return $this->response->setStatusCode(400,'El nombre y la descripción del rol son obligatorios');
+            return $this->response->setStatusCode(400, 'El nombre y la descripción del rol son obligatorios');
         }
-
 
         // Check if the role exists using the provided ROLE_PK
-        if ($this->RolesModel->validateRolesId($roleData['ROLE_PK'])) {
-            // Attempt to update the role in the database
-            if ($this->RolesModel->updateRoles($roleData)) {
-                $this->response->setStatusCode(201,'Rol actualizado con éxito');
-            } else {
-                $this->response->setStatusCode(401,'Error al actualizar el rol');
-            }
-        } else {
-            $this->response->setStatusCode(404,'El rol no se encuentra');
+        if (!$this->RolesModel->validateRolesId($roleData['ROLE_PK'])) {
+            return $this->response->setStatusCode(404, 'El rol no se encuentra');
         }
+
+        if ($this->RolesModel->updateRoles($roleData)) {
+            return $this->response->setStatusCode(201, 'Rol actualizado con éxito');
+        }
+
+        return $this->response->setStatusCode(401, 'Error al actualizar el rol');
     }
 
     /**
@@ -174,18 +153,17 @@ class RolesController extends BaseController
     
         // Check if the role exists
         if (!$role) {
-            $this->response->setStatusCode(404,'Rol no encontrado');
+            return $this->response->setStatusCode(404, 'Rol no encontrado');
         }
     
         // Toggle the role state
         $role->ROLE_state = ($role->ROLE_state == 1) ? 0 : 1;
     
-        // Attempt to update the role's state in the database
         if ($this->RolesModel->updateRoles($role)) {
-            $this->response->setStatusCode(201,'Estado del rol actualizado con éxito');
-        } else {
-            $this->response->setStatusCode(401,'Error al actualizar el estado del rol');
+            return $this->response->setStatusCode(201, 'Estado del rol actualizado con éxito');
         }
+
+        return $this->response->setStatusCode(401, 'Error al actualizar el estado del rol');
     }
 
     /**
@@ -219,31 +197,19 @@ class RolesController extends BaseController
      */
     public function listRolesPermissions($id)
     {
-        // Retrieve pagination parameters from the request
-        $draw   = intval($this->request->getPost("draw"));
-        $start  = intval($this->request->getPost("start"));
-        $length = intval($this->request->getPost("length"));
-    
         // Fetch data from the model using the provided ID and pagination parameters
-        $data = $this->RolespermissionsModel->listRolesPermissions($id, $start, $length);
+        $data = $this->RolespermissionsModel->listRolesPermissions(
+            $id,
+            (int) $this->request->getPost("start"),
+            (int) $this->request->getPost("length")
+        );
     
-        // Check if data retrieval was successful
-        if ($data) {
-            $output = [
-                "draw" => $draw,  // The draw parameter for the table to handle pagination
-                "recordsTotal" => $data->getNumRows(),  // Total records in the database (without filtering)
-                "recordsFiltered" => $data->getNumRows(),  // Total records after filtering
-                "data" => $data->getResultArray()  // Data to display in the table
-            ];
-    
-            // Return the data as a JSON response
-            echo json_encode($output);
-        } else {
-            // Handle error if data is not retrieved properly
-            $this->response->setStatusCode(500)->setBody(['error' => 'Error retrieving data']);
-        }
-    
-        exit;  // Ensure the script terminates after sending the response
+        return $this->response->setJSON([
+            "draw" => (int) $this->request->getPost("draw"),
+            "recordsTotal" => $data->getNumRows(),
+            "recordsFiltered" => $data->getNumRows(),
+            "data" => $data->getResultArray()
+        ]);
     }
     
     /**
@@ -260,34 +226,35 @@ class RolesController extends BaseController
     public function addPermissionsRoles($permission, $rol)
     {
         // Validate if the role-permission association already exists
-        $validacion = $this->RolespermissionsModel->validateRolesPermissionsId($rol, $permission);
+        $validation = $this->RolespermissionsModel->validateRolesPermissionsId($rol, $permission);
+        $userId = $this->session->get('USER_PK');
     
-        if ($validacion) {
+        if ($validation) {
             // If association exists, update its state
-            $userUpdate = $this->session->get('USER_PK');
-            if ($this->RolespermissionsModel->updateStateRolesPermissionsId($validacion->RLPR_PK, $userUpdate)) {
-                $this->response->setStatusCode(200)->setBody(['message' => 'Permiso asignado exitosamente']);
-            } else {
-                $this->response->setStatusCode(401)->setBody(['error' => 'Error al asignar el permiso']);
-            }
+            $success = $this->RolespermissionsModel->updateStateRolesPermissionsId(
+                $validation->RLPR_PK,
+                $userId
+            );
+            $message = $success ? 'Permiso asignado exitosamente' : 'Error al asignar el permiso';
+            $code = $success ? 200 : 401;
         } else {
             // If association does not exist, create a new one
-            $data = [
+            $this->roleEntity->fill([
                 'RLPR_date_create' => date('Y-m-d H:i:s'),
                 'RLPR_date_update' => date('Y-m-d H:i:s'),
-                'RLPR_user_create' => $this->session->get('USER_PK'),
-                'RLPR_user_update' => $this->session->get('USER_PK'),
+                'RLPR_user_create' => $userId,
+                'RLPR_user_update' => $userId,
                 'RLPR_FK_permission' => $permission,
                 'RLPR_FK_rol' => $rol,
                 'RLPR_state' => 1,
-            ];
+            ]);
     
-            if ($this->RolespermissionsModel->addStateRolesPermissionsId($data)) {
-                $this->response->setStatusCode(200)->setBody(['message' => 'Permiso agregado exitosamente']);
-            } else {
-                $this->response->setStatusCode(200)->setBody(['error' => 'Error al agregar permiso']);
-            }
+            $success = $this->RolespermissionsModel->addStateRolesPermissionsId($this->roleEntity);
+            $message = $success ? 'Permiso agregado exitosamente' : 'Error al agregar permiso';
+            $code = $success ? 200 : 401;
         }
+    
+        return $this->response->setStatusCode($code)->setJSON(['message' => $message]);
     }
     
 }

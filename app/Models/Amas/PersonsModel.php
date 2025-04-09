@@ -39,7 +39,7 @@ class PersonsModel extends Model
      */
     public function insertPersons($data)
     {
-        return $this->insert($data);
+        return $this->save($data);
     }
 
     /**
