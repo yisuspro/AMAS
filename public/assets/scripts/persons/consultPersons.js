@@ -297,18 +297,25 @@ $(document).ready(function () {
     });
 
     $('.copy-btn').on("click", function() {
-        // Get the input field next to the clicked button
-        var textToCopy = $(this).siblings('input')[0];  // Gets the corresponding input element
-
-        console.log(textToCopy)
-
-        // Use the Clipboard API to copy the text
-        navigator.clipboard.writeText(textToCopy.value)
-            .then(function() {
-                crearAlerta('Texto copiado al portapapeles!', 'success');
-            })
-            .catch(function(err) {
-                crearAlerta('Error al copiar el texto.', 'error');
-            });
+        var textToCopy = $(this).siblings('input')[0];  // El input correspondiente
+    
+        if (!textToCopy) {
+            crearAlerta('No se encontró el campo a copiar.', 'error');
+            return;
+        }
+    
+        // Verificar si la API del portapapeles está disponible
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy.value)
+                .then(function() {
+                    crearAlerta('Texto copiado al portapapeles!', 'success');
+                })
+                .catch(function(err) {
+                    crearAlerta('Error al copiar el texto.', 'error');
+                    console.error(err);
+                });
+        } else {
+            crearAlerta('Tu navegador no soporta la función de copiar.', 'error');
+        }
     });
 });

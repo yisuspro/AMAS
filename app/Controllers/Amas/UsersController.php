@@ -217,8 +217,7 @@ class UsersController extends BaseController
         if (!$this->UsersModel->validateIPUser($user->USER_PK, $addressIp)) {
             return $this->jsonResponse('error', 'La dirección IP no coincide con la registrada', 403);
         }
-    
-        if ($user->USER_FK_state_user !== 1) {
+        if ($user->USER_FK_state_user !== '1') {
             return $this->jsonResponse('error', 'Usuario inactivo, contacte al administrador', 403);
         }
     
