@@ -297,25 +297,30 @@ $(document).ready(function () {
     });
 
     $('.copy-btn').on("click", function() {
-        var textToCopy = $(this).siblings('input')[0];  // El input correspondiente
+        var textToCopy = $(this).siblings('input')[0];
     
         if (!textToCopy) {
             crearAlerta('No se encontró el campo a copiar.', 'error');
             return;
         }
     
-        // Verificar si la API del portapapeles está disponible
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(textToCopy.value)
-                .then(function() {
-                    crearAlerta('Texto copiado al portapapeles!', 'success');
-                })
-                .catch(function(err) {
-                    crearAlerta('Error al copiar el texto.', 'error');
+                .then(() => crearAlerta('Texto copiado al portapapeles!', 'success'))
+                .catch(err => {
                     console.error(err);
+                    fallbackCopy(textToCopy);
                 });
         } else {
-            crearAlerta('Tu navegador no soporta la función de copiar.', 'error');
+            fallbackCopy(textToCopy);
+        }
+    
+        function fallbackCopy(input) {
+            input.removeAttribute('readonly');  // temporalmente editable
+            input.select();
+            document.execCommand('copy');
+            input.setAttribute('readonly', true);
+            crearAlerta('Texto copiado usando método alternativo.', 'success');
         }
     });
 });
