@@ -119,6 +119,13 @@ if (!function_exists('generate_menu')) {
                         'icon' => 'bi-journal-text',
                         'permissions_CH' => 'C_AUDITORY_ALL',
                     ],
+                    [
+                        'id' => '../audit/listReportPowerBiview',
+                        'title' => 'PB TABLEROS',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_AUDITORY_ALL',
+                    ],
+                   
                    
                 ]
             ],

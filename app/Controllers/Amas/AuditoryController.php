@@ -267,4 +267,9 @@ class AuditoryController extends BaseController
             'CASE_FK_tipe_case'      => $this->request->getPost('CASE_FK_tipe_case'),
         ];
     }
+
+    public function listReportPowerBiview()
+    {
+        return view('private/views_ajax/Amas/audit/pb/listReportPowerBiAjax', ['title' => 'Auditoria casos']);
+    }
 }

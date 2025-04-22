@@ -77,6 +77,8 @@ $routes->group('audit', function($routes) {
     $routes->get('listAllCase', 'Amas\AuditoryController::listAllCase');
     $routes->get('updateCaseView/(:num)/(:num)', 'Amas\AuditoryController::updateCaseView/$1/$2');
     $routes->post('updateCase', 'Amas\AuditoryController::updateCase');
+
+    $routes->get('listReportPowerBiview', 'Amas\AuditoryController::listReportPowerBiview');
 });
 
 
