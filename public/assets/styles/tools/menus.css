@@ -110,6 +110,10 @@ nav a:hover{
     padding: 3px;
 }
 
+.contenido-padre.hidden {
+    display: none;
+}
+
 .buton-menu-padre {
     width: 250px;
     height: 40px;

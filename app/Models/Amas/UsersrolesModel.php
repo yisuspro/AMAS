@@ -26,18 +26,23 @@ class UsersrolesModel extends Model
 
     protected $useTimestamps = true;
 
-    // List roles assigned to a user
+    
+    /**
+     * The function `listUsersRoles` retrieves a list of roles assigned to a specific user from the
+     * database.
+     * 
+     * @param id The `listUsersRoles` function takes a user ID as a parameter. It retrieves a list of
+     * roles associated with that user from the database. The function constructs a query to select
+     * role information from the `roles` table and user-role mapping from the `usersroles` table.
+     * 
+     * @return The `listUsersRoles` function is returning a list of roles for a specific user
+     * identified by the `` parameter. The function queries the database to select the role primary
+     * key, name, description, user foreign key, and state from the 'roles' table, joining it with a
+     * subquery that filters roles based on the user ID. The function then filters the roles based on
+     * the 'ROLE
+     */
     public function listUsersRoles($id)
     {
-
-        /*
-        return $this->db->table('roles R')
-        ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
-        ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')
-        ->where('R.ROLE_state', 1)
-        ->get()
-        */
-
         return $this->db->table('roles R')
         ->select('R.ROLE_PK, R.ROLE_name, R.ROLE_description, UR.USRL_FK_user, UR.USRL_state')
         ->join('(SELECT * FROM usersroles WHERE USRL_FK_user = ' . $id . ') AS UR', 'R.ROLE_PK = UR.USRL_FK_rol', 'left')

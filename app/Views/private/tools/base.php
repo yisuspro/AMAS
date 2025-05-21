@@ -21,8 +21,6 @@
 
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-        
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
@@ -99,5 +97,4 @@
     <script type="text/javascript" src="<?= base_url('assets/scripts/tools/alertas.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/scripts/tools/menus.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/scripts/logout.js'); ?>"></script>
-
 </html>

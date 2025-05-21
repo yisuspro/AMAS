@@ -8,7 +8,7 @@ $(document).ready(function() {
                 url: "logout", // Ruta al script de cierre de sesión en tu servidor
                 method: "POST",
                 success: function(response) {
-                    alert('Sesión cerrada con éxito');
+                    // alert('Sesión cerrada con éxito');
                     // Redirigir a la página de inicio de sesión u otra página después de cerrar sesión
                     setTimeout(function() {
                         window.location.href = "/"; // Cambiar la ruta si es necesario

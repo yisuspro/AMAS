@@ -71,13 +71,13 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
  #CONFIGURACION APACHE
-> 1) colocar los archivos deconfiguracion sqlserver en la carpeta de xammp/php/ext
-> 2) ingresar al archivo php.ini desde el panel de control de xammp, para esto usamos la opcion config y seleccionamos "PHP(php.ini)"
-> 3) buscamos las extenciones, donde habilitaremos la siguiente quitandole el punto y coma(;)
-> 4) habilitamos "extension=oci8_19" para poder realizar la conexion a oracle
-> 5) incertamos las siguientes extenciones para SQLserver "extension=sqlsrv_82_ts" y "extension=pdo_sqlsrv_82_ts"
-> 6) activamos las siguientes extenciones en el apache:
+> 1) Colocar los archivos deconfiguracion sqlserver en la carpeta de xammp/php/ext
+> 2) Ingresar al archivo php.ini desde el panel de control de xammp, para esto usamos la opcion config y seleccionamos "PHP(php.ini)"
+> 3) Buscamos las extensiones, donde habilitaremos la siguiente quitandole el punto y coma(;)
+> 4) Habilitamos "extension=oci8_19" para poder realizar la conexion a oracle
+> 5) Insertamos las siguientes extensiones para SQLserver "extension=sqlsrv_82_ts" y "extension=pdo_sqlsrv_82_ts"
+> 6) Activamos las siguientes extensiones en el apache:
  extension=xsl
  extension=zip
  extension=gd
-> 7) gusrdamos el archivo y volvemos a ejecutar el servidor.
+> 7) Guardamos el archivo y volvemos a ejecutar el servidor.
