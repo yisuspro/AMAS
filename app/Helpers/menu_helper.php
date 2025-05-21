@@ -77,6 +77,26 @@ if (!function_exists('generate_menu')) {
             ],
             [
                 'id' => '6P',
+                'title' => 'FUD',
+                'icon' => 'bi-file-ruled',
+                'permissions' => 'C_USERS_APP',
+                'children' => [
+                    [
+                        'id' => '../fud/consultarFudView',
+                        'title' => 'CONSULTAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'C_USERS_APP',
+                    ],
+                    /*[
+                        'id' => '',
+                        'title' => 'ADMINISTRAR',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => '',
+                    ]*/
+                ]
+            ],
+            /*[
+                'id' => '6P',
                 'title' => 'REG. POBLACIONAL',
                 'icon' => 'bi-person-dash',
                 'permissions' => 'REG_POBLA',
@@ -100,7 +120,7 @@ if (!function_exists('generate_menu')) {
                         'permissions_CH' => 'M_CEN_REG_POBLA',
                     ]
                 ]
-            ],
+            ],*/
             [
                 'id' => '7P',
                 'title' => 'AUDITORIA',

@@ -152,7 +152,7 @@ class CasesModel extends Model
      */
     public function listCaseDocument($USER_document)
     {
-        $builder = $this->select("*")
+        return $this->select("*")
             ->join('statescases SC', 'CASE_FK_state_case = SC.STCS_PK', 'left')
             ->join('tipescases TC', 'CASE_FK_tipe_case = TC.TPCS_PK', 'left')
             ->join('groups G', 'TC.TPCS_FK_group = G.GRPS_PK', 'left')
@@ -160,9 +160,8 @@ class CasesModel extends Model
             ->join('categoriescase CC', 'CASE_FK_case_categorie = CC.CTCS_PK', 'left')
             ->join('dependencies DP', 'CASE_FK_dependence = DP.DPND_PK', 'left')
             ->join('apps AP', 'CASE_FK_app = AP.APPS_PK', 'left')
-            ->join('actions AC', 'AC.ACTN_FK_case = CASE_PK AND ACTN_modified_record = '. $USER_document)
+            ->join('actions AC', 'AC.ACTN_FK_case = CASE_PK AND ACTN_modified_record = "'. $USER_document.'"')
             ->findAll();
-        return $builder;
     }
 
     /**

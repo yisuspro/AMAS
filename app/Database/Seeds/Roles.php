@@ -47,6 +47,7 @@ class Roles extends Seeder
             ['PRMS_name' => 'inactivar caso auditoria', 'PRMS_description' => 'inactiva los casos de auditoria', 'PRMS_system_name' => 'I_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'Consultar caso auditoria', 'PRMS_description' => 'consultar caso de auditoria', 'PRMS_system_name' => 'C_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'consulta casos mesas', 'PRMS_description' => 'consultar todos los casos registrados por la mesa', 'PRMS_system_name' => 'C_AUDITORY_ALL', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
+            ["PRMS_PK"=>"26","PRMS_name"=>"Consulta FUD","PRMS_description"=>"consulta de formularios en sirav,ruv,sipod","PRMS_system_name"=>"C_FUD","PRMS_date_create"=>"2025-05-21","PRMS_date_update"=>"2025-05-21","PRMS_user_create"=>"34","PRMS_user_update"=>"34","PRMS_state"=>"1"]
 
         ];
         $this->db->table('permissions')->insertBatch($dataPermissions);
@@ -71,6 +72,7 @@ class Roles extends Seeder
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 16, 'RLPR_FK_rol' => 1],
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 17, 'RLPR_FK_rol' => 1],
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 18, 'RLPR_FK_rol' => 1],
+            ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 26, 'RLPR_FK_rol' => 1],
         ];
         $this->db->table('rolespermissions')->insertBatch($dataRolesPermissions);
 

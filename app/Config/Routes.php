@@ -45,6 +45,12 @@ $routes->group('persons', function($routes) {
     $routes->get('prueba/(:num)', 'Amas\PersonsController::prueba/$1');
 });
 
+//--FUD
+$routes->group('fud', function($routes) {
+    $routes->get('consultarFudView', 'Amas\FudController::index');
+    $routes->post('searchFud', 'Amas\FudController::searchFud');
+});
+
 //--PERMISOS
 $routes->group('permissions', function($routes) {
     $routes->get('listPermissionsView', 'Amas\PermissionsController::index');
