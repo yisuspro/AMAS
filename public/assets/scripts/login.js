@@ -10,8 +10,8 @@
                 try {
                     console.log(response.USER_reset_password);
                     // Redirection logic based on password reset flag
-                    if (response.USER_reset_password == 1) {
-                        var rute = 'users/UpdatePasswordUserView/' + data.USER_PK;
+                   if (response.USER_reset_password == 1) {
+                        var rute = 'users/UpdatePasswordUserView/' + response.USER_PK;
                         window.location.href = rute;
                     } else {
                         var rute = 'users/profileUser';

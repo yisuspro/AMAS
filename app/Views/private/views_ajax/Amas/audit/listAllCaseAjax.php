@@ -22,21 +22,24 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
+                        <label for="CASE_date_reception" class="form-label">Fecha Recepción</label>
                             <div class="col-md-6">
-                                <label for="CASE_date_reception" class="form-label">Fecha Recepción</label>
                                 <input id="CASE_date_reception" type="date" name="CASE_date_reception" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="CASE_date_solution" class="form-label">Fecha Solucion</label>
                                 <input id="CASE_date_solution" type="date" name="CASE_date_solution" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                         </div>
                         <div class="row">
+                            <label for="CASE_date_solution" class="form-label">Fecha Solucion</label>
                             <div class="col-md-6">
-                                <label for="CASE_number" class="form-label">No. de caso</label>
-                                <input id="CASE_number" type="text" name="CASE_number" class="form-control" placeholder="Numero de caso" required>
+                                <input id="CASE_date_reception" type="date" name="CASE_date_reception" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="CASE_date_solution" type="date" name="CASE_date_solution" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                         </div>
+                        
                         <div class="row">
                         <div class="col-md-6">
                             <label for="CASE_FK_app" class="form-label">Herramienta</label>
@@ -45,25 +48,11 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                        <label for="CASE_FK_case_categorie" class="form-label">Dificultad</label>
+                        <label for="CASE_FK_case_categorie" class="form-label">Agente</label>
                             <select class="form-select" name="CASE_FK_case_categorie" id="CASE_FK_case_categorie">
                                 
                             </select>
                             
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                        <label for="CASE_FK_entities" class="form-label">Entidad</label>
-                            <select class="form-select" name="CASE_FK_entities" id="CASE_FK_entities">
-                              
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="CASE_FK_dependence" class="form-label">Dependencia</label>
-                            <select class="form-select" name="CASE_FK_dependence" id="CASE_FK_dependence">
-                                
-                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -75,22 +64,14 @@
                         <div class="col-md-6">
                             <label for="CASE_FK_tipe_case" class="form-label">Tipo caso</label>
                             <select class="form-select" name="CASE_FK_tipe_case" id="CASE_FK_tipe_case">
-                                
+
                             </select>
                         </div>
                     </div>
-                    <div class="mb-3">
-                            <label for="form_actions" class="form-label">Accion realizada</label>
-                            <textarea name="form_actions" id= "form_actions" placeholder="Insertar  accion" class="form-control" rows="5"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="form_observations" class="form-label">Observacion</label>
-                            <textarea name="form_observations" id= "form_observations" placeholder="Insertar  accion" class="form-control" rows="5"></textarea>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-block">Crear</button>
+                    <button type="submit" class="btn btn-success btn-block">Generar reporte</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </form>
@@ -98,4 +79,5 @@
     </div>
 </div>
 
+<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listAllCase.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listAllCase.js'); ?>"></script>

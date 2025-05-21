@@ -85,7 +85,7 @@
                     </div>
                     <div class="mb-3">
                             <label for="form_actions" class="form-label">Accion realizada</label>
-                            <textarea name="form_actions" id= "form_actions" placeholder="Insertar  accion" class="form-control" rows="5"></textarea>
+                            <textarea name="form_actions" id= "form_actions" placeholder="Insertar  accion" class="form-control" rows="5"required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="form_observations" class="form-label">Observacion</label>

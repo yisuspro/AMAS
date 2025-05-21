@@ -268,6 +268,13 @@ class AuditoryController extends BaseController
         ];
     }
 
+  /**
+   * The function `listReportPowerBiview` returns a view for displaying Power BI reports related to
+   * audit cases.
+   * 
+   * @return A view named 'listReportPowerBiAjax' located in the 'private/views_ajax/Amas/audit/pb'
+   * directory is being returned with the title 'Auditoria casos'.
+   */
     public function listReportPowerBiview()
     {
         return view('private/views_ajax/Amas/audit/pb/listReportPowerBiAjax', ['title' => 'Auditoria casos']);

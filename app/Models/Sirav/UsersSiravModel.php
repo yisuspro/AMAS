@@ -63,7 +63,7 @@ class UsersSiravModel extends Model
             STUFF((SELECT DISTINCT ', ' + R.NOMBRE
                     FROM SIRAVAdmin.dbo.ROL_USUARIO RU
                     JOIN SIRAVAdmin.dbo.ROL R ON R.ID = RU.ID_ROL
-                    WHERE RU.ID_USUARIO = U.ID
+                    WHERE RU.ID_USUARIO = U.ID AND RU.ACTIVO = 1
                     FOR XML PATH(''), TYPE
                 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS ROLES,
             'SIRAV' AS APLICATIVO
