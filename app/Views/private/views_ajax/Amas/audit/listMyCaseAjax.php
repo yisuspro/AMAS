@@ -79,7 +79,7 @@
                         <div class="col-md-6">
                             <label for="CASE_FK_tipe_case" class="form-label">Tipo caso</label>
                             <select class="form-select" name="CASE_FK_tipe_case" id="CASE_FK_tipe_case">
-                                <?= implode('', array_map(fn($tipescases) => "<option value=\"" . esc($tipescases->TPCS_PK) . "\">" . esc($tipescases->TPCS_name) . "</option>", $tipescases)) ?>
+                                <?= implode('', array_map(fn($tipescases) => "<option value=\"" . esc($tipescases->TPCS_PK) . "\">" . esc($tipescases->TPCS_PK)." - ". esc($tipescases->TPCS_name) . "</option>", $tipescases)) ?>
                             </select>
                         </div>
                     </div>

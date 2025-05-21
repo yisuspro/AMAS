@@ -24,19 +24,19 @@
                         <div class="row">
                         <label for="CASE_date_reception" class="form-label">Fecha Recepción</label>
                             <div class="col-md-6">
-                                <input id="CASE_date_reception" type="date" name="CASE_date_reception" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
+                                <input id="CASE_date_reception_1" type="date" name="CASE_date_reception_1" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                             <div class="col-md-6">
-                                <input id="CASE_date_solution" type="date" name="CASE_date_solution" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
+                                <input id="CASE_date_reception_2" type="date" name="CASE_date_reception_2" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                         </div>
                         <div class="row">
                             <label for="CASE_date_solution" class="form-label">Fecha Solucion</label>
                             <div class="col-md-6">
-                                <input id="CASE_date_reception" type="date" name="CASE_date_reception" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
+                                <input id="CASE_date_solution_1" type="date" name="CASE_date_solution_1" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                             <div class="col-md-6">
-                                <input id="CASE_date_solution" type="date" name="CASE_date_solution" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
+                                <input id="CASE_date_solution_2" type="date" name="CASE_date_solution_2" class="form-control " value="<?= date('Y-m-d')?>" max ="<?= date('Y-m-d')?>" required>
                             </div>
                         </div>
                         
@@ -44,13 +44,14 @@
                         <div class="col-md-6">
                             <label for="CASE_FK_app" class="form-label">Herramienta</label>
                             <select class="form-select" name="CASE_FK_app" id="CASE_FK_app">
-                                
+                                <option value="">Seleccione</option>
+                            <?= implode('', array_map(fn($apps) => "<option value=\"" . esc($apps->APPS_PK) . "\">" . esc($apps->APPS_name) . "</option>", $apps)) ?>
                             </select>
                         </div>
                         <div class="col-md-6">
                         <label for="CASE_FK_case_categorie" class="form-label">Agente</label>
                             <select class="form-select" name="CASE_FK_case_categorie" id="CASE_FK_case_categorie">
-                                
+                            <option value="">Seleccione</option>
                             </select>
                             
                         </div>
@@ -59,12 +60,15 @@
                         <div class="col-md-6">
                             <label for="CASE_FK_state_case" class="form-label">Estado</label>
                             <select class="form-select" name="CASE_FK_state_case" id="CASE_FK_state_case">
-                                
+                            <option value="">Seleccione</option>
+                            <?= implode('', array_map(fn($statescases) => "<option value=\"" . esc($statescases->STCS_PK) . "\">" . esc($statescases->STCS_name) . "</option>", $statescases)) ?>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="CASE_FK_tipe_case" class="form-label">Tipo caso</label>
                             <select class="form-select" name="CASE_FK_tipe_case" id="CASE_FK_tipe_case">
-
+                            <option value="">Seleccione</option>
+                            <?= implode('', array_map(fn($tipescases) => "<option value=\"" . esc($tipescases->TPCS_PK) . "\">" . esc($tipescases->TPCS_PK)." - ". esc($tipescases->TPCS_name) . "</option>", $tipescases)) ?>
                             </select>
                         </div>
                     </div>
@@ -79,5 +83,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listAllCase.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/scripts/amas/audit/listAllCase.js'); ?>"></script>

@@ -68,7 +68,9 @@ class AuditoryController extends BaseController
     */
     public function listAllCaseView()
     {
-        return view('private/views_ajax/Amas/audit/listAllCaseAjax', ['title' => 'Auditoria casos']);
+        $data = $this->getCaseFormData();
+        $data['title'] = 'Mis casos';
+        return view('private/views_ajax/Amas/audit/listAllCaseAjax', $data);
     }
     
     /**
