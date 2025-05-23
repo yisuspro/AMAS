@@ -96,17 +96,17 @@ class FudRuvModel extends Model
 
     public function getFudByNumber($NUMBER)
     {
-
+        
         $sql = "
         SELECT DISTINCT
             u2.ID ID_USUVAL,
-            u2.NOMBRE FUD_VALORADOR,
+            CONVERT(u2.NOMBRE, 'AL32UTF8') FUD_VALORADOR,
             u.ID ID_USUARIO,
-            u.NOMBRE FUD_USUARIO,
+            CONVERT(u.NOMBRE, 'AL32UTF8') FUD_USUARIO,
             DE.NUMEROFORMULARIO FUD_NUMBER,
             DE.ID ID_DECLARACION,
             DE.PARAM_ESTADO,
-            p.NOMBRE FUD_ESTADO,
+            CONVERT(p.NOMBRE, 'AL32UTF8') FUD_ESTADO,
             p.ID_TIPOPARAMETRO,
             DE.ID_USUARIO_ACTUAL,
             DE.FECHADECLARACION FUD_DATEDECLARACION,
@@ -119,7 +119,6 @@ class FudRuvModel extends Model
           LEFT JOIN TBRADICACION RA on DE.ID=RA.ID_DECLARACION
           WHERE NUMEROFORMULARIO in ('".$NUMBER."')
         ";
-
         $query = $this->query($sql);
         return $query ?: false;
         
@@ -133,15 +132,15 @@ class FudRuvModel extends Model
             d.numeroformulario,
             D.ID id_declaracion,
             dh.*, 
-            u.nombre RESPONSABLE,
-            p.nombre 
+            CONVERT(u.nombre, 'AL32UTF8') RESPONSABLE,
+            CONVERT(p.nombre , 'AL32UTF8') nombre
         from RUV.tbdeclaracion_historico dh
         LEFT join RUV.tbdeclaraciones d on d.id = dh.id_declaracion
         LEFT join RUV.tbparametros p on p.id = dh.param_estado
         LEFT join RUV.tbusuarios u on u.id = dh.id_usuario_responsable
-        where d.numeroformulario in ('".$NUMBER."') ORDER BY dh.fecha_asignacion
+        where d.numeroformulario in ('CH000484854') ORDER BY dh.fecha_asignacion
         ";
-
+        //$sql = "select U.id,CONVERT(U.NOMBRE, 'AL32UTF8') AS NOMBRE from TBUSUARIOS U where U.IDENTIFICACION like '1022418865'";
         $query = $this->query($sql);
         return $query ?: false;
     }

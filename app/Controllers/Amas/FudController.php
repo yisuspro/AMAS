@@ -22,7 +22,7 @@ class FudController extends BaseController
     public function searchFud() 
     {
         $fudNumber = $this->request->getPost('FUD_number');    
-
+        
         $infoFud = $this->FudRuvModel->getFudByNumber($fudNumber)->getResultArray();
         $auditFud = $this->FudRuvModel->getFudAuditRuv($fudNumber)->getResultArray();
         $cases = $this->casesModel->listCaseDocument($fudNumber);
@@ -32,6 +32,8 @@ class FudController extends BaseController
             "auditFud" => $auditFud,
             "cases" => $cases,
         ]);
+        
+        //return json_encode($auditFud) ;
     }
 }
    
