@@ -17,6 +17,7 @@ $(document).ready(function () {
                     const cases = response.cases
                     const infoFud = response.info[0]
                     const infoAA = response.infoAA
+                    const infoConsecutive = response.infoConsecutive
 
 
 
@@ -317,6 +318,97 @@ $(document).ready(function () {
                     } else{
                         $('.sirav-panel').css('display', 'none');
                     }
+
+
+                    if(infoConsecutive.length){
+                        var table_siravConsecutive = $('#table_siravConsecutive');
+
+                        if (table_siravConsecutive.DataTable()) {
+                            table_siravConsecutive.DataTable().destroy();
+                        }
+
+                        table_siravConsecutive.empty();
+
+                        table_siravConsecutive.DataTable({
+                            layout: {
+                                top2Start: '',
+                                top2End: '',
+                                topStart: '',
+                                topEnd: '',
+                                bottomStart: 'pageLength',
+                                bottomEnd: {
+                                    search: {
+                                        placeholder: 'Buscar'
+                                    }
+                                },
+                                bottom2Start: 'info',
+                                bottom2End: 'paging',
+                                bottom3End: 'buttons'
+                            },
+
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    text: '<i class="bi bi-printer"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Copiar datos'
+                                },
+                                {
+                                    extend: 'copy',
+                                    text: '<i class="bi bi-clipboard"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Copiar datos'
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class="bi bi-file-earmark-spreadsheet"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a Excel'
+                                },
+                                {
+                                    extend: 'pdf',
+                                    text: '<i class="bi bi-filetype-pdf"></i> ',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a PDF'
+                                },
+                                {
+                                    extend: 'csv',
+                                    text: '<i class="bi bi-filetype-csv"></i> ',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a PDF'
+                                },
+                                {
+                                    text: '<i class="bi bi-arrow-clockwise"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Recargar tabla',
+                                    action: function (e, dt, node, config) {
+                                        activarLogoCarga();
+                                        dt.ajax.reload();
+                                        cerrarLogoCarga();
+                                    },
+                                }                
+                            ],
+                            columns: [
+                                //{ title:'ID',data: 'ID' , visible: false},
+                                { title:'usuarioSolicitud',data: 'usuarioSolicitud'},                                
+                                { title:'NumeroResolucion',data: 'NumeroResolucion'},                                
+                                { title:'fechaAsignado',data: 'fechaAsignado'},                                
+                                { title:'Estado',data: 'Activo'},                                
+                                { title:'Declarante',data: 'Declarante'},                                
+                                { title:'Nombre',data: 'Nombre'},                                
+                            ],
+                            data: infoConsecutive
+                        });
+                        
+                        
+                        //$('.sirav-panel').css('display', 'flex');
+                    } else{
+                        //$('.sirav-panel').css('display', 'none');
+                    }
+
+
+
+
 
                     $('.results').css('display', 'flex');
                     $('.form_consult').hide();

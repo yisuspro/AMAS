@@ -50,4 +50,16 @@ class FudSiravModel extends Model
         return $query ?: false;
         
     }
+
+
+    public function getConsecutivesByNumber($NUMBER){
+        $sql ="
+            select * from dbo.CONCEPTO_CONSECUTIVOS C
+            INNER JOIN dbo.FUENTE F ON F.Id = C.FuenteId
+            WHERE CodigoFUD IN ('".$NUMBER."')
+            ";
+
+        $query = $this->query($sql);
+        return $query ?: false;
+    }
 }

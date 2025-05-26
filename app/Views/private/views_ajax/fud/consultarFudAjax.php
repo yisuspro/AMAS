@@ -101,13 +101,21 @@
             </div>
         </div>
 
-
         <div class="card mt-2 sirav-panel" >
             <div class="card-header">
                 SIRAV Actos Administrativos
             </div>
             <div class="datatable">
                 <table id="table_siravAA" class="table table-hover" style="width:100%"></table>
+            </div>
+        </div>
+
+        <div class="card mt-2 sirav-panel" >
+            <div class="card-header">
+                SIRAV Consecutivos
+            </div>
+            <div class="datatable">
+                <table id="table_siravConsecutive" class="table table-hover" style="width:100%"></table>
             </div>
         </div>
     </div>
