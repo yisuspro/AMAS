@@ -14,6 +14,7 @@ use App\Models\Amas\RolesModel;
 use App\Models\Amas\RolespermissionsModel;
 use App\Models\Amas\PermissionsModel;
 use App\Models\Sirav\UsersSiravModel;
+use App\Models\Sirav\FudSiravModel;
 use App\Models\Ruv\UsersRuvModel;
 use App\Models\Sipod\UsersSipodModel;
 use App\Models\Amas\PersonsModel;
@@ -74,6 +75,7 @@ abstract class BaseController extends Controller
     protected $UsersSiravModel;
     protected $UsersRuvModel;
     protected $FudRuvModel;
+    protected $FudSiravModel;
     protected $UsersSipodModel;
     
 
@@ -107,6 +109,7 @@ abstract class BaseController extends Controller
         $this->UsersRuvModel = new UsersRuvModel();
         $this->FudRuvModel = new FudRuvModel();
         $this->UsersSiravModel = new UsersSiravModel();
+        $this->FudSiravModel = new FudSiravModel();
     }
 
    

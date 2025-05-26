@@ -16,6 +16,7 @@ $(document).ready(function () {
                     const audit = response.auditFud
                     const cases = response.cases
                     const infoFud = response.info[0]
+                    const infoAA = response.infoAA[0]
 
 
 
@@ -122,10 +123,6 @@ $(document).ready(function () {
                         });
                     }
 
-
-
-
-
                     if(infoFud) {
                         $('#FUD_NUMBER').val(infoFud.FUD_NUMBER)
                         $('#FUD_ESTADO').val(infoFud.FUD_ESTADO)
@@ -207,14 +204,27 @@ $(document).ready(function () {
                             ],
                             columns: [
                                 { title:'ID',data: 'ID' , visible: false},
-                                { title:'ESTADO',data: 'PARAM_ESTADO', },
+                                //{ title:'',data: 'PARAM_ESTADO', },
                                 { title:'FECHA ASIGNACION',data: 'FECHA_ASIGNACION', },
-                                { title:'ID RESPONSABLE',data: 'ID_USUARIO_RESPONSABLE', },
+                                //{ title:'ID RESPONSABLE',data: 'ID_USUARIO_RESPONSABLE', },
                                 { title:'RESPONSABLE',data: 'RESPONSABLE', },
-                                { title:'NOMBRE',data: 'NOMBRE', },
+                                { title:'ESTADO',data: 'NOMBRE', },
                             ],
                             data: audit
                         });
+                    }
+
+                    if(infoAA){
+                        $('#AA_CodigoDeclaracion').val(infoAA.CodigoDeclaracion)
+                        $('#AA_FechaValoracion').val(infoAA.Dia_Valoracion+'  '+infoAA.Mes_Valoracion+'  '+infoAA.Año_Valoracion)
+                        $('#AA_OrfeoResolucion').val(infoAA.ORFEO_RESOLUCION)
+                        $('#AA_Resolucion').val(infoAA.Resolucion)
+                        $('#AA_Nombre').val(infoAA.PRIMER_NOMBRE+'  '+infoAA.SEGUNDO_NOMBRE+'  '+infoAA.PRIMER_APELLIDO+'  '+infoAA.SEGUNDO_APELLIDO)
+                        $('#AA_Estado').val(infoAA.ESTADO)
+                        $('#AA_Observaciones').val(infoAA.Observaciones)
+                        $('.sirav-panel').css('display', 'flex');
+                    } else{
+                        $('.sirav-panel').css('display', 'none');
                     }
 
                     $('.results').css('display', 'flex');

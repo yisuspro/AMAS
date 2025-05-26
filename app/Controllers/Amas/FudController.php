@@ -24,11 +24,13 @@ class FudController extends BaseController
         $fudNumber = $this->request->getPost('FUD_number');    
         
         $infoFud = $this->FudRuvModel->getFudByNumber($fudNumber)->getResultArray();
+        $infoAA = $this->FudSiravModel->getFudByNumber($fudNumber)->getResultArray();
         $auditFud = $this->FudRuvModel->getFudAuditRuv($fudNumber)->getResultArray();
         $cases = $this->casesModel->listCaseDocument($fudNumber);
 
         return json_encode([
             "info" => $infoFud,
+            "infoAA" => $infoAA,
             "auditFud" => $auditFud,
             "cases" => $cases,
         ]);
