@@ -106,79 +106,8 @@
             <div class="card-header">
                 SIRAV Actos Administrativos
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_CodigoDeclaracion" class="form-label">Codigo Declaración</label>
-                            <div class="d-flex">
-                                <input id="AA_CodigoDeclaracion" type="text" name="AA_CodigoDeclaracion" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_FechaValoracion" class="form-label">Fecha Valoración</label>
-                            <div class="d-flex">
-                                <input id="AA_FechaValoracion" type="text" name="AA_FechaValoracion" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_OrfeoResolucion" class="form-label">Resolución ORFEO</label>
-                            <div class="d-flex">
-                                <input id="AA_OrfeoResolucion" type="text" name="AA_OrfeoResolucion" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>   
-                <div class="row">
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_Resolucion" class="form-label">Resolución</label>
-                            <div class="d-flex">
-                                <input id="AA_Resolucion" type="text" name="AA_Resolucion" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_Nombre" class="form-label">Nombre Valorador</label>
-                            <div class="d-flex">
-                                <input id="AA_Nombre" type="text" name="AA_Nombre" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="mb-3">
-                            <label for="AA_Estado" class="form-label">Estado</label>
-                            <div class="d-flex">
-                                <input id="AA_Estado" type="text" name="AA_Estado" class="form-control-plaintext" readonly>
-                                <i class="bi bi-copy copy-btn"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <div id="fudAA">
-                                <label for="AA_Observaciones" class="form-label">Observaciones</label>
-                                <div class="d-flex">
-                                    <input id="AA_Observaciones" type="text" name="AA_Observaciones" class="form-control-plaintext" readonly>
-                                    <i class="bi bi-copy copy-btn"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="datatable">
+                <table id="table_siravAA" class="table table-hover" style="width:100%"></table>
             </div>
         </div>
     </div>

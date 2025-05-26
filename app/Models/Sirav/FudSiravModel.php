@@ -28,16 +28,17 @@ class FudSiravModel extends Model
                 CE.descripcion ESTADO,
                 U.ID,
                 CV.TipoValoracionId,
+
                 CONVERT(VARCHAR(100),U.PRIMER_NOMBRE) as PRIMER_NOMBRE,
                 CONVERT(VARCHAR(100),U.SEGUNDO_NOMBRE) as SEGUNDO_NOMBRE,
                 CONVERT(VARCHAR(100),U.PRIMER_APELLIDO)as PRIMER_APELLIDO,
                 CONVERT(VARCHAR(100),U.SEGUNDO_APELLIDO) as SEGUNDO_APELLIDO,
-                cv.Observaciones,
-
+                
                 CV.Dia_Valoracion,
                 CV.Mes_Valoracion,
                 CV.Año_Valoracion,
-
+                
+                cv.Observaciones,
                 cv.ORFEO_RESOLUCION
             FROM SIRAVActosAdmin.dbo.CONCEPTO_VALORACION CV
             LEFT JOIN SIRAVActosAdmin.dbo.CONCEPTO_ESTADOS CE ON CE.id = CV.estadoID

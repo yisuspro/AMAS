@@ -16,7 +16,7 @@ $(document).ready(function () {
                     const audit = response.auditFud
                     const cases = response.cases
                     const infoFud = response.info[0]
-                    const infoAA = response.infoAA[0]
+                    const infoAA = response.infoAA
 
 
 
@@ -214,14 +214,105 @@ $(document).ready(function () {
                         });
                     }
 
-                    if(infoAA){
-                        $('#AA_CodigoDeclaracion').val(infoAA.CodigoDeclaracion)
-                        $('#AA_FechaValoracion').val(infoAA.Dia_Valoracion+'  '+infoAA.Mes_Valoracion+'  '+infoAA.Año_Valoracion)
-                        $('#AA_OrfeoResolucion').val(infoAA.ORFEO_RESOLUCION)
-                        $('#AA_Resolucion').val(infoAA.Resolucion)
-                        $('#AA_Nombre').val(infoAA.PRIMER_NOMBRE+'  '+infoAA.SEGUNDO_NOMBRE+'  '+infoAA.PRIMER_APELLIDO+'  '+infoAA.SEGUNDO_APELLIDO)
-                        $('#AA_Estado').val(infoAA.ESTADO)
-                        $('#AA_Observaciones').val(infoAA.Observaciones)
+                    if(infoAA.length){
+                        var table_siravAA = $('#table_siravAA');
+
+                        if (table_siravAA.DataTable()) {
+                            table_siravAA.DataTable().destroy();
+                        }
+
+                        table_siravAA.empty();
+
+                        table_siravAA.DataTable({
+                            layout: {
+                                top2Start: '',
+                                top2End: '',
+                                topStart: '',
+                                topEnd: '',
+                                bottomStart: 'pageLength',
+                                bottomEnd: {
+                                    search: {
+                                        placeholder: 'Buscar'
+                                    }
+                                },
+                                bottom2Start: 'info',
+                                bottom2End: 'paging',
+                                bottom3End: 'buttons'
+                            },
+
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    text: '<i class="bi bi-printer"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Copiar datos'
+                                },
+                                {
+                                    extend: 'copy',
+                                    text: '<i class="bi bi-clipboard"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Copiar datos'
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class="bi bi-file-earmark-spreadsheet"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a Excel'
+                                },
+                                {
+                                    extend: 'pdf',
+                                    text: '<i class="bi bi-filetype-pdf"></i> ',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a PDF'
+                                },
+                                {
+                                    extend: 'csv',
+                                    text: '<i class="bi bi-filetype-csv"></i> ',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Exportar datos a PDF'
+                                },
+                                {
+                                    text: '<i class="bi bi-arrow-clockwise"></i>',
+                                    className: 'btn btn-secondary',
+                                    titleAttr: 'Recargar tabla',
+                                    action: function (e, dt, node, config) {
+                                        activarLogoCarga();
+                                        dt.ajax.reload();
+                                        cerrarLogoCarga();
+                                    },
+                                }                
+                            ],
+                            columns: [
+                                //{ title:'ID',data: 'ID' , visible: false},
+                                { title:'CodigoDeclaracion',data: 'CodigoDeclaracion'},
+                                { title:'Fecha Valoracion',data: 'Dia_Valoracion',
+                                    render: function (data, type, row, meta) {
+                                        return `<span>${row.Dia_Valoracion} ${row.Mes_Valoracion} ${row.Año_Valoracion}</span>`; }
+                                },
+                                { title:'ESTADO',data: 'ESTADO', },
+                                { title:'Resolucion',data: 'Resolucion', },
+                                { title:'ORFEO RESOLUCION',data: 'ORFEO_RESOLUCION', },
+                                { title:'RESPONSABLE',data: 'PRIMER_NOMBRE', 
+                                     render: function (data, type, row, meta) {
+                                        //const date = new Date(data);
+                                        //const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                                        return `<span>${row.PRIMER_NOMBRE} ${row.SEGUNDO_NOMBRE} ${row.PRIMER_APELLIDO} ${row.SEGUNDO_APELLIDO}</span>`; }
+                                },
+                                { title:'Observaciones',data: 'Observaciones', },                                
+                            ],
+                            data: infoAA
+                        });
+                        /*
+                            $('#AA_CodigoDeclaracion').val(infoAA.CodigoDeclaracion)
+                            $('#AA_FechaValoracion').val(infoAA.Dia_Valoracion+'  '+infoAA.Mes_Valoracion+'  '+infoAA.Año_Valoracion)
+                            $('#AA_Estado').val(infoAA.ESTADO)
+                            $('#AA_Resolucion').val(infoAA.Resolucion)
+                            $('#AA_OrfeoResolucion').val(infoAA.ORFEO_RESOLUCION)
+                            $('#AA_Nombre').val(infoAA.PRIMER_NOMBRE+'  '+infoAA.SEGUNDO_NOMBRE+'  '+infoAA.PRIMER_APELLIDO+'  '+infoAA.SEGUNDO_APELLIDO)
+                            $('#AA_Observaciones').val(infoAA.Observaciones)
+                        */
+                        
+                        
                         $('.sirav-panel').css('display', 'flex');
                     } else{
                         $('.sirav-panel').css('display', 'none');
