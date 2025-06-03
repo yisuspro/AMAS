@@ -302,23 +302,11 @@ $(document).ready(function () {
                                 { title:'Observaciones',data: 'Observaciones', },                                
                             ],
                             data: infoAA
-                        });
-                        /*
-                            $('#AA_CodigoDeclaracion').val(infoAA.CodigoDeclaracion)
-                            $('#AA_FechaValoracion').val(infoAA.Dia_Valoracion+'  '+infoAA.Mes_Valoracion+'  '+infoAA.Año_Valoracion)
-                            $('#AA_Estado').val(infoAA.ESTADO)
-                            $('#AA_Resolucion').val(infoAA.Resolucion)
-                            $('#AA_OrfeoResolucion').val(infoAA.ORFEO_RESOLUCION)
-                            $('#AA_Nombre').val(infoAA.PRIMER_NOMBRE+'  '+infoAA.SEGUNDO_NOMBRE+'  '+infoAA.PRIMER_APELLIDO+'  '+infoAA.SEGUNDO_APELLIDO)
-                            $('#AA_Observaciones').val(infoAA.Observaciones)
-                        */
-                        
-                        
-                        $('.sirav-panel').css('display', 'flex');
+                        });                       
+                        $('.sirav-panel').css('display', 'grid');
                     } else{
                         $('.sirav-panel').css('display', 'none');
                     }
-
 
                     if(infoConsecutive.length){
                         var table_siravConsecutive = $('#table_siravConsecutive');
