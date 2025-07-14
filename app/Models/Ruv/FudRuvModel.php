@@ -144,4 +144,55 @@ class FudRuvModel extends Model
         $query = $this->query($sql);
         return $query ?: false;
     }
+
+    /**
+     * The function `getEntitiesFromFud` retrieves entity information based on a given form number from
+     * a database.
+     * 
+     * @param NUMBER The function `getEntitiesFromFud` retrieves entities from a database based on a
+     * given form number. The SQL query selects the ID, name, and entity municipality ID from the
+     * tables `TBDECLARACIONES` and `TBENTIDADMUNICIPIO` where the form number matches the
+     * 
+     * @return The function `getEntitiesFromFud` is returning the result of the SQL query that selects
+     * the ID, NOMBRE, and ID_ENTIDADMUNICIPIODECLARACION columns from the TBDECLARACIONES and
+     * TBENTIDADMUNICIPIO tables based on the provided  parameter. The query is executed using
+     * the `query` method and the result is returned. If the
+     */
+    public function getEntitiesFromFud($NUMBER) {
+        $sql ="
+        SELECT 
+            em.ID, 
+            em.NOMBRE,
+            d.ID_ENTIDADMUNICIPIODECLARACION
+        FROM RUV.TBDECLARACIONES d
+        LEFT JOIN RUV.TBENTIDADMUNICIPIO em ON em.ID_MUNICIPIO = d.ID_MUNICIPIODECLARACION
+        WHERE d.NUMEROFORMULARIO IN ('".$NUMBER."')
+        ";
+        
+        $query = $this->query($sql);
+        return $query ?: false;
+    }
+
+
+    /**
+     * The function updates the Id_Entidadmunicipiodeclaracion field in the TBDECLARACIONES table for a
+     * given form number with a new entity identity.
+     * 
+     * @param NUMBER The `NUMBER` parameter in the `setNewEntityToFud` function seems to represent the
+     * `NUMEROFORMULARIO` field in the `TBDECLARACIONES` table. This parameter is used to identify the
+     * specific record in the table that needs to be updated.
+     * @param IDENTITY The `IDENTITY` parameter in the `setNewEntityToFud` function is used to specify
+     * the new value that will be set in the `Id_Entidadmunicipiodeclaracion` column of the
+     * `TBDECLARACIONES` table. This value is based on the entity identity that
+     * 
+     * @return The function `setNewEntityToFud` is returning the result of the query execution, which
+     * is stored in the variable ``. If the query is successful, it will return the result of the
+     * query. If the query fails or encounters an error, it will return `false`.
+     */
+    public function setNewEntityToFud($NUMBER,$IDENTITY){
+        $sql = "UPDATE RUV.TBDECLARACIONES SET Id_Entidadmunicipiodeclaracion = ".$IDENTITY."  WHERE NUMEROFORMULARIO = '".$NUMBER."'";
+
+        $query = $this->query($sql);
+        return $query ?: false;
+    }
 }

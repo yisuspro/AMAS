@@ -92,6 +92,9 @@ $routes->group('audit', function($routes) {
 //-----RUV-------
 $routes->group('Ruv', function($routes) {
     $routes->get('listUser/(:num)/(:segment)', 'Ruv\UsersRuvController::listUser/$1/$2');
+    $routes->get('changeEntitiesView', 'Ruv\RuvController::index');
+    $routes->post('searchEntity', 'Ruv\RuvController::searchEntity');
+    $routes->post('changeEntity', 'Ruv\RuvController::changeEntity');
 });
 
 //-----SIRAV-------

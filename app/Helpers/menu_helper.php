@@ -95,34 +95,22 @@ if (!function_exists('generate_menu')) {
                     ]*/
                 ]
             ],
-            /*[
-                'id' => '6P',
-                'title' => 'REG. POBLACIONAL',
-                'icon' => 'bi-person-dash',
-                'permissions' => 'REG_POBLA',
-                'children' => [
-                    [
-                        'id' => '../Vivanto/loadingFileCensoView',
-                        'title' => 'CREAR CENSO',
-                        'icon' => 'bi-journal-text',
-                        'permissions_CH' => 'M_CEN_REG_POBLA',
-                    ],
-                    [
-                        'id' => '../Vivanto/loadingFileCensoUbicaView',
-                        'title' => 'CREAR UBICACION CENSO',
-                        'icon' => 'bi-journal-text',
-                        'permissions_CH' => 'M_CEN_REG_POBLA',
-                    ],
-                    [
-                        'id' => '../Vivanto/loadingFileCensoIntView',
-                        'title' => 'CREAR INTEGRANTES CENSO',
-                        'icon' => 'bi-journal-text',
-                        'permissions_CH' => 'M_CEN_REG_POBLA',
-                    ]
-                ]
-            ],*/
             [
                 'id' => '7P',
+                'title' => 'RUV',
+                'icon' => 'bi-r-circle',
+                'permissions' => 'E_RUV_FUD_ENTITY',
+                'children' => [
+                    [
+                        'id' => '../Ruv/changeEntitiesView',
+                        'title' => 'CAMBIO ENTIDAD',
+                        'icon' => 'bi-journal-text',
+                        'permissions_CH' => 'E_RUV_FUD_ENTITY',
+                    ],
+                ]
+            ],
+            [
+                'id' => '8P',
                 'title' => 'AUDITORIA',
                 'icon' => 'bi-file-earmark-arrow-down',
                 'permissions' => 'C_AUDITORY',

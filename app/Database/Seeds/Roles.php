@@ -16,6 +16,7 @@ class Roles extends Seeder
             ['ROLE_name' => 'ADMIN', 'ROLE_description' => 'registro casos herramientas', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
             ['ROLE_name' => 'VALORACION 1448', 'ROLE_description' => 'Ajustes para 1448', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
             ['ROLE_name' => 'LIDER mesa de servicios', 'ROLE_description' => 'lider de mesa de servicios, procesos de seguimiento y auditoria', 'ROLE_date_create' => date('Y-m-d H:i:s'), 'ROLE_date_update' => date('Y-m-d H:i:s'), 'ROLE_FK_user_create' => 1, 'ROLE_FK_user_update' => 1, "ROLE_state" => 1],
+            ["ROLE_name"=>"Gestor Declaración","ROLE_description"=>"Gestión de las declaraciones","ROLE_date_create"=>date('Y-m-d H:i:s'),"ROLE_date_update"=>date('Y-m-d H:i:s'),"ROLE_FK_user_create"=>1,"ROLE_FK_user_update"=>1,"ROLE_state"=>1]
 
         ];
         $this->db->table('roles')->insertBatch($dataRoles);
@@ -47,7 +48,8 @@ class Roles extends Seeder
             ['PRMS_name' => 'inactivar caso auditoria', 'PRMS_description' => 'inactiva los casos de auditoria', 'PRMS_system_name' => 'I_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'Consultar caso auditoria', 'PRMS_description' => 'consultar caso de auditoria', 'PRMS_system_name' => 'C_AUDIT_CASE', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
             ['PRMS_name' => 'consulta casos mesas', 'PRMS_description' => 'consultar todos los casos registrados por la mesa', 'PRMS_system_name' => 'C_AUDITORY_ALL', 'PRMS_date_create' => date('Y-m-d H:i:s'), 'PRMS_date_update' => date('Y-m-d H:i:s'), 'PRMS_user_create' => 1, 'PRMS_user_update' => 1,"PRMS_state" => 1],
-            ["PRMS_PK"=>"26","PRMS_name"=>"Consulta FUD","PRMS_description"=>"consulta de formularios en sirav,ruv,sipod","PRMS_system_name"=>"C_FUD","PRMS_date_create"=>"2025-05-21","PRMS_date_update"=>"2025-05-21","PRMS_user_create"=>"34","PRMS_user_update"=>"34","PRMS_state"=>"1"]
+            ["PRMS_PK"=>"26","PRMS_name"=>"Consulta FUD","PRMS_description"=>"consulta de formularios en sirav,ruv,sipod","PRMS_system_name"=>"C_FUD","PRMS_date_create"=>date('Y-m-d H:i:s'),"PRMS_date_update"=>date('Y-m-d H:i:s'),"PRMS_user_create"=>1,"PRMS_user_update"=>1,"PRMS_state"=>1],
+            ["PRMS_PK"=>"27","PRMS_name"=>"Edición de entidades","PRMS_description"=>"Editar la entidad de los FUD","PRMS_system_name"=>"E_RUV_FUD_ENTITY","PRMS_date_create"=>date('Y-m-d H:i:s'),"PRMS_date_update"=>date('Y-m-d H:i:s'),"PRMS_user_create"=>1,"PRMS_user_update"=>1,"PRMS_state"=>1]
 
         ];
         $this->db->table('permissions')->insertBatch($dataPermissions);
@@ -73,6 +75,7 @@ class Roles extends Seeder
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 17, 'RLPR_FK_rol' => 1],
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 18, 'RLPR_FK_rol' => 1],
             ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 26, 'RLPR_FK_rol' => 1],
+            ['RLPR_date_create' => date('Y-m-d H:i:s'), 'RLPR_date_update' => date('Y-m-d H:i:s'), 'RLPR_user_create' => 1, 'RLPR_user_update' => 1, 'RLPR_FK_permission' => 27, 'RLPR_FK_rol' => 1],
         ];
         $this->db->table('rolespermissions')->insertBatch($dataRolesPermissions);
 
@@ -80,7 +83,7 @@ class Roles extends Seeder
         $dataUsers = [
             [ 'USER_PK'=>1,'USER_name'=>'admin','USER_username' => 'administrador','USER_password' => password_hash('Admin123', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
             [ 'USER_PK'=>20,'USER_name'=>'JESUS ANDRES CASTELLANOS AGUILAR','USER_username' => 'jesusadmin','USER_password' => password_hash('Admin123*', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
-            [ 'USER_PK'=>27,'USER_name'=>'EILEEN RODRIGUEZ','USER_username' => 'erodrigueze','USER_password' => password_hash('Colombia2025#', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
+            //[ 'USER_PK'=>27,'USER_name'=>'EILEEN RODRIGUEZ','USER_username' => 'erodrigueze','USER_password' => password_hash('Colombia2025#', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
             [ 'USER_PK'=>34,'USER_name'=>'DANIEL FELIPE AVENDAÑO PUIN','USER_username' => 'dalaven','USER_password' => password_hash('Dalaven2025*', PASSWORD_DEFAULT), 'USER_date_create' => date('Y-m-d H:i:s'),'USER_date_update' => date('Y-m-d H:i:s'),'USER_FK_state_user' => 1],
            
         ];
@@ -91,7 +94,6 @@ class Roles extends Seeder
             [ 'USRL_FK_user'=> 1,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
             [ 'USRL_FK_user'=> 20,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
             [ 'USRL_FK_user'=> 34,'USRL_FK_rol' => 1,'USRL_date_create' => date('Y-m-d H:i:s') , 'USRL_date_update' => date('Y-m-d H:i:s'),'USRL_user_create' => 1,'USRL_user_update' => 1],
-
         ];
         $this->db->table('usersroles')->insertBatch($dataUsersRoles);
     }
